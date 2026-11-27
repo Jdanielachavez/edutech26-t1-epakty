@@ -1,0 +1,51 @@
+{
+  "model_id": "paktai-reference-logit",
+  "version": "reference-logit-1.0.0",
+  "status": "reference_not_trained",
+  "intercept": -6.014162514014716,
+  "coefficients": {
+    "grade_gap": 0.55,
+    "grade_decline": 0.3,
+    "absence_fraction": 4.5,
+    "absence_streak": 0.25,
+    "overdue_months": 0.75,
+    "payment_shock": 0.6,
+    "wellbeing_gap": 0.45,
+    "age_lag": 0.35,
+    "transition": 0.25,
+    "nee": 0.2,
+    "teacher_fail_fraction": -0.4
+  },
+  "thresholds": {
+    "moderate": 0.01114471596788473,
+    "critical": 0.024185658426976158,
+    "method": "cohort_percentile",
+    "moderate_percentile": 80,
+    "critical_percentile": 95
+  },
+  "training": {
+    "real_outcomes": false,
+    "outcome_counts": {},
+    "method": "fixed_design_coefficients"
+  },
+  "validation": {
+    "predictive_validation": false,
+    "reference_mean_matched": true
+  },
+  "reference": {
+    "period": "2023-2024 Fin",
+    "sector": "Particular",
+    "enrolled": 784931,
+    "retired": 6619,
+    "target_rate": 0.008432588342160012,
+    "source_sha256": "5ef974e1d5efb99a199902ef59426d8725192cefaa9bf2b7c39f2b527aad7a83"
+  },
+  "limitations": [
+    "Todavía no está entrenado con casos reales de estudiantes que se retiraron: el porcentaje es una señal de alerta, no una predicción comprobada.",
+    "Los colores comparan a los estudiantes dentro del mismo colegio (el 5 % y el 15 % con más riesgo). No dicen cuántos se van a retirar.",
+    "La cifra oficial del Ministerio (AMIE) solo sirve para ajustar el promedio del colegio; no comprueba que el cálculo acierte.",
+    "Que un factor pese mucho no prueba que sea la causa.",
+    "Lo de necesidades educativas y el efecto del docente viene de la investigación y aquí no está comprobado: no se debe usar para decidir si un estudiante entra o se queda.",
+    "Cuando falta el dato de bienestar o de la primera hora, se deja vacío: no se inventa."
+  ]
+}

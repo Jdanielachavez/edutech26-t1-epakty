@@ -1,0 +1,2520 @@
+{
+  "plataforma": "E-Pakti EduTech SaaS v2.2 — Prototipo Auditado (Semaforización RBAC + LOPDP)",
+  "fecha_corte_evaluacion": "2025-10-31",
+  "nota_metodologica": "Las probabilidades de permanencia, el color del semáforo y el desglose SHAP provienen del mismo modelo MonotonicSignConstrainedFiLMNet pedagógico puro (0 variables financieras). Las simulaciones miden sensibilidad del puntaje.",
+  "total_estudiantes_evaluados": 240,
+  "cupo_alertas_emitidas": 40,
+  "politica_privacidad_rbac": "Docentes y DECE reciben únicamente `vista_rbac_docente_dece_sin_datos_financieros`; Colecturía recibe `vista_rbac_colecturia_exclusiva_financiera`.",
+  "alertas_priorizadas_360": [
+    {
+      "prioridad_ranking": 1,
+      "codigo_estudiante": "EST-064",
+      "nombre_estudiante": "Paula León Torres",
+      "curso_paralelo": "9 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 93.65,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 96.82,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 48.73,
+          "micro_academico_nee_pp": 3.75,
+          "sinergia_doble_vulnerabilidad_pp": 11.61,
+          "contexto_macro_meso_pp": 3.63
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+20.0 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+16.6 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+11.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -22.06,
+          "delta_sensibilidad_tutoria_nee_pp": -13.58,
+          "delta_sensibilidad_combinada_pp": -44.44,
+          "prob_post_sensibilidad_combinada_pct": 49.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Paula León Torres (9 EGB B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 93.7%; probabilidad estimada Q2 < 7: 96.8%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+20.0 pp) | Micro: Racha máxima de faltas injustificadas (+16.6 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+11.6 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-055",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 31.5,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.3,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.6 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 2,
+      "codigo_estudiante": "EST-089",
+      "nombre_estudiante": "Gabriel Quiroga Andrade",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "discalculia",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 91.48,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.98,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 32.69,
+          "micro_academico_nee_pp": 9.11,
+          "sinergia_doble_vulnerabilidad_pp": 15.18,
+          "contexto_macro_meso_pp": 8.57
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+26.7 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+15.2 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+5.7 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -10.23,
+          "delta_sensibilidad_tutoria_nee_pp": -26.44,
+          "delta_sensibilidad_combinada_pp": -38.33,
+          "prob_post_sensibilidad_combinada_pct": 53.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Gabriel Quiroga Andrade (10 EGB A, NEE: discalculia). Probabilidad estimada de ausentismo recurrente: 91.5%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+26.7 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+15.2 pp) | Micro: Tasa histórica de faltas injustificadas (+5.7 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-076",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 3,
+      "codigo_estudiante": "EST-093",
+      "nombre_estudiante": "Martín Navarrete Paredes",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "TDAH",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 88.57,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 80.4,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 45.23,
+          "micro_academico_nee_pp": 5.63,
+          "sinergia_doble_vulnerabilidad_pp": 8.88,
+          "contexto_macro_meso_pp": 2.9
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+18.5 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+18.5 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+10.4 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -23.7,
+          "delta_sensibilidad_tutoria_nee_pp": -17.6,
+          "delta_sensibilidad_combinada_pp": -45.92,
+          "prob_post_sensibilidad_combinada_pct": 42.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Martín Navarrete Paredes (10 EGB A, NEE: TDAH). Probabilidad estimada de ausentismo recurrente: 88.6%; probabilidad estimada Q2 < 7: 80.4%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+18.5 pp) | Micro: Racha máxima de faltas injustificadas (+18.5 pp) | Micro: Tasa histórica de faltas justificadas (+10.4 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-080",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 22.2,
+        "prob_dos_meses_incumpl_o_tardio_pct": 5.5,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 4,
+      "codigo_estudiante": "EST-153",
+      "nombre_estudiante": "Sebastián Torres Paredes",
+      "curso_paralelo": "1 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "dislexia",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 85.68,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.99,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 26.35,
+          "micro_academico_nee_pp": 10.62,
+          "sinergia_doble_vulnerabilidad_pp": 12.7,
+          "contexto_macro_meso_pp": 10.08
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+15.4 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+12.7 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+10.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -15.05,
+          "delta_sensibilidad_tutoria_nee_pp": -31.23,
+          "delta_sensibilidad_combinada_pp": -45.88,
+          "prob_post_sensibilidad_combinada_pct": 39.8
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Sebastián Torres Paredes (1 BGU B, NEE: dislexia). Probabilidad estimada de ausentismo recurrente: 85.7%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+15.4 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+12.7 pp) | Micro: Tasa histórica de faltas injustificadas (+10.6 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-131",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "ROJO",
+        "semaforo_pagos_etiqueta": "ROJO — Riesgo Crónico de Cartera / Convenio Inmediato",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 65.4,
+        "prob_dos_meses_incumpl_o_tardio_pct": 35.7,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+13.0 pp) | Hogar Representante: Pagos tardíos adicionales en hermanos del plantel (+12.8 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+5.3 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 10: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 5,
+      "codigo_estudiante": "EST-161",
+      "nombre_estudiante": "Tomás Flores Ordóñez",
+      "curso_paralelo": "2 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 80.84,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 98.88,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 38.93,
+          "micro_academico_nee_pp": 4.69,
+          "sinergia_doble_vulnerabilidad_pp": 7.33,
+          "contexto_macro_meso_pp": 3.97
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+11.6 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.2 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+9.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -23.7,
+          "delta_sensibilidad_tutoria_nee_pp": -16.16,
+          "delta_sensibilidad_combinada_pp": -39.73,
+          "prob_post_sensibilidad_combinada_pct": 41.1
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Tomás Flores Ordóñez (2 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 80.8%; probabilidad estimada Q2 < 7: 98.9%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+11.6 pp) | Micro: Racha máxima de faltas injustificadas (+11.2 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+9.0 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-137",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 39.7,
+        "prob_dos_meses_incumpl_o_tardio_pct": 10.9,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+4.8 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+0.5 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 6,
+      "codigo_estudiante": "EST-088",
+      "nombre_estudiante": "Paula Cárdenas Flores",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 73.56,
+        "semaforo_academico": "VERDE — Trayectoria Académica Lograda",
+        "prob_reprobacion_academica_q2_pct": 8.65,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 50.91,
+          "micro_academico_nee_pp": -1.89,
+          "sinergia_doble_vulnerabilidad_pp": -0.52,
+          "contexto_macro_meso_pp": -0.87
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+29.7 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.1 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -30.94,
+          "delta_sensibilidad_tutoria_nee_pp": -2.07,
+          "delta_sensibilidad_combinada_pp": -33.43,
+          "prob_post_sensibilidad_combinada_pct": 40.1
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Paula Cárdenas Flores (10 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 73.6%; probabilidad estimada Q2 < 7: 8.7%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+29.7 pp) | Micro: Racha máxima de faltas injustificadas (+11.1 pp) | Micro: Tasa histórica de faltas justificadas (+7.0 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-075",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 38.5,
+        "prob_dos_meses_incumpl_o_tardio_pct": 17.2,
+        "tipologia_morosidad": "2. CUOTA VENCIDA IMPAGA AL CORTE",
+        "por_que_morosidad_shap": "Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+4.1 pp) | Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct) (+3.3 pp) | Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.9 pp)",
+        "accion_colecturia": "Contacto temprano con representante para acuerdo fraccionado sin bloqueo académico",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 7,
+      "codigo_estudiante": "EST-124",
+      "nombre_estudiante": "Valentina Torres Rivadeneira",
+      "curso_paralelo": "1 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 70.54,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.63,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 29.75,
+          "micro_academico_nee_pp": 6.19,
+          "sinergia_doble_vulnerabilidad_pp": 7.11,
+          "contexto_macro_meso_pp": 1.55
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+12.0 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.6 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+7.1 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -26.33,
+          "delta_sensibilidad_tutoria_nee_pp": -18.65,
+          "delta_sensibilidad_combinada_pp": -40.64,
+          "prob_post_sensibilidad_combinada_pct": 29.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Valentina Torres Rivadeneira (1 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 70.5%; probabilidad estimada Q2 < 7: 99.6%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+12.0 pp) | Micro: Racha máxima de faltas injustificadas (+11.6 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+7.1 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-106",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "ROJO",
+        "semaforo_pagos_etiqueta": "ROJO — Riesgo Crónico de Cartera / Convenio Inmediato",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 68.0,
+        "prob_dos_meses_incumpl_o_tardio_pct": 44.9,
+        "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+        "por_que_morosidad_shap": "Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+15.4 pp) | Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+13.0 pp) | Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct) (+3.8 pp)",
+        "accion_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10150",
+        "dpa_parroquia": "010150",
+        "nbi_parroquia_censo_pct": 8.5,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 8,
+      "codigo_estudiante": "EST-182",
+      "nombre_estudiante": "Daniela Jaramillo Delgado",
+      "curso_paralelo": "2 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 70.33,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 98.38,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 28.81,
+          "micro_academico_nee_pp": 4.83,
+          "sinergia_doble_vulnerabilidad_pp": 11.05,
+          "contexto_macro_meso_pp": -0.28
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+16.6 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+11.9 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+11.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -20.2,
+          "delta_sensibilidad_tutoria_nee_pp": -21.49,
+          "delta_sensibilidad_combinada_pp": -35.77,
+          "prob_post_sensibilidad_combinada_pct": 34.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Daniela Jaramillo Delgado (2 BGU B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 70.3%; probabilidad estimada Q2 < 7: 98.4%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+16.6 pp) | Micro: Tasa histórica de faltas injustificadas (+11.9 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+11.0 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-155",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 51.9,
+        "prob_dos_meses_incumpl_o_tardio_pct": 20.9,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.4 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+6.6 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 14: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10150",
+        "dpa_parroquia": "010150",
+        "nbi_parroquia_censo_pct": 8.5,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 9,
+      "codigo_estudiante": "EST-136",
+      "nombre_estudiante": "Sebastián Guerrero Guerrero",
+      "curso_paralelo": "1 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 67.59,
+        "semaforo_academico": "NARANJA — Nivelación Focalizada / DECE",
+        "prob_reprobacion_academica_q2_pct": 48.06,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 32.87,
+          "micro_academico_nee_pp": 3.62,
+          "sinergia_doble_vulnerabilidad_pp": 5.28,
+          "contexto_macro_meso_pp": -0.11
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.6 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.6 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.3 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -24.85,
+          "delta_sensibilidad_tutoria_nee_pp": -15.5,
+          "delta_sensibilidad_combinada_pp": -36.74,
+          "prob_post_sensibilidad_combinada_pct": 30.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Sebastián Guerrero Guerrero (1 BGU A, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 67.6%; probabilidad estimada Q2 < 7: 48.1%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.6 pp) | Micro: Racha máxima de faltas injustificadas (+11.6 pp) | Micro: Tasa histórica de faltas justificadas (+7.3 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-116",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 10,
+      "codigo_estudiante": "EST-029",
+      "nombre_estudiante": "Isabella Jaramillo Salazar",
+      "curso_paralelo": "8 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 66.33,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 33.03,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 34.54,
+          "micro_academico_nee_pp": 0.73,
+          "sinergia_doble_vulnerabilidad_pp": 4.02,
+          "contexto_macro_meso_pp": 1.12
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.5 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+12.0 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+4.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -22.64,
+          "delta_sensibilidad_tutoria_nee_pp": -12.38,
+          "delta_sensibilidad_combinada_pp": -32.4,
+          "prob_post_sensibilidad_combinada_pct": 33.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Isabella Jaramillo Salazar (8 EGB B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 66.3%; probabilidad estimada Q2 < 7: 33.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.5 pp) | Micro: Tasa histórica de faltas justificadas (+12.0 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+4.0 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-025",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 7.7,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.6 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 11,
+      "codigo_estudiante": "EST-235",
+      "nombre_estudiante": "Daniela Andrade Torres",
+      "curso_paralelo": "3 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TDAH",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 66.23,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.43,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 15.73,
+          "micro_academico_nee_pp": 11.65,
+          "sinergia_doble_vulnerabilidad_pp": 7.21,
+          "contexto_macro_meso_pp": 5.69
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+12.1 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+7.2 pp)",
+          "Micro: Proporción de materias < 7 al corte (+6.9 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -13.76,
+          "delta_sensibilidad_tutoria_nee_pp": -31.72,
+          "delta_sensibilidad_combinada_pp": -40.06,
+          "prob_post_sensibilidad_combinada_pct": 26.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Daniela Andrade Torres (3 BGU B, NEE: TDAH). Probabilidad estimada de ausentismo recurrente: 66.2%; probabilidad estimada Q2 < 7: 99.4%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+12.1 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+7.2 pp) | Micro: Proporción de materias < 7 al corte (+6.9 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-200",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 26.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.4,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 12,
+      "codigo_estudiante": "EST-058",
+      "nombre_estudiante": "Daniela Guerrero Salazar",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 66.0,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.7,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 19.68,
+          "micro_academico_nee_pp": 9.52,
+          "sinergia_doble_vulnerabilidad_pp": 4.14,
+          "contexto_macro_meso_pp": 6.73
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Racha máxima de faltas injustificadas (+11.6 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.8 pp)",
+          "Micro: Proporción de materias < 7 al corte (+5.4 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -19.53,
+          "delta_sensibilidad_tutoria_nee_pp": -25.85,
+          "delta_sensibilidad_combinada_pp": -40.92,
+          "prob_post_sensibilidad_combinada_pct": 25.1
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Daniela Guerrero Salazar (9 EGB A, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 66.0%; probabilidad estimada Q2 < 7: 99.7%. Factores pedagógicos principales: Micro: Racha máxima de faltas injustificadas (+11.6 pp) | Micro: Tasa histórica de faltas injustificadas (+7.8 pp) | Micro: Proporción de materias < 7 al corte (+5.4 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-050",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "ROJO",
+        "semaforo_pagos_etiqueta": "ROJO — Riesgo Crónico de Cartera / Convenio Inmediato",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 47.0,
+        "prob_dos_meses_incumpl_o_tardio_pct": 27.8,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.3 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+5.1 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+0.6 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 7: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 13,
+      "codigo_estudiante": "EST-216",
+      "nombre_estudiante": "Tomás Benítez Benítez",
+      "curso_paralelo": "3 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 65.74,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 15.27,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 33.63,
+          "micro_academico_nee_pp": 0.72,
+          "sinergia_doble_vulnerabilidad_pp": 4.69,
+          "contexto_macro_meso_pp": 0.76
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+21.4 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+12.0 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+4.7 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -17.32,
+          "delta_sensibilidad_tutoria_nee_pp": -13.23,
+          "delta_sensibilidad_combinada_pp": -27.79,
+          "prob_post_sensibilidad_combinada_pct": 37.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Tomás Benítez Benítez (3 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 65.7%; probabilidad estimada Q2 < 7: 15.3%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+21.4 pp) | Micro: Tasa histórica de faltas injustificadas (+12.0 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+4.7 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-184",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 14,
+      "codigo_estudiante": "EST-239",
+      "nombre_estudiante": "Ana Benítez Guerrero",
+      "curso_paralelo": "3 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 63.59,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 38.41,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 32.76,
+          "micro_academico_nee_pp": 0.69,
+          "sinergia_doble_vulnerabilidad_pp": 3.32,
+          "contexto_macro_meso_pp": 0.89
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.5 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.6 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.3 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -24.05,
+          "delta_sensibilidad_tutoria_nee_pp": -11.86,
+          "delta_sensibilidad_combinada_pp": -33.05,
+          "prob_post_sensibilidad_combinada_pct": 30.5
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Ana Benítez Guerrero (3 BGU B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 63.6%; probabilidad estimada Q2 < 7: 38.4%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.5 pp) | Micro: Racha máxima de faltas injustificadas (+11.6 pp) | Micro: Tasa histórica de faltas justificadas (+7.3 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-204",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 42.7,
+        "prob_dos_meses_incumpl_o_tardio_pct": 15.5,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Hogar Representante: Pagos tardíos adicionales en hermanos del plantel (+11.4 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+1.0 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 8: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 15,
+      "codigo_estudiante": "EST-082",
+      "nombre_estudiante": "Diego Guerrero Salazar",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 62.87,
+        "semaforo_academico": "VERDE — Trayectoria Académica Lograda",
+        "prob_reprobacion_academica_q2_pct": 6.57,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 40.76,
+          "micro_academico_nee_pp": -1.93,
+          "sinergia_doble_vulnerabilidad_pp": -0.54,
+          "contexto_macro_meso_pp": -1.35
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+33.6 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.0 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+2.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -26.44,
+          "delta_sensibilidad_tutoria_nee_pp": -1.88,
+          "delta_sensibilidad_combinada_pp": -28.23,
+          "prob_post_sensibilidad_combinada_pct": 34.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Diego Guerrero Salazar (10 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 62.9%; probabilidad estimada Q2 < 7: 6.6%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+33.6 pp) | Micro: Tasa histórica de faltas justificadas (+7.0 pp) | Micro: Racha máxima de faltas injustificadas (+2.6 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-070",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 16,
+      "codigo_estudiante": "EST-051",
+      "nombre_estudiante": "Ana Guerrero Herrera",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 59.5,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.8,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 14.79,
+          "micro_academico_nee_pp": 10.11,
+          "sinergia_doble_vulnerabilidad_pp": 5.72,
+          "contexto_macro_meso_pp": 2.94
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.3 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+5.7 pp)",
+          "Micro: Proporción de materias < 7 al corte (+5.3 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -20.66,
+          "delta_sensibilidad_tutoria_nee_pp": -24.57,
+          "delta_sensibilidad_combinada_pp": -38.29,
+          "prob_post_sensibilidad_combinada_pct": 21.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Ana Guerrero Herrera (9 EGB A, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 59.5%; probabilidad estimada Q2 < 7: 99.8%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.3 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+5.7 pp) | Micro: Proporción de materias < 7 al corte (+5.3 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-044",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 22.2,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.9,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 17,
+      "codigo_estudiante": "EST-180",
+      "nombre_estudiante": "Renata Rivadeneira Benítez",
+      "curso_paralelo": "2 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 59.5,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 76.87,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 23.26,
+          "micro_academico_nee_pp": 3.33,
+          "sinergia_doble_vulnerabilidad_pp": 4.38,
+          "contexto_macro_meso_pp": 2.59
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+20.4 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.3 pp)",
+          "Micro: Tasa histórica de faltas justificadas (-6.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -26.83,
+          "delta_sensibilidad_tutoria_nee_pp": -18.4,
+          "delta_sensibilidad_combinada_pp": -38.89,
+          "prob_post_sensibilidad_combinada_pct": 20.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Renata Rivadeneira Benítez (2 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 59.5%; probabilidad estimada Q2 < 7: 76.9%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+20.4 pp) | Micro: Racha máxima de faltas injustificadas (+11.3 pp) | Micro: Tasa histórica de faltas justificadas (-6.0 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-153",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 44.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 11.2,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Hogar Representante: Pagos tardíos adicionales en hermanos del plantel (+11.2 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 2: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 18,
+      "codigo_estudiante": "EST-127",
+      "nombre_estudiante": "Camila Guerrero Flores",
+      "curso_paralelo": "1 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 58.71,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.97,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 10.27,
+          "micro_academico_nee_pp": 6.13,
+          "sinergia_doble_vulnerabilidad_pp": 4.96,
+          "contexto_macro_meso_pp": 11.43
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.1 pp)",
+          "Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+6.9 pp)",
+          "Micro: Proporción de materias < 7 al corte (+6.7 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -20.24,
+          "delta_sensibilidad_tutoria_nee_pp": -23.74,
+          "delta_sensibilidad_combinada_pp": -37.47,
+          "prob_post_sensibilidad_combinada_pct": 21.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Camila Guerrero Flores (1 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 58.7%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.1 pp) | Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+6.9 pp) | Micro: Proporción de materias < 7 al corte (+6.7 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-108",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 23.8,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.0,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 19,
+      "codigo_estudiante": "EST-059",
+      "nombre_estudiante": "Emilio Herrera Flores",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 57.92,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.64,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 14.99,
+          "micro_academico_nee_pp": 6.22,
+          "sinergia_doble_vulnerabilidad_pp": 3.01,
+          "contexto_macro_meso_pp": 7.77
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Racha máxima de faltas injustificadas (+11.4 pp)",
+          "Micro: Proporción de materias < 7 al corte (+6.8 pp)",
+          "Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.7 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -16.88,
+          "delta_sensibilidad_tutoria_nee_pp": -21.65,
+          "delta_sensibilidad_combinada_pp": -34.07,
+          "prob_post_sensibilidad_combinada_pct": 23.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Emilio Herrera Flores (9 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 57.9%; probabilidad estimada Q2 < 7: 99.6%. Factores pedagógicos principales: Micro: Racha máxima de faltas injustificadas (+11.4 pp) | Micro: Proporción de materias < 7 al corte (+6.8 pp) | Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.7 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-051",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 27.7,
+        "prob_dos_meses_incumpl_o_tardio_pct": 5.2,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+1.1 pp)",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 20,
+      "codigo_estudiante": "EST-036",
+      "nombre_estudiante": "Mateo Salazar León",
+      "curso_paralelo": "8 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 55.43,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 80.38,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 23.26,
+          "micro_academico_nee_pp": 1.99,
+          "sinergia_doble_vulnerabilidad_pp": 3.18,
+          "contexto_macro_meso_pp": 1.06
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+11.8 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.3 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+3.2 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -21.45,
+          "delta_sensibilidad_tutoria_nee_pp": -12.06,
+          "delta_sensibilidad_combinada_pp": -29.69,
+          "prob_post_sensibilidad_combinada_pct": 25.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Mateo Salazar León (8 EGB B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 55.4%; probabilidad estimada Q2 < 7: 80.4%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+11.8 pp) | Micro: Racha máxima de faltas injustificadas (+11.3 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+3.2 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-031",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 23.8,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.0,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 21,
+      "codigo_estudiante": "EST-021",
+      "nombre_estudiante": "Daniela León Iturralde",
+      "curso_paralelo": "8 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 55.37,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 97.74,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 18.08,
+          "micro_academico_nee_pp": 4.79,
+          "sinergia_doble_vulnerabilidad_pp": 2.39,
+          "contexto_macro_meso_pp": 4.18
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+9.1 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.1 pp)",
+          "Micro: Proporción de materias < 7 al corte (+5.4 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -15.78,
+          "delta_sensibilidad_tutoria_nee_pp": -18.39,
+          "delta_sensibilidad_combinada_pp": -30.41,
+          "prob_post_sensibilidad_combinada_pct": 25.0
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Daniela León Iturralde (8 EGB B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 55.4%; probabilidad estimada Q2 < 7: 97.7%. Factores pedagógicos principales: Micro: Tasa de atrasos recientes (últimos 10 días) (+9.1 pp) | Micro: Tasa histórica de faltas justificadas (+7.1 pp) | Micro: Proporción de materias < 7 al corte (+5.4 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-018",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 28.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 7.7,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+4.7 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 22,
+      "codigo_estudiante": "EST-190",
+      "nombre_estudiante": "Antonella Jaramillo Paredes",
+      "curso_paralelo": "2 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 55.2,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 72.29,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 23.57,
+          "micro_academico_nee_pp": 1.97,
+          "sinergia_doble_vulnerabilidad_pp": 4.03,
+          "contexto_macro_meso_pp": -0.31
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+25.3 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+8.9 pp)",
+          "Micro: Racha máxima de faltas injustificadas (-5.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -9.52,
+          "delta_sensibilidad_tutoria_nee_pp": -13.2,
+          "delta_sensibilidad_combinada_pp": -19.58,
+          "prob_post_sensibilidad_combinada_pct": 35.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Antonella Jaramillo Paredes (2 BGU B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 55.2%; probabilidad estimada Q2 < 7: 72.3%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+25.3 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+8.9 pp) | Micro: Racha máxima de faltas injustificadas (-5.6 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-162",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 40.1,
+        "prob_dos_meses_incumpl_o_tardio_pct": 11.3,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+4.8 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+0.9 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 23,
+      "codigo_estudiante": "EST-117",
+      "nombre_estudiante": "Valentina Flores Herrera",
+      "curso_paralelo": "10 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "discalculia",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 54.73,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.74,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 11.65,
+          "micro_academico_nee_pp": 10.49,
+          "sinergia_doble_vulnerabilidad_pp": 2.96,
+          "contexto_macro_meso_pp": 3.69
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+7.5 pp)",
+          "Micro: Proporción de materias < 7 al corte (+6.7 pp)",
+          "Inclusión DECE: Brecha en materia crítica asociada a NEE (+3.8 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -17.53,
+          "delta_sensibilidad_tutoria_nee_pp": -22.02,
+          "delta_sensibilidad_combinada_pp": -34.15,
+          "prob_post_sensibilidad_combinada_pct": 20.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Valentina Flores Herrera (10 EGB B, NEE: discalculia). Probabilidad estimada de ausentismo recurrente: 54.7%; probabilidad estimada Q2 < 7: 99.7%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+7.5 pp) | Micro: Proporción de materias < 7 al corte (+6.7 pp) | Inclusión DECE: Brecha en materia crítica asociada a NEE (+3.8 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-100",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 34.5,
+        "prob_dos_meses_incumpl_o_tardio_pct": 15.1,
+        "tipologia_morosidad": "2. CUOTA VENCIDA IMPAGA AL CORTE",
+        "por_que_morosidad_shap": "Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct) (+3.1 pp) | Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.8 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+1.0 pp)",
+        "accion_colecturia": "Contacto temprano con representante para acuerdo fraccionado sin bloqueo académico",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 24,
+      "codigo_estudiante": "EST-054",
+      "nombre_estudiante": "Isabella Cárdenas Iturralde",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 54.51,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 22.48,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 31.88,
+          "micro_academico_nee_pp": -2.09,
+          "sinergia_doble_vulnerabilidad_pp": -0.6,
+          "contexto_macro_meso_pp": -0.62
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+16.1 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.3 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.1 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -21.57,
+          "delta_sensibilidad_tutoria_nee_pp": -1.95,
+          "delta_sensibilidad_combinada_pp": -23.26,
+          "prob_post_sensibilidad_combinada_pct": 31.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Isabella Cárdenas Iturralde (9 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 54.5%; probabilidad estimada Q2 < 7: 22.5%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+16.1 pp) | Micro: Racha máxima de faltas injustificadas (+11.3 pp) | Micro: Tasa histórica de faltas justificadas (+7.1 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-046",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 48.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 17.9,
+        "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+        "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.1 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+2.4 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+1.1 pp)",
+        "accion_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10162",
+        "dpa_parroquia": "010162",
+        "nbi_parroquia_censo_pct": 16.9,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 25,
+      "codigo_estudiante": "EST-046",
+      "nombre_estudiante": "Mateo Jaramillo Delgado",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 54.46,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 77.2,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 19.26,
+          "micro_academico_nee_pp": 4.78,
+          "sinergia_doble_vulnerabilidad_pp": 0.72,
+          "contexto_macro_meso_pp": 3.76
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+14.7 pp)",
+          "Micro: Proporción de materias < 7 al corte (+5.3 pp)",
+          "Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.2 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -17.99,
+          "delta_sensibilidad_tutoria_nee_pp": -17.05,
+          "delta_sensibilidad_combinada_pp": -31.61,
+          "prob_post_sensibilidad_combinada_pct": 22.8
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Mateo Jaramillo Delgado (9 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 54.5%; probabilidad estimada Q2 < 7: 77.2%. Factores pedagógicos principales: Micro: Tasa de atrasos recientes (últimos 10 días) (+14.7 pp) | Micro: Proporción de materias < 7 al corte (+5.3 pp) | Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.2 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-040",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 38.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 16.8,
+        "tipologia_morosidad": "2. CUOTA VENCIDA IMPAGA AL CORTE",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+9.1 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+5.1 pp) | Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct) (+3.5 pp)",
+        "accion_colecturia": "Contacto temprano con representante para acuerdo fraccionado sin bloqueo académico",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 26,
+      "codigo_estudiante": "EST-100",
+      "nombre_estudiante": "Diego Rivadeneira Rivadeneira",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 53.89,
+        "semaforo_academico": "NARANJA — Nivelación Focalizada / DECE",
+        "prob_reprobacion_academica_q2_pct": 42.59,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 29.32,
+          "micro_academico_nee_pp": -2.12,
+          "sinergia_doble_vulnerabilidad_pp": -0.6,
+          "contexto_macro_meso_pp": 1.36
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+11.8 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+11.6 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+3.3 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -17.81,
+          "delta_sensibilidad_tutoria_nee_pp": -2.57,
+          "delta_sensibilidad_combinada_pp": -20.13,
+          "prob_post_sensibilidad_combinada_pct": 33.8
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Diego Rivadeneira Rivadeneira (10 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 53.9%; probabilidad estimada Q2 < 7: 42.6%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+11.8 pp) | Micro: Tasa histórica de faltas justificadas (+11.6 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+3.3 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-085",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 28.0,
+        "prob_dos_meses_incumpl_o_tardio_pct": 7.4,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.6 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+0.4 pp)",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 27,
+      "codigo_estudiante": "EST-201",
+      "nombre_estudiante": "Joaquín Paredes Salazar",
+      "curso_paralelo": "3 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 53.29,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 19.14,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 22.89,
+          "micro_academico_nee_pp": 0.64,
+          "sinergia_doble_vulnerabilidad_pp": 3.2,
+          "contexto_macro_meso_pp": 0.62
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+20.1 pp)",
+          "Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+3.2 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+2.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -21.15,
+          "delta_sensibilidad_tutoria_nee_pp": -12.06,
+          "delta_sensibilidad_combinada_pp": -29.1,
+          "prob_post_sensibilidad_combinada_pct": 24.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Joaquín Paredes Salazar (3 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 53.3%; probabilidad estimada Q2 < 7: 19.1%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+20.1 pp) | Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada) (+3.2 pp) | Micro: Racha máxima de faltas injustificadas (+2.6 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-171",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 28,
+      "codigo_estudiante": "EST-128",
+      "nombre_estudiante": "Emilio Benítez Quiroga",
+      "curso_paralelo": "1 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TDAH",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 52.85,
+        "semaforo_academico": "NARANJA — Nivelación Focalizada / DECE",
+        "prob_reprobacion_academica_q2_pct": 53.56,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 19.23,
+          "micro_academico_nee_pp": 3.53,
+          "sinergia_doble_vulnerabilidad_pp": 2.59,
+          "contexto_macro_meso_pp": 1.57
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+11.6 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.5 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+2.7 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -14.05,
+          "delta_sensibilidad_tutoria_nee_pp": -14.55,
+          "delta_sensibilidad_combinada_pp": -25.39,
+          "prob_post_sensibilidad_combinada_pct": 27.5
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Emilio Benítez Quiroga (1 BGU A, NEE: TDAH). Probabilidad estimada de ausentismo recurrente: 52.9%; probabilidad estimada Q2 < 7: 53.6%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+11.6 pp) | Micro: Tasa histórica de faltas injustificadas (+7.5 pp) | Micro: Racha máxima de faltas injustificadas (+2.7 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-109",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 22.2,
+        "prob_dos_meses_incumpl_o_tardio_pct": 5.5,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 29,
+      "codigo_estudiante": "EST-178",
+      "nombre_estudiante": "Sebastián Iturralde Torres",
+      "curso_paralelo": "2 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 52.31,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.98,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 10.45,
+          "micro_academico_nee_pp": 6.03,
+          "sinergia_doble_vulnerabilidad_pp": 4.95,
+          "contexto_macro_meso_pp": 4.94
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+7.0 pp)",
+          "Micro: Proporción de materias < 7 al corte (+6.6 pp)",
+          "Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+6.1 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -13.02,
+          "delta_sensibilidad_tutoria_nee_pp": -17.14,
+          "delta_sensibilidad_combinada_pp": -25.57,
+          "prob_post_sensibilidad_combinada_pct": 26.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Sebastián Iturralde Torres (2 BGU A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 52.3%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+7.0 pp) | Micro: Proporción de materias < 7 al corte (+6.6 pp) | Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+6.1 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-152",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 26.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.4,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10150",
+        "dpa_parroquia": "010150",
+        "nbi_parroquia_censo_pct": 8.5,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 30,
+      "codigo_estudiante": "EST-060",
+      "nombre_estudiante": "Daniela Paredes León",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 51.59,
+        "semaforo_academico": "VERDE — Trayectoria Académica Lograda",
+        "prob_reprobacion_academica_q2_pct": 1.76,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 31.51,
+          "micro_academico_nee_pp": -3.46,
+          "sinergia_doble_vulnerabilidad_pp": -0.64,
+          "contexto_macro_meso_pp": -1.76
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+15.9 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+11.1 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+7.0 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -21.17,
+          "delta_sensibilidad_tutoria_nee_pp": 0.0,
+          "delta_sensibilidad_combinada_pp": -21.17,
+          "prob_post_sensibilidad_combinada_pct": 30.4
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Daniela Paredes León (9 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 51.6%; probabilidad estimada Q2 < 7: 1.8%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+15.9 pp) | Micro: Racha máxima de faltas injustificadas (+11.1 pp) | Micro: Tasa histórica de faltas justificadas (+7.0 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-051",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.1,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 31,
+      "codigo_estudiante": "EST-099",
+      "nombre_estudiante": "Martín Navarrete Delgado",
+      "curso_paralelo": "10 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 51.12,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.98,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 5.95,
+          "micro_academico_nee_pp": 6.02,
+          "sinergia_doble_vulnerabilidad_pp": 2.94,
+          "contexto_macro_meso_pp": 10.28
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Proporción de materias < 7 al corte (+6.6 pp)",
+          "Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+5.8 pp)",
+          "Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.5 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -11.85,
+          "delta_sensibilidad_tutoria_nee_pp": -20.83,
+          "delta_sensibilidad_combinada_pp": -28.5,
+          "prob_post_sensibilidad_combinada_pct": 22.6
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Martín Navarrete Delgado (10 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 51.1%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Proporción de materias < 7 al corte (+6.6 pp) | Macro/Meso: Prior Territorial y Socioeconómico (INEVAL/PISA/ENEMDU) (+5.8 pp) | Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.5 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-085",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 24.0,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.2,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+1.1 pp)",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 32,
+      "codigo_estudiante": "EST-114",
+      "nombre_estudiante": "Luciana Jaramillo Ordóñez",
+      "curso_paralelo": "10 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "discalculia",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 51.08,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 97.96,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 11.98,
+          "micro_academico_nee_pp": 6.39,
+          "sinergia_doble_vulnerabilidad_pp": 1.75,
+          "contexto_macro_meso_pp": 5.01
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+7.0 pp)",
+          "Micro: Proporción de materias < 7 al corte (+3.9 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -12.06,
+          "delta_sensibilidad_tutoria_nee_pp": -18.38,
+          "delta_sensibilidad_combinada_pp": -27.12,
+          "prob_post_sensibilidad_combinada_pct": 24.0
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Luciana Jaramillo Ordóñez (10 EGB B, NEE: discalculia). Probabilidad estimada de ausentismo recurrente: 51.1%; probabilidad estimada Q2 < 7: 98.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+7.0 pp) | Micro: Proporción de materias < 7 al corte (+3.9 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-097",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "ROJO",
+        "semaforo_pagos_etiqueta": "ROJO — Riesgo Crónico de Cartera / Convenio Inmediato",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 86.6,
+        "prob_dos_meses_incumpl_o_tardio_pct": 49.0,
+        "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+        "por_que_morosidad_shap": "Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+17.2 pp) | Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.6 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+9.6 pp)",
+        "accion_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 33,
+      "codigo_estudiante": "EST-048",
+      "nombre_estudiante": "Ana Cárdenas León",
+      "curso_paralelo": "9 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 50.09,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 30.07,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 23.38,
+          "micro_academico_nee_pp": -0.73,
+          "sinergia_doble_vulnerabilidad_pp": 1.31,
+          "contexto_macro_meso_pp": 0.2
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+15.9 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.4 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+2.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -13.2,
+          "delta_sensibilidad_tutoria_nee_pp": -7.5,
+          "delta_sensibilidad_combinada_pp": -18.94,
+          "prob_post_sensibilidad_combinada_pct": 31.1
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Ana Cárdenas León (9 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 50.1%; probabilidad estimada Q2 < 7: 30.1%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+15.9 pp) | Micro: Tasa histórica de faltas injustificadas (+7.4 pp) | Micro: Racha máxima de faltas injustificadas (+2.6 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-041",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 23.1,
+        "prob_dos_meses_incumpl_o_tardio_pct": 5.2,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 34,
+      "codigo_estudiante": "EST-213",
+      "nombre_estudiante": "Martín Herrera Ordóñez",
+      "curso_paralelo": "3 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "dislexia",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 49.82,
+        "semaforo_academico": "VERDE — Trayectoria Académica Lograda",
+        "prob_reprobacion_academica_q2_pct": 9.65,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 28.45,
+          "micro_academico_nee_pp": -2.11,
+          "sinergia_doble_vulnerabilidad_pp": -0.6,
+          "contexto_macro_meso_pp": -1.85
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+15.7 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+6.9 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -19.52,
+          "delta_sensibilidad_tutoria_nee_pp": -1.62,
+          "delta_sensibilidad_combinada_pp": -20.85,
+          "prob_post_sensibilidad_combinada_pct": 29.0
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Martín Herrera Ordóñez (3 BGU A, NEE: dislexia). Probabilidad estimada de ausentismo recurrente: 49.8%; probabilidad estimada Q2 < 7: 9.7%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+15.7 pp) | Micro: Tasa histórica de faltas justificadas (+6.9 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-182",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 25.7,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.7,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Fricción Logística: Tasa de atrasos matutinos del estudiante (+1.6 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10150",
+        "dpa_parroquia": "010150",
+        "nbi_parroquia_censo_pct": 8.5,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 35,
+      "codigo_estudiante": "EST-236",
+      "nombre_estudiante": "Sofía Mora Mora",
+      "curso_paralelo": "3 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 48.84,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 17.8,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 22.74,
+          "micro_academico_nee_pp": -0.74,
+          "sinergia_doble_vulnerabilidad_pp": 0.64,
+          "contexto_macro_meso_pp": 0.26
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Racha máxima de faltas injustificadas (+11.0 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.4 pp)",
+          "Micro: Tasa histórica de faltas justificadas (+6.9 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -17.23,
+          "delta_sensibilidad_tutoria_nee_pp": -6.7,
+          "delta_sensibilidad_combinada_pp": -22.18,
+          "prob_post_sensibilidad_combinada_pct": 26.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Sofía Mora Mora (3 BGU B, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 48.8%; probabilidad estimada Q2 < 7: 17.8%. Factores pedagógicos principales: Micro: Racha máxima de faltas injustificadas (+11.0 pp) | Micro: Tasa histórica de faltas injustificadas (+7.4 pp) | Micro: Tasa histórica de faltas justificadas (+6.9 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-201",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 22.2,
+        "prob_dos_meses_incumpl_o_tardio_pct": 4.9,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 36,
+      "codigo_estudiante": "EST-113",
+      "nombre_estudiante": "Valentina Quiroga Cárdenas",
+      "curso_paralelo": "10 EGB B",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 1,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 48.58,
+        "semaforo_academico": "NARANJA — Nivelación Focalizada / DECE",
+        "prob_reprobacion_academica_q2_pct": 46.51,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 18.27,
+          "micro_academico_nee_pp": 2.02,
+          "sinergia_doble_vulnerabilidad_pp": 1.21,
+          "contexto_macro_meso_pp": 1.14
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Racha máxima de faltas injustificadas (+11.0 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.3 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (-2.5 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -17.49,
+          "delta_sensibilidad_tutoria_nee_pp": -11.22,
+          "delta_sensibilidad_combinada_pp": -25.64,
+          "prob_post_sensibilidad_combinada_pct": 22.9
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Valentina Quiroga Cárdenas (10 EGB B, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 48.6%; probabilidad estimada Q2 < 7: 46.5%. Factores pedagógicos principales: Micro: Racha máxima de faltas injustificadas (+11.0 pp) | Micro: Tasa histórica de faltas injustificadas (+7.3 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (-2.5 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-097",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 35.7,
+        "prob_dos_meses_incumpl_o_tardio_pct": 10.5,
+        "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+        "por_que_morosidad_shap": "Hogar Representante: Pagos tardíos adicionales en hermanos del plantel (+11.2 pp)",
+        "accion_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10151",
+        "dpa_parroquia": "010151",
+        "nbi_parroquia_censo_pct": 27.8,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 37,
+      "codigo_estudiante": "EST-010",
+      "nombre_estudiante": "Gabriel Benítez Vásconez",
+      "curso_paralelo": "8 EGB A",
+      "subnivel": "EGB Superior",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Foco Principal: Asistencia y Permanencia",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 48.47,
+        "semaforo_academico": "AMARILLO — Refuerzo Preventivo en Aula",
+        "prob_reprobacion_academica_q2_pct": 37.99,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 18.74,
+          "micro_academico_nee_pp": 0.59,
+          "sinergia_doble_vulnerabilidad_pp": 2.53,
+          "contexto_macro_meso_pp": 0.67
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+11.3 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+7.4 pp)",
+          "Micro: Racha máxima de faltas injustificadas (+2.6 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -13.74,
+          "delta_sensibilidad_tutoria_nee_pp": -11.14,
+          "delta_sensibilidad_combinada_pp": -21.82,
+          "prob_post_sensibilidad_combinada_pct": 26.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Foco Principal: Asistencia y Permanencia] Estudiante Gabriel Benítez Vásconez (8 EGB A, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 48.5%; probabilidad estimada Q2 < 7: 38.0%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+11.3 pp) | Micro: Tasa histórica de faltas injustificadas (+7.4 pp) | Micro: Racha máxima de faltas injustificadas (+2.6 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-009",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "AMARILLO",
+        "semaforo_pagos_etiqueta": "AMARILLO — Seguimiento Preventivo de Fecha de Cobro",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 24.4,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.3,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+1.5 pp)",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 1.81
+      }
+    },
+    {
+      "prioridad_ranking": 38,
+      "codigo_estudiante": "EST-189",
+      "nombre_estudiante": "Ana Benítez Guerrero",
+      "curso_paralelo": "2 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "ninguna",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 48.21,
+        "semaforo_academico": "NARANJA — Nivelación Focalizada / DECE",
+        "prob_reprobacion_academica_q2_pct": 52.67,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 20.24,
+          "micro_academico_nee_pp": 0.58,
+          "sinergia_doble_vulnerabilidad_pp": 1.86,
+          "contexto_macro_meso_pp": -0.41
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas justificadas (+11.2 pp)",
+          "Micro: Tasa histórica de faltas injustificadas (+3.2 pp)",
+          "Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Inspección y Tutoría (Plan de asistencia y puntualidad)",
+          "delta_sensibilidad_asistencia_pp": -14.19,
+          "delta_sensibilidad_tutoria_nee_pp": -7.6,
+          "delta_sensibilidad_combinada_pp": -19.54,
+          "prob_post_sensibilidad_combinada_pct": 28.7
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Ana Benítez Guerrero (2 BGU B, NEE: ninguna). Probabilidad estimada de ausentismo recurrente: 48.2%; probabilidad estimada Q2 < 7: 52.7%. Factores pedagógicos principales: Micro: Tasa histórica de faltas justificadas (+11.2 pp) | Micro: Tasa histórica de faltas injustificadas (+3.2 pp) | Micro: Tasa de atrasos recientes (últimos 10 días) (+3.2 pp). Acción pedagógica sugerida: Inspección y Tutoría (Plan de asistencia y puntualidad)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-161",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "NARANJA",
+        "semaforo_pagos_etiqueta": "NARANJA — Fricción de Liquidez / Ofrecer Fecha Flexible",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 42.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 19.0,
+        "tipologia_morosidad": "3. FRICCIÓN DE FECHA DE COBRO (PAGO TARDÍO > DÍA 10)",
+        "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.4 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+3.8 pp) | Fricción Logística: Tasa de atrasos matutinos del estudiante (+2.1 pp)",
+        "accion_colecturia": "El representante sí paga, pero alrededor del día 10: mover vencimiento al día 15-20",
+        "activar_flujo_colecturia_n8n": true
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10150",
+        "dpa_parroquia": "010150",
+        "nbi_parroquia_censo_pct": 8.5,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 39,
+      "codigo_estudiante": "EST-209",
+      "nombre_estudiante": "Nicolás Jaramillo Espinoza",
+      "curso_paralelo": "3 BGU A",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TDAH",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 47.97,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.27,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 5.5,
+          "micro_academico_nee_pp": 9.26,
+          "sinergia_doble_vulnerabilidad_pp": 2.3,
+          "contexto_macro_meso_pp": 4.98
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Tasa histórica de faltas injustificadas (+7.3 pp)",
+          "Micro: Proporción de materias < 7 al corte (+5.1 pp)",
+          "Inclusión DECE: Brecha en materia crítica asociada a NEE (+4.1 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -13.58,
+          "delta_sensibilidad_tutoria_nee_pp": -22.6,
+          "delta_sensibilidad_combinada_pp": -30.79,
+          "prob_post_sensibilidad_combinada_pct": 17.2
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Nicolás Jaramillo Espinoza (3 BGU A, NEE: TDAH). Probabilidad estimada de ausentismo recurrente: 48.0%; probabilidad estimada Q2 < 7: 99.3%. Factores pedagógicos principales: Micro: Tasa histórica de faltas injustificadas (+7.3 pp) | Micro: Proporción de materias < 7 al corte (+5.1 pp) | Inclusión DECE: Brecha en materia crítica asociada a NEE (+4.1 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-178",
+        "n_hermanos_en_plantel": 1,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 22.3,
+        "prob_dos_meses_incumpl_o_tardio_pct": 5.8,
+        "tipologia_morosidad": "5. CUMPLIMIENTO PUNTUAL (BAJO RIESGO)",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Mantener facturación ordinaria",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10170",
+        "dpa_parroquia": "010170",
+        "nbi_parroquia_censo_pct": 30.0,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    },
+    {
+      "prioridad_ranking": 40,
+      "codigo_estudiante": "EST-159",
+      "nombre_estudiante": "Daniela Iturralde Navarrete",
+      "curso_paralelo": "1 BGU B",
+      "subnivel": "Bachillerato",
+      "necesidad_educativa_nee": "TEA",
+      "sobreedad_anios": 0,
+      "vista_rbac_docente_dece_sin_datos_financieros": {
+        "modelo_fuente_unico": "MonotonicSignConstrainedFiLMNet_Pedagogico_Puro",
+        "semaforo_docente": "ROJO",
+        "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+        "semaforo_permanencia": "ROJO — Intervención Prioritaria de Permanencia (Tutor + Inspección)",
+        "prob_base_permanencia_pct": 25.93,
+        "prob_ausentismo_recurrente_pct": 47.76,
+        "semaforo_academico": "ROJO — Plan de Recuperación Prioritaria",
+        "prob_reprobacion_academica_q2_pct": 99.97,
+        "desglose_shap_pedagogico_pp": {
+          "micro_asistencia_pp": 1.41,
+          "micro_academico_nee_pp": 11.96,
+          "sinergia_doble_vulnerabilidad_pp": 0.94,
+          "contexto_macro_meso_pp": 7.52
+        },
+        "top_3_factores_shap_pedagogico": [
+          "Micro: Proporción de materias < 7 al corte (+6.5 pp)",
+          "Inclusión DECE: Brecha en materia crítica asociada a NEE (+5.5 pp)",
+          "Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.5 pp)"
+        ],
+        "simulacion_sensibilidad_puntaje_no_causal": {
+          "palanca_pedagogica_sugerida": "Tutoría Académica y Adaptación DECE (Nivelar materias < 7)",
+          "delta_sensibilidad_asistencia_pp": -10.56,
+          "delta_sensibilidad_tutoria_nee_pp": -24.1,
+          "delta_sensibilidad_combinada_pp": -30.51,
+          "prob_post_sensibilidad_combinada_pct": 17.3
+        },
+        "destinatarios_n8n": [
+          "Tutor de Paralelo",
+          "Inspección General",
+          "DECE / Psicopedagogía"
+        ],
+        "prompt_ia_pedagogico": "[SEMÁFORO ROJO · Doble Foco: Permanencia + Aprendizaje] Estudiante Daniela Iturralde Navarrete (1 BGU B, NEE: TEA). Probabilidad estimada de ausentismo recurrente: 47.8%; probabilidad estimada Q2 < 7: 100.0%. Factores pedagógicos principales: Micro: Proporción de materias < 7 al corte (+6.5 pp) | Inclusión DECE: Brecha en materia crítica asociada a NEE (+5.5 pp) | Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo (+4.5 pp). Acción pedagógica sugerida: Tutoría Académica y Adaptación DECE (Nivelar materias < 7)."
+      },
+      "vista_rbac_colecturia_exclusiva_financiera": {
+        "acceso_restringido_solo_rol": "Colecturía / Administración / Rectorado",
+        "representante_codigo": "REP-136",
+        "n_hermanos_en_plantel": 2,
+        "semaforo_pagos": "VERDE",
+        "semaforo_pagos_etiqueta": "VERDE — Pago Regular (Seguimiento ordinario)",
+        "prob_incumplimiento_o_tardio_nov_ene_pct": 23.0,
+        "prob_dos_meses_incumpl_o_tardio_pct": 6.1,
+        "tipologia_morosidad": "4. PRESIÓN POR MÚLTIPLES HIJOS EN ENTORNO VULNERABLE",
+        "por_que_morosidad_shap": "Pagos anteriores puntuales antes del día 10 sin mora acumulada",
+        "accion_colecturia": "Preventivo: evaluar descuento familiar por hermanos matriculados",
+        "activar_flujo_colecturia_n8n": false
+      },
+      "contexto_territorial_y_macro": {
+        "parroquia_oficial_censo": "10169",
+        "dpa_parroquia": "010169",
+        "nbi_parroquia_censo_pct": 38.1,
+        "pobreza_provincial_enemdu_pct": 12.7,
+        "tasa_abandono_cantonal_amie_pct": 2.71
+      }
+    }
+  ]
+}

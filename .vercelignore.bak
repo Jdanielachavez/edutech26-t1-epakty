@@ -1,0 +1,8 @@
+.venv
+__pycache__
+_archivo
+engine_stub
+n8n
+scripts
+*.pyc
+.DS_Store

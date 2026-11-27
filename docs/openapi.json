@@ -1,0 +1,2786 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "E-Pakti API",
+  "version": "2.1.0"
+ },
+ "paths": {
+  "/health": {
+   "get": {
+    "summary": "Health",
+    "operationId": "health_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/login": {
+   "post": {
+    "summary": "Login",
+    "operationId": "login_api_v1_auth_login_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/change-password": {
+   "post": {
+    "summary": "Change Password",
+    "operationId": "change_password_api_v1_auth_change_password_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChangePassword"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/users": {
+   "get": {
+    "summary": "List Users",
+    "operationId": "list_users_api_v1_admin_users_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "summary": "Create User",
+    "operationId": "create_user_api_v1_admin_users_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserCreate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/users/{username}": {
+   "patch": {
+    "summary": "Patch User",
+    "operationId": "patch_user_api_v1_admin_users__username__patch",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserPatch"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/me": {
+   "get": {
+    "summary": "Me",
+    "operationId": "me_api_v1_me_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/students": {
+   "get": {
+    "summary": "Students",
+    "operationId": "students_api_v1_students_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/summary": {
+   "get": {
+    "summary": "Summary",
+    "operationId": "summary_api_v1_summary_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/card": {
+   "get": {
+    "summary": "Model Card",
+    "operationId": "model_card_api_v1_models_card_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/risk": {
+   "get": {
+    "summary": "Model Risk",
+    "operationId": "model_risk_api_v1_models_risk_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/explain/{student_id}": {
+   "get": {
+    "summary": "Model Explain",
+    "operationId": "model_explain_api_v1_models_explain__student_id__get",
+    "parameters": [
+     {
+      "name": "student_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Student Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/actions": {
+   "get": {
+    "summary": "Model Actions",
+    "operationId": "model_actions_api_v1_models_actions_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/simulate/{student_id}": {
+   "post": {
+    "summary": "Model Simulate",
+    "operationId": "model_simulate_api_v1_models_simulate__student_id__post",
+    "parameters": [
+     {
+      "name": "student_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Student Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SimulationRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/provinces": {
+   "get": {
+    "summary": "Model Provinces",
+    "operationId": "model_provinces_api_v1_models_provinces_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/models/territory": {
+   "get": {
+    "summary": "Model Territory",
+    "operationId": "model_territory_api_v1_models_territory_get",
+    "parameters": [
+     {
+      "name": "provincia",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Provincia"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/status": {
+   "get": {
+    "summary": "Admin Status",
+    "operationId": "admin_status_api_v1_admin_status_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/ingestion/batch-sync": {
+   "post": {
+    "summary": "Batch Sync",
+    "operationId": "batch_sync_api_v1_ingestion_batch_sync_post",
+    "parameters": [
+     {
+      "name": "Idempotency-Key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Idempotency-Key"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchSync"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/pipeline/batch": {
+   "post": {
+    "summary": "Batch",
+    "operationId": "batch_api_v1_pipeline_batch_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_batch_api_v1_pipeline_batch_post"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/ingestion/jobs/{job_id}": {
+   "get": {
+    "summary": "Job Status",
+    "operationId": "job_status_api_v1_ingestion_jobs__job_id__get",
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/ingestion/jobs/{job_id}/retry": {
+   "post": {
+    "summary": "Job Retry",
+    "operationId": "job_retry_api_v1_ingestion_jobs__job_id__retry_post",
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/intervene/{student_id}": {
+   "post": {
+    "summary": "Intervene",
+    "operationId": "intervene_api_v1_intervene__student_id__post",
+    "parameters": [
+     {
+      "name": "student_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Student Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions/{case_id}/claim": {
+   "post": {
+    "summary": "Claim",
+    "operationId": "claim_api_v1_interventions__case_id__claim_post",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions/{case_id}/draft": {
+   "post": {
+    "summary": "Draft",
+    "operationId": "draft_api_v1_interventions__case_id__draft_post",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DraftCallback"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "summary": "Edit Draft",
+    "operationId": "edit_draft_api_v1_interventions__case_id__draft_patch",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DraftEdit"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions": {
+   "get": {
+    "summary": "List Cases",
+    "operationId": "list_cases_api_v1_interventions_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions/{case_id}": {
+   "get": {
+    "summary": "Get Case",
+    "operationId": "get_case_api_v1_interventions__case_id__get",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "summary": "Update",
+    "operationId": "update_api_v1_interventions__case_id__patch",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/StateUpdate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions/{case_id}/approve-delivery": {
+   "post": {
+    "summary": "Delivery",
+    "operationId": "delivery_api_v1_interventions__case_id__approve_delivery_post",
+    "parameters": [
+     {
+      "name": "case_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Case Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DeliveryRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/interventions/log-outcome": {
+   "post": {
+    "summary": "Log Outcome",
+    "operationId": "log_outcome_api_v1_interventions_log_outcome_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/OutcomeLog"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/workflow-errors": {
+   "post": {
+    "summary": "Workflow Error",
+    "operationId": "workflow_error_api_v1_workflow_errors_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/WorkflowError"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/public/contact-lead": {
+   "post": {
+    "summary": "Contact Lead",
+    "operationId": "contact_lead_api_v1_public_contact_lead_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ContactLead"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard/rectorado/kpis-roi": {
+   "get": {
+    "summary": "Motor  Api V1 Dashboard Rectorado Kpis Roi",
+    "operationId": "motor__api_v1_dashboard_rectorado_kpis_roi_api_v1_dashboard_rectorado_kpis_roi_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard/docente-tutor/triage": {
+   "get": {
+    "summary": "Motor  Api V1 Dashboard Docente Tutor Triage",
+    "operationId": "motor__api_v1_dashboard_docente_tutor_triage_api_v1_dashboard_docente_tutor_triage_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/students/{codigo}/ficha-360": {
+   "get": {
+    "summary": "Motor  Api V1 Students Codigo Ficha 360",
+    "operationId": "motor__api_v1_students_codigo_ficha_360_api_v1_students__codigo__ficha_360_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard/dece/inclusion-nee": {
+   "get": {
+    "summary": "Motor  Api V1 Dashboard Dece Inclusion Nee",
+    "operationId": "motor__api_v1_dashboard_dece_inclusion_nee_api_v1_dashboard_dece_inclusion_nee_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard/colecturia/cartera-hogares": {
+   "get": {
+    "summary": "Motor  Api V1 Dashboard Colecturia Cartera Hogares",
+    "operationId": "motor__api_v1_dashboard_colecturia_cartera_hogares_api_v1_dashboard_colecturia_cartera_hogares_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard/vicerrectorado/docentes-horarios": {
+   "get": {
+    "summary": "Motor  Api V1 Dashboard Vicerrectorado Docentes Horarios",
+    "operationId": "motor__api_v1_dashboard_vicerrectorado_docentes_horarios_api_v1_dashboard_vicerrectorado_docentes_horarios_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admissions/evaluate-applicant": {
+   "post": {
+    "summary": "Motor  Api V1 Admissions Evaluate Applicant",
+    "operationId": "motor__api_v1_admissions_evaluate_applicant_api_v1_admissions_evaluate_applicant_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/tenants/onboard": {
+   "post": {
+    "summary": "Motor  Api V1 Tenants Onboard",
+    "operationId": "motor__api_v1_tenants_onboard_api_v1_tenants_onboard_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/mlops/overview-and-drift": {
+   "get": {
+    "summary": "Motor  Api V1 Admin Mlops Overview And Drift",
+    "operationId": "motor__api_v1_admin_mlops_overview_and_drift_api_v1_admin_mlops_overview_and_drift_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/tenants": {
+   "get": {
+    "summary": "Motor  Api V1 Admin Tenants",
+    "operationId": "motor__api_v1_admin_tenants_api_v1_admin_tenants_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/mlops/retrain": {
+   "post": {
+    "summary": "Motor  Api V1 Admin Mlops Retrain",
+    "operationId": "motor__api_v1_admin_mlops_retrain_api_v1_admin_mlops_retrain_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/mlops/models/{model_version}/promote": {
+   "post": {
+    "summary": "Motor  Api V1 Admin Mlops Models Model Version Promote",
+    "operationId": "motor__api_v1_admin_mlops_models_model_version_promote_api_v1_admin_mlops_models__model_version__promote_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/data-lake/anonymized-explorer": {
+   "get": {
+    "summary": "Motor  Api V1 Admin Data Lake Anonymized Explorer",
+    "operationId": "motor__api_v1_admin_data_lake_anonymized_explorer_api_v1_admin_data_lake_anonymized_explorer_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/tenants/{school_id}/feature-flags": {
+   "patch": {
+    "summary": "Motor  Api V1 Admin Tenants School Id Feature Flags",
+    "operationId": "motor__api_v1_admin_tenants_school_id_feature_flags_api_v1_admin_tenants__school_id__feature_flags_patch",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/n8n/dispatch-alerts": {
+   "post": {
+    "summary": "Dispatch",
+    "operationId": "dispatch_api_v1_n8n_dispatch_alerts_post",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DispatchRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/n8n/observability": {
+   "get": {
+    "summary": "N8N Observability",
+    "operationId": "n8n_observability_api_v1_admin_n8n_observability_get",
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/outbox/{event_id}/retry": {
+   "post": {
+    "summary": "Outbox Retry",
+    "operationId": "outbox_retry_api_v1_admin_outbox__event_id__retry_post",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid",
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AgentDraft": {
+    "properties": {
+     "mensaje_representante": {
+      "type": "string",
+      "maxLength": 3000,
+      "minLength": 1,
+      "title": "Mensaje Representante"
+     },
+     "accion_interna_colegio": {
+      "type": "string",
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Accion Interna Colegio"
+     },
+     "responsable_asignado": {
+      "type": "string",
+      "enum": [
+       "Colecturía",
+       "Docente Tutor",
+       "DECE"
+      ],
+      "title": "Responsable Asignado"
+     },
+     "plan_3_pasos": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Plan 3 Pasos"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "mensaje_representante",
+     "accion_interna_colegio",
+     "responsable_asignado",
+     "plan_3_pasos"
+    ],
+    "title": "AgentDraft"
+   },
+   "BatchSync": {
+    "properties": {
+     "synthetic_declaration": {
+      "type": "boolean",
+      "const": true,
+      "title": "Synthetic Declaration"
+     },
+     "tablas": {
+      "additionalProperties": {
+       "items": {
+        "additionalProperties": {
+         "anyOf": [
+          {
+           "type": "string"
+          },
+          {
+           "type": "integer"
+          },
+          {
+           "type": "number"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "type": "object"
+       },
+       "type": "array"
+      },
+      "propertyNames": {
+       "enum": [
+        "estudiantes",
+        "docentes",
+        "asistencia",
+        "notas",
+        "pensiones",
+        "horarios"
+       ]
+      },
+      "type": "object",
+      "title": "Tablas"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "synthetic_declaration",
+     "tablas"
+    ],
+    "title": "BatchSync",
+    "description": "EP-02: los seis cuadros del colegio en JSON (lo que enviaría un ERP o n8n)."
+   },
+   "Body_batch_api_v1_pipeline_batch_post": {
+    "properties": {
+     "files": {
+      "items": {
+       "type": "string",
+       "format": "binary"
+      },
+      "type": "array",
+      "title": "Files"
+     },
+     "synthetic_declaration": {
+      "type": "boolean",
+      "title": "Synthetic Declaration"
+     }
+    },
+    "type": "object",
+    "required": [
+     "files",
+     "synthetic_declaration"
+    ],
+    "title": "Body_batch_api_v1_pipeline_batch_post"
+   },
+   "ChangePassword": {
+    "properties": {
+     "clave_actual": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Clave Actual"
+     },
+     "clave_nueva": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 10,
+      "title": "Clave Nueva"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "clave_actual",
+     "clave_nueva"
+    ],
+    "title": "ChangePassword"
+   },
+   "ContactLead": {
+    "properties": {
+     "nombre_contacto": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Nombre Contacto"
+     },
+     "institucion": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 2,
+      "title": "Institucion"
+     },
+     "correo": {
+      "type": "string",
+      "maxLength": 254,
+      "pattern": "^[^@\\s<>]+@[^@\\s<>]+\\.[^@\\s<>]+$",
+      "title": "Correo"
+     },
+     "whatsapp_e164": {
+      "anyOf": [
+       {
+        "type": "string",
+        "pattern": "^\\+?[1-9][0-9]{7,14}$"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Whatsapp E164"
+     },
+     "ciudad": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 80
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ciudad"
+     },
+     "n_estudiantes_aprox": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 100000.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Estudiantes Aprox"
+     },
+     "erp_actual": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 80
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Erp Actual"
+     },
+     "mensaje": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 2000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Mensaje"
+     },
+     "sitio_web": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sitio Web"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "nombre_contacto",
+     "institucion",
+     "correo"
+    ],
+    "title": "ContactLead",
+    "description": "EP-19: formulario público de contacto comercial."
+   },
+   "DeliveryRequest": {
+    "properties": {
+     "channel": {
+      "type": "string",
+      "enum": [
+       "email",
+       "whatsapp"
+      ],
+      "title": "Channel"
+     },
+     "recipient": {
+      "type": "string",
+      "maxLength": 254,
+      "minLength": 3,
+      "title": "Recipient"
+     },
+     "approved": {
+      "type": "boolean",
+      "const": true,
+      "title": "Approved"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "channel",
+     "recipient",
+     "approved"
+    ],
+    "title": "DeliveryRequest"
+   },
+   "DispatchRequest": {
+    "properties": {
+     "cupo": {
+      "type": "integer",
+      "maximum": 40.0,
+      "minimum": 1.0,
+      "title": "Cupo",
+      "default": 40
+     },
+     "approved": {
+      "type": "boolean",
+      "const": true,
+      "title": "Approved"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "approved"
+    ],
+    "title": "DispatchRequest",
+    "description": "EP-10: una persona aprueba enviar las alertas priorizadas del motor al flujo n8n."
+   },
+   "DraftCallback": {
+    "properties": {
+     "lease_token": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Lease Token"
+     },
+     "draft": {
+      "$ref": "#/components/schemas/AgentDraft"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "lease_token",
+     "draft"
+    ],
+    "title": "DraftCallback"
+   },
+   "DraftEdit": {
+    "properties": {
+     "mensaje_representante": {
+      "type": "string",
+      "maxLength": 3000,
+      "minLength": 1,
+      "title": "Mensaje Representante"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "mensaje_representante"
+    ],
+    "title": "DraftEdit"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "LoginRequest": {
+    "properties": {
+     "usuario": {
+      "type": "string",
+      "maxLength": 60,
+      "minLength": 2,
+      "title": "Usuario"
+     },
+     "clave": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Clave"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "usuario",
+     "clave"
+    ],
+    "title": "LoginRequest"
+   },
+   "OutcomeLog": {
+    "properties": {
+     "school_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 60
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "School Id"
+     },
+     "codigo_estudiante": {
+      "type": "string",
+      "pattern": "^EST-[0-9]{1,6}$",
+      "title": "Codigo Estudiante"
+     },
+     "rol_ejecutor": {
+      "type": "string",
+      "enum": [
+       "DOCENTE_TUTOR",
+       "DECE",
+       "INSPECCION",
+       "COLECTURIA",
+       "RECTORADO"
+      ],
+      "title": "Rol Ejecutor"
+     },
+     "tipo_intervencion": {
+      "type": "string",
+      "enum": [
+       "PLAN_ASISTENCIA",
+       "TUTORIA_Y_ADAPTACION_NEE",
+       "CONVENIO_PAGO",
+       "PAQUETE_INTEGRAL_360",
+       "OTRA"
+      ],
+      "title": "Tipo Intervencion"
+     },
+     "canal_n8n": {
+      "type": "string",
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Canal N8N"
+     },
+     "intervencion_aplicada": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ],
+      "title": "Intervencion Aplicada"
+     },
+     "fecha_ejecucion": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Fecha Ejecucion"
+     },
+     "compromiso_representante": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 1000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Compromiso Representante"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "codigo_estudiante",
+     "rol_ejecutor",
+     "tipo_intervencion",
+     "canal_n8n",
+     "intervencion_aplicada",
+     "fecha_ejecucion"
+    ],
+    "title": "OutcomeLog",
+    "description": "EP-11: registro de la intervención aplicada (retorno desde n8n o desde la interfaz)."
+   },
+   "SimulationRequest": {
+    "properties": {
+     "acciones": {
+      "items": {
+       "type": "string",
+       "enum": [
+        "tutoria_academica",
+        "seguimiento_asistencia",
+        "apoyo_socioemocional",
+        "convenio_pago"
+       ]
+      },
+      "type": "array",
+      "maxItems": 4,
+      "minItems": 1,
+      "title": "Acciones"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "acciones"
+    ],
+    "title": "SimulationRequest"
+   },
+   "StateUpdate": {
+    "properties": {
+     "estado_caso": {
+      "type": "string",
+      "enum": [
+       "EN_SEGUIMIENTO",
+       "RETENIDO",
+       "RETIRO"
+      ],
+      "title": "Estado Caso"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "estado_caso"
+    ],
+    "title": "StateUpdate"
+   },
+   "UserCreate": {
+    "properties": {
+     "usuario": {
+      "type": "string",
+      "pattern": "^[a-z0-9._-]{3,40}$",
+      "title": "Usuario"
+     },
+     "nombre": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Nombre"
+     },
+     "rol": {
+      "type": "string",
+      "enum": [
+       "admin",
+       "rectoria",
+       "dece",
+       "tutor",
+       "inspeccion",
+       "colecturia",
+       "admisiones"
+      ],
+      "title": "Rol"
+     },
+     "curso": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 40
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Curso"
+     },
+     "paralelo": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 4
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paralelo"
+     },
+     "clave": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200,
+        "minLength": 10
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Clave"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "usuario",
+     "nombre",
+     "rol"
+    ],
+    "title": "UserCreate"
+   },
+   "UserPatch": {
+    "properties": {
+     "activo": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Activo"
+     },
+     "restablecer_clave": {
+      "anyOf": [
+       {
+        "type": "boolean",
+        "const": true
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Restablecer Clave"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "UserPatch"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "WorkflowError": {
+    "properties": {
+     "execution_id": {
+      "type": "string",
+      "maxLength": 100,
+      "title": "Execution Id"
+     },
+     "workflow_id": {
+      "type": "string",
+      "maxLength": 100,
+      "title": "Workflow Id"
+     },
+     "node": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Node"
+     },
+     "code": {
+      "type": "string",
+      "maxLength": 80,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "title": "Code"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "execution_id",
+     "workflow_id",
+     "node",
+     "code"
+    ],
+    "title": "WorkflowError"
+   }
+  }
+ }
+}

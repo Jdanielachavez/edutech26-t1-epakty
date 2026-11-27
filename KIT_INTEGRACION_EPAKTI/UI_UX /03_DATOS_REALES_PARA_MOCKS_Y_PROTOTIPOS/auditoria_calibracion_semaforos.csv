@@ -1,0 +1,26 @@
+semaforo,rol_destinatario,objetivo_validado,nivel_color,n_estudiantes,pct_poblacion,casos_reales_observados,prob_media_predicha_oof_pct,tasa_real_observada_pct,ic95_wilson_inf_pct,ic95_wilson_sup_pct,error_calibracion_abs_pp
+1_Semaforo_Permanencia_EnCurso,Docentes / Inspección / DECE,y_falta_en_ambos_meses,VERDE,101,42.1,8,13.3,7.9,4.1,14.9,5.3
+1_Semaforo_Permanencia_EnCurso,Docentes / Inspección / DECE,y_falta_en_ambos_meses,AMARILLO,60,25.0,23,26.7,38.3,27.1,51.0,11.7
+1_Semaforo_Permanencia_EnCurso,Docentes / Inspección / DECE,y_falta_en_ambos_meses,ROJO,79,32.9,39,51.6,49.4,38.6,60.2,2.2
+2_Semaforo_Academico_EnCurso,Docentes / Vicerrectorado / DECE,y_reprobacion_q2,VERDE,128,53.3,4,5.1,3.1,1.2,7.8,1.9
+2_Semaforo_Academico_EnCurso,Docentes / Vicerrectorado / DECE,y_reprobacion_q2,AMARILLO,46,19.2,13,26.1,28.3,17.3,42.5,2.1
+2_Semaforo_Academico_EnCurso,Docentes / Vicerrectorado / DECE,y_reprobacion_q2,NARANJA,23,9.6,13,55.7,56.5,36.8,74.4,0.8
+2_Semaforo_Academico_EnCurso,Docentes / Vicerrectorado / DECE,y_reprobacion_q2,ROJO,43,17.9,41,91.8,95.3,84.5,98.7,3.6
+3_Semaforo_Pagos_Colecturia_Incumpl,EXCLUSIVO Colecturía / Administración,y_incumplimiento_futuro,VERDE,72,30.0,18,23.0,25.0,16.4,36.1,2.0
+3_Semaforo_Pagos_Colecturia_Incumpl,EXCLUSIVO Colecturía / Administración,y_incumplimiento_futuro,AMARILLO,120,50.0,30,26.8,25.0,18.1,33.4,1.8
+3_Semaforo_Pagos_Colecturia_Incumpl,EXCLUSIVO Colecturía / Administración,y_incumplimiento_futuro,NARANJA,34,14.2,14,44.1,41.2,26.4,57.8,2.9
+3_Semaforo_Pagos_Colecturia_Incumpl,EXCLUSIVO Colecturía / Administración,y_incumplimiento_futuro,ROJO,14,5.8,10,60.7,71.4,45.4,88.3,10.7
+4_Semaforo_Pagos_Colecturia_Cronica,EXCLUSIVO Colecturía / Administración,y_dos_incumpl_futuros,VERDE,72,30.0,0,6.2,0.0,0.0,5.1,6.2
+4_Semaforo_Pagos_Colecturia_Cronica,EXCLUSIVO Colecturía / Administración,y_dos_incumpl_futuros,AMARILLO,120,50.0,10,6.9,8.3,4.6,14.7,1.4
+4_Semaforo_Pagos_Colecturia_Cronica,EXCLUSIVO Colecturía / Administración,y_dos_incumpl_futuros,NARANJA,34,14.2,9,18.5,26.5,14.6,43.1,8.0
+4_Semaforo_Pagos_Colecturia_Cronica,EXCLUSIVO Colecturía / Administración,y_dos_incumpl_futuros,ROJO,14,5.8,5,35.9,35.7,16.3,61.2,0.2
+5_Semaforo_PreIngreso_Educativo_M1,Admisión Pedagógica / DECE Día 1,y_reprobacion_q2,VERDE,127,52.9,7,5.8,5.5,2.7,10.9,0.3
+5_Semaforo_PreIngreso_Educativo_M1,Admisión Pedagógica / DECE Día 1,y_reprobacion_q2,AMARILLO,36,15.0,6,22.5,16.7,7.9,31.9,5.8
+5_Semaforo_PreIngreso_Educativo_M1,Admisión Pedagógica / DECE Día 1,y_reprobacion_q2,NARANJA,29,12.1,14,46.5,48.3,31.4,65.6,1.8
+5_Semaforo_PreIngreso_Educativo_M1,Admisión Pedagógica / DECE Día 1,y_reprobacion_q2,ROJO,48,20.0,44,87.3,91.7,80.4,96.7,4.3
+6_Semaforo_PreIngreso_Financiero_M1,EXCLUSIVO Admisiones / Colecturía,y_incumplimiento_futuro,VERDE,69,28.8,17,23.5,24.6,16.0,36.0,1.1
+6_Semaforo_PreIngreso_Financiero_M1,EXCLUSIVO Admisiones / Colecturía,y_incumplimiento_futuro,AMARILLO,139,57.9,38,29.4,27.3,20.6,35.3,2.0
+6_Semaforo_PreIngreso_Financiero_M1,EXCLUSIVO Admisiones / Colecturía,y_incumplimiento_futuro,ROJO,32,13.3,17,48.1,53.1,36.4,69.1,5.0
+7_Semaforo_PreIngreso_Fin_Cronica_M1,EXCLUSIVO Admisiones / Colecturía,y_dos_incumpl_futuros,VERDE,69,28.8,2,7.0,2.9,0.8,10.0,4.1
+7_Semaforo_PreIngreso_Fin_Cronica_M1,EXCLUSIVO Admisiones / Colecturía,y_dos_incumpl_futuros,AMARILLO,139,57.9,11,8.3,7.9,4.5,13.6,0.4
+7_Semaforo_PreIngreso_Fin_Cronica_M1,EXCLUSIVO Admisiones / Colecturía,y_dos_incumpl_futuros,ROJO,32,13.3,11,23.7,34.4,20.4,51.7,10.7

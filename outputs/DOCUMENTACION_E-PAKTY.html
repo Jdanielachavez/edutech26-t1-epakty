@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E-Pakty · Cómo funciona todo</title>
+<style>
+ :root{
+  --tinta:#211B2D;--tinta2:#4A4358;--muted:#6b6783;--linea:#E7E3F0;
+  --papel:#FBFAFE;--papel2:#F3F0FB;--wash:#EDE7FF;
+  --mor:#5B36B4;--mor2:#4A2A99;--sol:#F5C84C;--sol-ink:#8A5A00;
+  --rojo:#B9384A;--rojo-bg:#FBEAEC;--verde:#287A5A;--verde-bg:#E7F6EF;
+  --naranja:#A94A06;--naranja-bg:#FFEFC4;
+ }
+ *{box-sizing:border-box}
+ html,body{margin:0;padding:0;background:var(--papel);color:var(--tinta);
+  font:400 16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased}
+ ::selection{background:var(--sol);color:var(--tinta)}
+ a{color:var(--mor);text-underline-offset:3px}
+ .wrap{max-width:900px;margin:0 auto;padding:48px 24px 120px}
+ header{border-bottom:1px solid var(--linea);padding-bottom:28px;margin-bottom:40px}
+ header .kicker{font:600 12px/1 -apple-system;letter-spacing:.18em;text-transform:uppercase;color:var(--mor);margin-bottom:14px}
+ h1{font:700 44px/1.08 -apple-system,"Segoe UI",sans-serif;letter-spacing:-.025em;margin:0 0 10px}
+ h1 em{font-style:normal;background:linear-gradient(transparent 60%,var(--sol) 60% 92%,transparent 92%);padding:0 .1em}
+ .lede{font-size:18px;color:var(--tinta2);max-width:68ch}
+ h2{font:700 28px/1.2 -apple-system;letter-spacing:-.015em;margin:56px 0 14px;padding-top:4px}
+ h3{font:650 20px/1.25 -apple-system;letter-spacing:-.005em;margin:32px 0 10px}
+ p{margin:0 0 14px;max-width:72ch}
+ .toc{background:var(--papel2);border:1px solid var(--linea);border-radius:14px;padding:18px 22px;margin:28px 0 24px}
+ .toc b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+ .toc ol{margin:0;padding-left:20px;columns:2;column-gap:28px}
+ .toc li{margin:4px 0;break-inside:avoid}
+ .toc a{color:var(--tinta);text-decoration:none}
+ .toc a:hover{color:var(--mor);text-decoration:underline}
+ .card{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:20px 24px;margin:18px 0}
+ .card.callout{border-left:4px solid var(--mor);background:var(--wash);border-color:var(--wash)}
+ .card.warn{border-left:4px solid var(--naranja);background:var(--naranja-bg)}
+ .card.ok{border-left:4px solid var(--verde);background:var(--verde-bg)}
+ table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+ th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linea);vertical-align:top}
+ th{background:var(--papel2);font-weight:650;font-size:13px;color:var(--tinta2);letter-spacing:.02em}
+ code{background:var(--papel2);border:1px solid var(--linea);border-radius:6px;padding:1px 6px;font:500 13.5px "SF Mono",ui-monospace,Menlo,monospace;color:var(--mor2)}
+ pre{background:var(--tinta);color:#F2EEFF;border-radius:12px;padding:18px 20px;overflow:auto;font:500 13px/1.6 "SF Mono",ui-monospace,Menlo,monospace;margin:14px 0}
+ .pill{display:inline-block;padding:2px 10px;border-radius:99px;font:600 12px -apple-system;letter-spacing:.02em}
+ .pill-ac{background:var(--wash);color:var(--mor2)}
+ .pill-co{background:var(--naranja-bg);color:var(--sol-ink)}
+ .pill-fi{background:var(--rojo-bg);color:var(--rojo)}
+ .pill-ok{background:var(--verde-bg);color:var(--verde)}
+ .num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--mor);color:#fff;align-items:center;justify-content:center;font:700 14px -apple-system;margin-right:10px;vertical-align:middle}
+ .flujo{display:grid;gap:14px;margin:18px 0}
+ .paso{display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 20px}
+ .paso .n{width:32px;height:32px;border-radius:50%;background:var(--mor);color:#fff;display:grid;place-items:center;font:700 15px -apple-system}
+ .paso b{display:block;font-size:17px;margin-bottom:4px}
+ .paso small{color:var(--muted);font-size:13.5px;display:block;margin-top:6px}
+ ul.ticks{list-style:none;padding:0;margin:10px 0}
+ ul.ticks li{padding-left:26px;position:relative;margin:6px 0}
+ ul.ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--verde);font-weight:700}
+ ul.crosses{list-style:none;padding:0;margin:10px 0}
+ ul.crosses li{padding-left:26px;position:relative;margin:6px 0}
+ ul.crosses li::before{content:"✕";position:absolute;left:0;top:0;color:var(--rojo);font-weight:700}
+ .k2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+ .arrow{text-align:center;color:var(--muted);margin:4px 0;font-size:14px}
+ hr{border:0;border-top:1px solid var(--linea);margin:48px 0 0}
+ footer{color:var(--muted);font-size:13.5px;margin-top:28px;padding-top:20px;border-top:1px solid var(--linea)}
+ @media (max-width:700px){h1{font-size:34px}.toc ol{columns:1}.k2{grid-template-columns:1fr}}
+ @media print{.toc,header .kicker{page-break-after:avoid}body{background:#fff}.card{break-inside:avoid}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+ <div class="kicker">E-Pakty · Documentación interna</div>
+ <h1>Cómo funciona <em>E-Pakty</em> de principio a fin.</h1>
+ <p class="lede">Este documento explica todo: qué hace el sistema, qué modelos usa, cómo llegan los datos del colegio hasta cada pantalla, cómo se envían los avisos a las familias, quién ve qué, y cómo se conecta con el motor de predicción y con n8n. Está pensado para que cualquiera del equipo pueda leerlo y entender el producto en una tarde.</p>
+</header>
+
+<nav class="toc">
+ <b>Índice</b>
+ <ol>
+  <li><a href="#que">Qué es E-Pakty, en una línea</a></li>
+  <li><a href="#partes">Las cuatro partes del sistema</a></li>
+  <li><a href="#flujo">El flujo completo, paso a paso</a></li>
+  <li><a href="#modelos">Los modelos: qué miran y qué calculan</a></li>
+  <li><a href="#semaforo">Cómo nace el semáforo</a></li>
+  <li><a href="#usuarios">Usuarios: cómo se crean y quién ve qué</a></li>
+  <li><a href="#roles">Lo que ve cada rol, en detalle</a></li>
+  <li><a href="#motor">El motor de Wilo: cómo se conecta</a></li>
+  <li><a href="#n8n">n8n y los avisos</a></li>
+  <li><a href="#ia">La IA: dónde sí y dónde no</a></li>
+  <li><a href="#datos">Qué datos se guardan y dónde</a></li>
+  <li><a href="#privacidad">Privacidad y confidencialidad</a></li>
+ </ol>
+</nav>
+
+<!-- ============================================================= -->
+<h2 id="que">1. Qué es E-Pakty, en una línea</h2>
+<p><strong>E-Pakty une la asistencia, las notas, las pensiones y el contexto de cada estudiante, y le dice a cada integrante del colegio a quién acompañar primero y cómo.</strong></p>
+
+<p>No reemplaza al docente, ni al DECE, ni al rector. Es un copiloto: ordena la información que el colegio ya tiene y la convierte en una lista de prioridades con una razón. La decisión siempre la toma una persona.</p>
+
+<div class="card ok">
+ <b>Tres cosas que sí hace</b>
+ <ul class="ticks">
+  <li>Ordena cada día a quién acompañar primero, con un semáforo y una explicación en palabras.</li>
+  <li>Prepara un borrador de mensaje para la familia, que una persona aprueba antes de enviarse.</li>
+  <li>Registra lo que se hizo con cada estudiante, para que no se pierda la historia del acompañamiento.</li>
+ </ul>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="partes">2. Las cuatro partes del sistema</h2>
+
+<p>E-Pakty vive en cuatro lugares que se hablan entre sí. Entender dónde está cada cosa ayuda a diagnosticar cualquier problema.</p>
+
+<div class="card">
+<table>
+<tr><th>Parte</th><th>Dónde está</th><th>Para qué sirve</th></tr>
+<tr>
+ <td><strong>Portal del colegio</strong></td>
+ <td><code>ed.paktai-ec.com</code> (Vercel)</td>
+ <td>Lo que ven los usuarios. Pantallas, inicio de sesión, carga de archivos, fichas, informes. Es un sitio estático con JavaScript.</td>
+</tr>
+<tr>
+ <td><strong>API (el cerebro)</strong></td>
+ <td>Mismo dominio, ruta <code>/api/v1/…</code>. Hecha en Python con FastAPI.</td>
+ <td>Recibe las peticiones del portal, valida los datos, aplica permisos por rol, guarda y lee de la base, y habla con el motor y con n8n.</td>
+</tr>
+<tr>
+ <td><strong>Base de datos</strong></td>
+ <td>Supabase (PostgreSQL con TLS).</td>
+ <td>Guarda: cuentas de usuario, trabajos de carga, resultados por estudiante, notas de seguimiento, bitácora de envíos, auditoría.</td>
+</tr>
+<tr>
+ <td><strong>Motor predictivo</strong></td>
+ <td>Servidor del equipo de Wilo (PyTorch), accesible por un túnel Cloudflare.</td>
+ <td>Es la caja que calcula los riesgos finos a partir de los seis archivos. Devuelve el porcentaje por estudiante y los factores que pesan.</td>
+</tr>
+<tr>
+ <td><strong>n8n</strong></td>
+ <td>Instancia de n8n con un webhook por tipo de evento.</td>
+ <td>Envía los mensajes a las familias y a los docentes, lee las fotos de exámenes con Amazon Nova Lite, y devuelve el acuse al sistema.</td>
+</tr>
+</table>
+</div>
+
+<p>Tres de los cinco son nuestros (portal, API, base). Dos son externos (motor de Wilo, n8n). Los externos pueden caerse: cuando eso pasa, el portal lo detecta y lo muestra con un semáforo propio en <em>Integraciones</em>.</p>
+
+<!-- ============================================================= -->
+<h2 id="flujo">3. El flujo completo, paso a paso</h2>
+
+<p>Este es el viaje de un dato desde que un rector sube el archivo hasta que la familia recibe el mensaje. Si entiendes esto, entiendes el sistema.</p>
+
+<div class="flujo">
+
+ <div class="paso"><span class="n">1</span><div>
+  <b>El colegio exporta seis archivos CSV</b>
+  <small><strong>Quién:</strong> rector o administrador del colegio.</small>
+  <p>Los seis archivos son <code>estudiantes.csv</code>, <code>docentes.csv</code>, <code>asistencia.csv</code>, <code>notas.csv</code>, <code>pensiones.csv</code> y <code>horarios.csv</code>. Vienen de los sistemas que el colegio ya usa: su sistema académico, el registro de asistencia, Colecturía. Si no tiene un sistema, se exportan desde las hojas de cálculo.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">2</span><div>
+  <b>Los sube al portal y confirma la autorización</b>
+  <small><strong>Dónde:</strong> <em>Carga de datos</em> en el menú de administración.</small>
+  <p>El portal detecta los nombres, marca en verde los seis cuadros, y abre un botón "Cargar y analizar". Antes hay que marcar una casilla que confirma que el colegio autorizó a subir esos datos. Si falta un archivo o sobra otro, el portal lo dice antes de enviar nada.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">3</span><div>
+  <b>La API recibe los archivos y crea un "trabajo"</b>
+  <small><strong>Endpoint:</strong> <code>POST /api/v1/pipeline/batch</code>.</small>
+  <p>Cada carga se convierte en un <strong>trabajo</strong> con un identificador único. El portal se queda preguntando por ese identificador cada dos segundos para saber en qué etapa va: en cola, procesando, completado, con error.</p>
+  <p>El identificador también sirve para evitar que una red mala duplique la carga: si el mismo trabajo llega dos veces, la segunda devuelve el resultado del primero.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">4</span><div>
+  <b>Un proceso en segundo plano revisa los seis archivos</b>
+  <small><strong>Dónde:</strong> <code>backend/production/worker.py</code>.</small>
+  <p>El <em>worker</em> es el obrero del sistema. Lee cada CSV, comprueba columnas, tipos, duplicados y rangos razonables (una nota entre 0 y 10, un porcentaje entre 0 y 100). Si algo está mal, marca el trabajo como <code>FAILED</code> y devuelve un mensaje humano: "falta la columna X" o "la fila 43 tiene una nota de 15".</p>
+  <p>Si todo está bien, el worker arma dos paquetes:</p>
+  <ul>
+   <li><strong>Paquete para el motor de Wilo</strong>: los seis CSV tal cual, para que su PyTorch los procese.</li>
+   <li><strong>Paquete para nuestra base</strong>: los datos silver (limpios y agrupados), que guardamos para seguimiento y auditoría.</li>
+  </ul>
+ </div></div>
+
+ <div class="paso"><span class="n">5</span><div>
+  <b>Habla con el motor de Wilo por el túnel</b>
+  <small><strong>Endpoint del motor:</strong> <code>POST /api/v1/ingestion/upload-csv</code>.</small>
+  <p>La API envía los seis CSV al motor en <code>multipart/form-data</code>. El motor acepta con <code>202</code>, le da un identificador propio, y arranca su cálculo. El worker lo consulta cada 2 segundos hasta que termina (máximo 2 minutos de espera).</p>
+  <p>Cada petición al motor viaja con tres encabezados que lo identifican:</p>
+<pre>X-Epakti-Engine-Key: epk_live_...
+Authorization: Bearer ROLE:RECTORADO
+X-School-Id: SCH-PRUEBA-EQUIPO</pre>
+  <p>Si el motor no responde (su PC apagada, el túnel cambió de dirección), el worker reintenta cinco veces con una espera que va de 30 segundos a 8 minutos. Si aun así no vuelve, marca el trabajo como "en espera del motor" y lo reintentará solo cuando vuelva.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">6</span><div>
+  <b>El motor devuelve el porcentaje y los factores por estudiante</b>
+  <small><strong>Qué devuelve:</strong> JSON con el riesgo y los aportes.</small>
+  <p>Para cada estudiante, el motor devuelve:</p>
+  <ul>
+   <li>El <strong>porcentaje de riesgo</strong> (0 a 100).</li>
+   <li>Los <strong>factores que más pesan</strong> (sus faltas, sus notas, cambio de ciclo, zona del colegio, apoyos que necesita).</li>
+   <li>El <strong>semáforo</strong> (rojo, naranja, amarillo, verde), según en qué parte del colegio queda.</li>
+  </ul>
+ </div></div>
+
+ <div class="paso"><span class="n">7</span><div>
+  <b>La API guarda los resultados y los expone por las pantallas</b>
+  <small><strong>Endpoints que lee el portal:</strong> <code>/api/v1/models/risk</code>, <code>/models/explain/&lt;id&gt;</code>, <code>/dashboard/…</code>.</small>
+  <p>A partir de aquí todo es rápido. El portal pide lo que necesita por rol:</p>
+  <ul>
+   <li>Un tutor pide la lista de <strong>su</strong> paralelo.</li>
+   <li>Rectoría pide toda la escuela.</li>
+   <li>Colecturía pide solo lo de pagos.</li>
+  </ul>
+ </div></div>
+
+ <div class="paso"><span class="n">8</span><div>
+  <b>Se abre un caso y se prepara el mensaje</b>
+  <small><strong>Quién:</strong> DECE, docente tutor o Rectoría.</small>
+  <p>Cuando alguien abre la ficha de un estudiante y pulsa "Crear intervención", la API manda un evento a n8n: un borrador va a la IA (Amazon Nova Lite, a través de n8n) que escribe el mensaje a la familia siguiendo un formato fijo. El borrador queda listo para revisión.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">9</span><div>
+  <b>Una persona revisa, edita si hace falta, y aprueba</b>
+  <small><strong>Nunca</strong> se envía sin esta aprobación.</small>
+  <p>El mensaje nunca va directo a la familia. Siempre una persona del colegio lo revisa, lo puede editar, y da el visto bueno. Queda registrado quién lo aprobó y cuándo. Esto es un requisito de nuestro compromiso con el uso responsable de la IA.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">10</span><div>
+  <b>n8n entrega el mensaje y devuelve el acuse</b>
+  <small><strong>Canales:</strong> correo electrónico y WhatsApp.</small>
+  <p>n8n envía el mensaje (SMTP para correo, API de WhatsApp Business para el móvil). Cuando llega, hace una petición de vuelta a nuestra API: "este mensaje llegó a esta hora". El sistema lo registra en la bitácora.</p>
+ </div></div>
+
+ <div class="paso"><span class="n">11</span><div>
+  <b>El seguimiento no termina ahí</b>
+  <small><strong>Dónde:</strong> <em>Seguimiento</em> y <em>Casos e intervenciones</em>.</small>
+  <p>Cada caso pasa por etapas: <em>Identificado → Docente avisado → Reunión con la familia → Cerrado</em>. El equipo escribe notas, registra llamadas y tutorías. Todo esto queda en la ficha del estudiante y se usa para armar el <em>Informe de seguimiento</em> que ve Rectoría.</p>
+ </div></div>
+
+</div>
+
+<!-- ============================================================= -->
+<h2 id="modelos">4. Los modelos: qué miran y qué calculan</h2>
+
+<p>El motor de predicción no es una caja negra. Es un <strong>modelo logístico</strong>, lo que significa que cada factor suma o resta riesgo de forma transparente, y cualquiera puede rehacer la cuenta a mano si quiere.</p>
+
+<h3>Los 11 factores que mira el modelo</h3>
+<div class="card">
+<table>
+ <tr><th>Grupo</th><th>Factor</th><th>Qué significa</th></tr>
+ <tr><td rowspan="6"><span class="pill pill-ac">Notas y aprendizaje</span></td><td>Notas bajas</td><td>Promedio por debajo de 7,5.</td></tr>
+ <tr><td>Caída reciente</td><td>Le bajaron las notas en el último corte.</td></tr>
+ <tr><td>Más edad que el curso</td><td>Está en un grado para una edad menor que la suya.</td></tr>
+ <tr><td>Cambio de ciclo</td><td>Está en un momento de transición importante (de EGB a BGU).</td></tr>
+ <tr><td>Necesita apoyos</td><td>Tiene necesidad educativa especial.</td></tr>
+ <tr><td>Dificultad general</td><td>Qué tanto se reprueba en sus materias (contexto del aula).</td></tr>
+ <tr><td rowspan="3"><span class="pill pill-co">Faltas y bienestar</span></td><td>Faltas sin justificar</td><td>Porcentaje de clases a las que no asistió.</td></tr>
+ <tr><td>Rachas</td><td>Faltó varios días seguidos.</td></tr>
+ <tr><td>Bienestar bajo</td><td>Dice sentirse mal (encuestas internas).</td></tr>
+ <tr><td rowspan="2"><span class="pill pill-fi">Pagos</span></td><td>Pensiones atrasadas</td><td>Cuántos meses lleva sin pagar.</td></tr>
+ <tr><td>Apuro de dinero</td><td>Un golpe reciente en los pagos (por ejemplo, de puntual a atrasado).</td></tr>
+</table>
+</div>
+
+<h3>Cómo se calcula el riesgo</h3>
+<p>Para cada estudiante, el modelo suma el aporte de los 11 factores. El resultado se convierte en una probabilidad entre 0 y 100 %. En palabras:</p>
+
+<pre>riesgo = cuánto se aleja este estudiante
+         del estudiante promedio de su colegio,
+         teniendo en cuenta los 11 factores
+         y la zona donde está el colegio.</pre>
+
+<h3>Tres modelos, no uno</h3>
+<p>El motor en realidad corre tres modelos complementarios para cada estudiante:</p>
+<div class="card">
+<table>
+ <tr><th>Modelo</th><th>Qué responde</th><th>Quién lo ve</th></tr>
+ <tr><td><strong>Permanencia</strong></td><td>¿Qué tan probable es que este estudiante deje el colegio este año?</td><td>Rectoría, DECE, tutor, Inspección.</td></tr>
+ <tr><td><strong>Académico Q2</strong></td><td>¿Qué tan probable es que pierda el segundo quimestre?</td><td>Rectoría, DECE, tutor, Inspección.</td></tr>
+ <tr><td><strong>Morosidad</strong></td><td>¿Qué tan probable es que la familia se atrase en el próximo pago?</td><td>Solo Rectoría y Colecturía.</td></tr>
+</table>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="semaforo">5. Cómo nace el semáforo</h2>
+
+<p>Los colores no son fijos. Salen del propio colegio: comparan a cada estudiante con los demás de su colegio, no con otros.</p>
+
+<div class="card">
+<table>
+ <tr><th>Color</th><th>Umbral</th><th>Significado</th></tr>
+ <tr><td><strong>Rojo</strong></td><td>El 5 % con más riesgo</td><td>Intervención prioritaria.</td></tr>
+ <tr><td><strong>Naranja</strong></td><td>El 15 % siguiente</td><td>Apoyo focalizado.</td></tr>
+ <tr><td><strong>Amarillo</strong></td><td>El 20 % siguiente</td><td>Observación preventiva.</td></tr>
+ <tr><td><strong>Verde</strong></td><td>El 60 % restante</td><td>Acompañamiento regular.</td></tr>
+</table>
+</div>
+
+<p>Esto es importante: <strong>si un colegio es excelente, el "rojo" aquí sigue siendo mejor que el "verde" de otro</strong>. El semáforo no dice si el estudiante va mal en términos absolutos; dice <em>a quién hay que atender primero dentro de este colegio</em>.</p>
+
+<p>Para ajustar la media del colegio a la realidad del país, el motor lo compara con la tasa oficial del Ministerio (AMIE). Esto no cambia el orden de los estudiantes: solo mueve el "cero" de referencia para que los porcentajes tengan sentido.</p>
+
+<!-- ============================================================= -->
+<h2 id="usuarios">6. Usuarios: cómo se crean y quién ve qué</h2>
+
+<p>Las cuentas se crean desde <em>Configuración · Usuarios</em>, con el rol de administración. Para cada cuenta hace falta:</p>
+<ul>
+ <li>Un <strong>usuario</strong> (minúsculas, sin espacios). Es con lo que esa persona iniciará sesión.</li>
+ <li>El <strong>nombre</strong> de la persona.</li>
+ <li>El <strong>rol</strong> (ver la tabla de abajo).</li>
+ <li>Si el rol es <em>Docente tutor</em>, el <strong>paralelo que lleva</strong>, elegido de una lista de los paralelos que ya hay en los datos.</li>
+ <li>La <strong>contraseña</strong>: si se deja vacía, E-Pakty genera una temporal; la persona la cambia al entrar por primera vez.</li>
+</ul>
+
+<p>Las contraseñas no se guardan en claro: se guarda un <em>hash</em> con <code>scrypt</code> (sal aleatoria por usuario). Ni siquiera el administrador puede verlas.</p>
+
+<p>Cada sesión dura 8 horas. Después de eso hay que volver a entrar.</p>
+
+<h3>Los roles disponibles</h3>
+<div class="card">
+<table>
+ <tr><th>Rol</th><th>Para quién</th><th>Alcance</th></tr>
+ <tr><td><strong>Administración</strong></td><td>Director, coordinador TIC</td><td>Todo. También crea cuentas y sube datos.</td></tr>
+ <tr><td><strong>Rectoría</strong></td><td>Rector, vicerrector</td><td>Todo el colegio, incluyendo pagos.</td></tr>
+ <tr><td><strong>DECE</strong></td><td>Equipo de Consejería Estudiantil</td><td>Bienestar, inclusión, casos. <em>No</em> ve pagos.</td></tr>
+ <tr><td><strong>Docente tutor</strong></td><td>Tutor de un paralelo</td><td>Solo su paralelo. <em>No</em> ve pagos.</td></tr>
+ <tr><td><strong>Inspección</strong></td><td>Inspector general</td><td>Asistencia y horarios. <em>No</em> ve pagos ni diagnósticos.</td></tr>
+ <tr><td><strong>Colecturía</strong></td><td>Encargado de pagos</td><td>Solo pagos. <em>No</em> ve notas ni diagnósticos.</td></tr>
+ <tr><td><strong>Admisiones</strong></td><td>Encargado de nuevos ingresos</td><td>Solo postulantes.</td></tr>
+</table>
+</div>
+
+<p>Además hay cuentas internas de E-Pakty (CEO, MLOps, DS, CS) que ven las pantallas de método y de operación del producto, no las pantallas del colegio.</p>
+
+<!-- ============================================================= -->
+<h2 id="roles">7. Lo que ve cada rol, en detalle</h2>
+
+<div class="card">
+<table>
+ <tr><th>Pantalla</th><th>Rect.</th><th>DECE</th><th>Tutor</th><th>Insp.</th><th>Colec.</th></tr>
+ <tr><td>Mi aula</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td></tr>
+ <tr><td>A quién acompañar primero</td><td>✓</td><td>✓</td><td>su paralelo</td><td>✓</td><td>✓</td></tr>
+ <tr><td>Resumen de Rectoría</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+ <tr><td>Semáforo pedagógico</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+ <tr><td>DECE e inclusión</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+ <tr><td>Colecturía</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+ <tr><td>Docentes y horarios</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>—</td></tr>
+ <tr><td>Admisiones</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>✓</td></tr>
+ <tr><td>Casos e intervenciones</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+ <tr><td>Seguimiento</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+ <tr><td>Evaluaciones (análisis pedagógico)</td><td>✓</td><td>—</td><td>✓</td><td>✓</td><td>—</td></tr>
+ <tr><td>Informe de seguimiento</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+ <tr><td>Carga de datos</td><td>solo admin</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+</table>
+</div>
+
+<p>El DECE <strong>no</strong> ve evaluaciones académicas porque su rol es acompañar el bienestar; el análisis de qué preguntas falló un curso es trabajo pedagógico del docente y de Inspección.</p>
+
+<p>El tutor <strong>solo</strong> ve a los estudiantes de su paralelo, elegido al crear la cuenta. Esto se verifica en el servidor: si alguien intenta pedir otro paralelo por la ruta directa, la API devuelve 403.</p>
+
+<!-- ============================================================= -->
+<h2 id="motor">8. El motor de Wilo: cómo se conecta</h2>
+
+<p>El motor predictivo lo mantiene el equipo de Wilo, en PyTorch. Para que nuestro sistema le hable, hay tres cosas configuradas como variables de entorno en Vercel:</p>
+
+<pre>EPAKTI_ENGINE_BASE_URL=https://....trycloudflare.com/api/v1
+EPAKTI_ENGINE_API_KEY=epk_live_...
+EPAKTI_SCHOOL_ID=SCH-PRUEBA-EQUIPO</pre>
+
+<p>La URL cambia cada vez que Wilo reinicia su PC (es un túnel rápido de Cloudflare). Por eso hay un script, <code>scripts/vercel_motor.sh</code>, que:</p>
+<ol>
+ <li>Comprueba que la nueva URL responda <code>/health</code>.</li>
+ <li>Si no responde, no cambia nada en producción.</li>
+ <li>Si responde, actualiza las tres variables en Vercel y despliega.</li>
+</ol>
+
+<p>El portal muestra en <em>Integraciones</em> (solo administración y E-Pakty) el estado de cada ruta del motor. Si el motor está caído, el rol de rectoría sigue pudiendo abrir las pantallas con los últimos resultados calculados; solo las cargas nuevas esperan a que vuelva.</p>
+
+<h3>Idempotencia: por qué la carga no se duplica</h3>
+<p>Cada carga tiene un identificador único. Si la red interrumpe el envío y el portal reintenta, el motor reconoce el identificador repetido y devuelve el resultado anterior en vez de reprocesar. Además, el portal calcula un identificador a partir del <em>contenido</em> de los seis archivos: subir dos veces los mismos archivos no genera dos trabajos.</p>
+
+<!-- ============================================================= -->
+<h2 id="n8n">9. n8n y los avisos</h2>
+
+<p>n8n es nuestra pieza de mensajería y de automatizaciones. Está separado del portal por una razón: así los administradores de colegios pueden cambiar cómo se envía un mensaje sin tocar el código.</p>
+
+<p>Cada tipo de evento tiene un webhook propio en n8n:</p>
+
+<div class="card">
+<table>
+ <tr><th>Evento</th><th>Webhook</th><th>Qué hace</th></tr>
+ <tr><td>Alerta a la familia</td><td><code>paktai-alerta</code></td><td>Recibe el borrador aprobado y arma la cadena de envío.</td></tr>
+ <tr><td>Entrega por correo</td><td><code>epakti-entrega-familia</code></td><td>Envía por SMTP y devuelve el acuse.</td></tr>
+ <tr><td>Entrega por WhatsApp</td><td><code>epakti-entrega-familia</code></td><td>Usa el mismo flujo con el canal de WhatsApp Business.</td></tr>
+ <tr><td>Aviso al docente</td><td><code>epakti-aviso-docente</code></td><td>Correo interno con el nombre del estudiante en seguimiento.</td></tr>
+ <tr><td>Lectura de exámenes</td><td><code>epakti-examen-ocr</code></td><td>Recibe fotos y las pasa por Amazon Nova Lite para extraer notas.</td></tr>
+ <tr><td>Contacto de la landing</td><td><code>epakti-contacto-lead</code></td><td>El formulario "Agenda una reunión" cae aquí.</td></tr>
+ <tr><td>Errores</td><td><code>epakti-errores</code></td><td>Cuando algo falla, el sistema avisa aquí.</td></tr>
+</table>
+</div>
+
+<p>Cada petición va firmada: el portal firma el cuerpo con HMAC-SHA256 y un secreto compartido. n8n comprueba la firma antes de ejecutar nada. Sin eso, cualquiera que descubriera la dirección del webhook podría enviar mensajes en nombre del colegio.</p>
+
+<h3>Si n8n se cae</h3>
+<p>No se pierde nada. Los mensajes a enviar se guardan en una <em>bandeja de salida</em> en la base, con un contador de intentos. La API reintenta cinco veces con una espera creciente (30 s, 1 min, 2 min, 4 min, 8 min). Si aun así no vuelve, el mensaje queda como "dead letter" y se puede reenviar a mano desde administración.</p>
+
+<!-- ============================================================= -->
+<h2 id="ia">10. La IA: dónde sí y dónde no</h2>
+
+<p>Hay dos lugares donde el sistema usa IA, y conviene tenerlos claros:</p>
+
+<div class="k2">
+<div class="card">
+<h3 style="margin-top:0">Donde SÍ</h3>
+<ul class="ticks">
+ <li><strong>Redacción de borradores</strong> para las familias. Amazon Nova Lite, llamado desde n8n, con un formato fijo. El borrador siempre lo aprueba una persona.</li>
+ <li><strong>Lectura de exámenes</strong> en el módulo de evaluaciones. El mismo modelo lee las fotos de los exámenes calificados y arma un resumen de qué preguntas se fallaron más.</li>
+ <li><strong>Reescritura simple</strong> del informe del estudiante en palabras aún más claras, a petición del docente. No cambia los números, solo mejora el texto.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">Donde NO</h3>
+<ul class="crosses">
+ <li>En el <strong>cálculo del riesgo</strong>. Ese es el motor de Wilo, que es estadístico y auditable. La IA no decide quién está en rojo.</li>
+ <li>En el <strong>envío</strong>. Nada sale sin que una persona del colegio apruebe el mensaje.</li>
+ <li>En las <strong>decisiones sobre un estudiante</strong>. Si un modelo se equivoca, el responsable es el equipo del colegio, no la máquina.</li>
+</ul>
+</div>
+</div>
+
+<p>Las entradas que mandamos a la IA están filtradas: nunca van nombres de familias, ni datos de pagos, ni claves. Lo que llega a Amazon Nova Lite es un expediente pedagógico con códigos, no personas.</p>
+
+<!-- ============================================================= -->
+<h2 id="datos">11. Qué datos se guardan y dónde</h2>
+
+<p>La base de datos está en Supabase, PostgreSQL con TLS. Estos son los esquemas más importantes:</p>
+
+<div class="card">
+<table>
+ <tr><th>Tabla</th><th>Para qué</th></tr>
+ <tr><td><code>users</code></td><td>Cuentas del colegio. Guarda usuario, hash de clave, rol, paralelo (si es tutor), estado activo.</td></tr>
+ <tr><td><code>pipeline_runs</code></td><td>Cada carga de los seis CSV. Tiene estado, fecha, identificador, resultado del motor, errores.</td></tr>
+ <tr><td><code>risk_results</code></td><td>Resultado por estudiante: semáforo, factores, porcentaje. Se renueva con cada carga.</td></tr>
+ <tr><td><code>cases</code></td><td>Casos abiertos. Estado actual, responsable, historial.</td></tr>
+ <tr><td><code>case_notes</code></td><td>Notas de seguimiento. Nunca se editan ni se borran: queda la firma de quién escribió qué.</td></tr>
+ <tr><td><code>outbox</code></td><td>Bandeja de salida: cada mensaje pendiente de enviar a n8n, con número de intentos.</td></tr>
+ <tr><td><code>outbox_log</code></td><td>Bitácora de todos los envíos exitosos y fallidos, con respuesta del canal.</td></tr>
+ <tr><td><code>audit_log</code></td><td>Quién hizo qué y cuándo. Cada acción sensible queda registrada.</td></tr>
+</table>
+</div>
+
+<p>PostgreSQL con <strong>Row Level Security</strong>: aunque alguien lograra ejecutar una consulta directamente en la base, solo vería las filas que su rol permite.</p>
+
+<!-- ============================================================= -->
+<h2 id="privacidad">12. Privacidad y confidencialidad</h2>
+
+<div class="card ok">
+<ul class="ticks">
+ <li>Las contraseñas no se almacenan en claro, solo su hash.</li>
+ <li>Las conexiones son HTTPS con TLS.</li>
+ <li>El acceso por rol se aplica en el servidor, no solo en el portal.</li>
+ <li>El DECE no ve pagos. Colecturía no ve notas ni diagnósticos. Esto es un principio que cumple con la LOPDP ecuatoriana.</li>
+ <li>La IA no recibe nombres de las familias ni datos económicos.</li>
+ <li>Cada acción sensible queda en la bitácora de auditoría.</li>
+ <li>Las cargas al motor no incluyen nombres de representantes: van con códigos.</li>
+</ul>
+</div>
+
+<p>Para el pool de datos que mejora el modelo con el tiempo, lo que se guarda está <strong>anonimizado</strong>: se agrupa de forma que ninguna fila pueda señalar a una persona. Esto es lo que vas a ver en la pantalla "Datos sin nombres" (visible solo para E-Pakty).</p>
+
+<footer>
+ <p><strong>E-Pakty — acompañamiento académico de calidad, con personas al centro.</strong><br>
+ Documento de referencia interna. La fuente de verdad del software es el código del repositorio y las pantallas en <code>ed.paktai-ec.com</code>.</p>
+</footer>
+
+</div>
+</body>
+</html>

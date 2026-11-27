@@ -1,0 +1,88 @@
+{
+  "arquitectura_mlops_saas": {
+    "nivel_0_backbone_nacional": "Re-entrenamiento anual con MINEDUC AMIE (1,76M alumnos) + INEC Censo 2022 + ENEMDU + INEVAL.",
+    "nivel_1_red_multicolegio_lopdp": "Re-entrenamiento trimestral sobre vectores pseudonimizados (CERO nombres, CERO cédulas, CERO PII; solo rasgos numéricos + DPA/AMIE) de todos los colegios suscritos.",
+    "nivel_2_adaptador_colegio_empirical_bayes": "Ajuste personalizado por plantel k con encogimiento Bayesiano lambda_k = n_k / (n_k + 120): Día 1 (n=0) usa 100% la red nacional; tras 1 ciclo personaliza intercepto y umbrales sin perder monotonicidad.",
+    "control_privacidad_rbac_lopdp": "Separación estricta de tablas: Docentes/DECE ven solo Semáforo Pedagógico y Permanencia; Colecturía ve solo Semáforo de Pagos. Anonimización k-anónima antes de ingresar al Data Lake de re-entrenamiento."
+  },
+  "candados_promocion_champion_challenger": [
+    "Candado 1 (Coherencia Econométrica): 100 % de variables con signo teórico positivo y VIF <= 5,0.",
+    "Candado 2 (Desempeño Out-of-School): Challenger debe superar o igualar al Champion en AP, ROC-AUC y menor Brier Score en validación agrupada por colegio y por familia.",
+    "Candado 3 (Calibración de Semáforos): Monotonicidad estricta Verde < Amarillo < Naranja < Rojo y ECE < 5,0 pp.",
+    "Candado 4 (Equidad Territorial y NEE): Brecha de calibración entre colegios rurales/urbanos y estudiantes con/sin NEE < 4,0 pp.",
+    "Candado 5 (Disparador de Drift): Re-entrenamiento automático si PSI > 0,20 o Brier sube > +0,015."
+  ],
+  "resultados_experimento_flywheel_1_a_25_colegios": [
+    {
+      "colegios_conectados_saas": 1,
+      "estudiantes_anonimizados_pool": 240,
+      "auc_colegios_nuevos_zero_shot": 0.8404,
+      "ap_colegios_nuevos_zero_shot": 0.8819,
+      "brier_colegios_nuevos_zero_shot": 0.1808,
+      "ece_zero_shot_pp": 11.39,
+      "brier_tras_calibracion_bayesiana_60est": 0.1674,
+      "ece_tras_calibracion_bayesiana_pp": 9.38
+    },
+    {
+      "colegios_conectados_saas": 3,
+      "estudiantes_anonimizados_pool": 720,
+      "auc_colegios_nuevos_zero_shot": 0.8496,
+      "ap_colegios_nuevos_zero_shot": 0.8891,
+      "brier_colegios_nuevos_zero_shot": 0.1609,
+      "ece_zero_shot_pp": 5.28,
+      "brier_tras_calibracion_bayesiana_60est": 0.1595,
+      "ece_tras_calibracion_bayesiana_pp": 4.98
+    },
+    {
+      "colegios_conectados_saas": 5,
+      "estudiantes_anonimizados_pool": 1200,
+      "auc_colegios_nuevos_zero_shot": 0.8585,
+      "ap_colegios_nuevos_zero_shot": 0.8973,
+      "brier_colegios_nuevos_zero_shot": 0.1528,
+      "ece_zero_shot_pp": 3.2,
+      "brier_tras_calibracion_bayesiana_60est": 0.1537,
+      "ece_tras_calibracion_bayesiana_pp": 3.25
+    },
+    {
+      "colegios_conectados_saas": 10,
+      "estudiantes_anonimizados_pool": 2400,
+      "auc_colegios_nuevos_zero_shot": 0.8596,
+      "ap_colegios_nuevos_zero_shot": 0.8979,
+      "brier_colegios_nuevos_zero_shot": 0.1519,
+      "ece_zero_shot_pp": 2.72,
+      "brier_tras_calibracion_bayesiana_60est": 0.1527,
+      "ece_tras_calibracion_bayesiana_pp": 2.87
+    },
+    {
+      "colegios_conectados_saas": 15,
+      "estudiantes_anonimizados_pool": 3600,
+      "auc_colegios_nuevos_zero_shot": 0.8602,
+      "ap_colegios_nuevos_zero_shot": 0.8982,
+      "brier_colegios_nuevos_zero_shot": 0.1513,
+      "ece_zero_shot_pp": 2.41,
+      "brier_tras_calibracion_bayesiana_60est": 0.1522,
+      "ece_tras_calibracion_bayesiana_pp": 2.46
+    },
+    {
+      "colegios_conectados_saas": 25,
+      "estudiantes_anonimizados_pool": 6000,
+      "auc_colegios_nuevos_zero_shot": 0.8622,
+      "ap_colegios_nuevos_zero_shot": 0.8996,
+      "brier_colegios_nuevos_zero_shot": 0.15,
+      "ece_zero_shot_pp": 2.27,
+      "brier_tras_calibracion_bayesiana_60est": 0.1515,
+      "ece_tras_calibracion_bayesiana_pp": 2.35
+    }
+  ],
+  "auditoria_feedback_loop_intervenciones": {
+    "alumnos_intervenidos_en_red_25_colegios": 2963,
+    "brier_reentrenamiento_ingenuo_sin_log_intervencion": 0.2311,
+    "ece_reentrenamiento_ingenuo_pp": 23.56,
+    "prob_media_top20_ingenuo_pct": 55.6,
+    "tasa_real_top20_sin_intervenir_pct": 97.1,
+    "brier_reentrenamiento_mlops_con_log_intervencion": 0.1502,
+    "ece_reentrenamiento_mlops_pp": 2.22,
+    "prob_media_top20_mlops_pct": 95.2,
+    "psi_drift_escuelas_nuevas": 0.0364
+  }
+}

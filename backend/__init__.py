@@ -1,0 +1,1 @@
+"""PAKTAI EDU backend package."""

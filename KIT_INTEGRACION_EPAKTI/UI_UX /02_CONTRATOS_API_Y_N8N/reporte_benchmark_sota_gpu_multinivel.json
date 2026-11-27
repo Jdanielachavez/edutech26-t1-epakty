@@ -1,0 +1,320 @@
+{
+  "generado_utc": "2026-11-25T17:02:02.577742+00:00",
+  "hardware_y_entorno": {
+    "catboost_version": "1.2.10",
+    "lightgbm_version": "4.7.0",
+    "torch_version": "2.15.0+cpu",
+    "gpu_disponible_catboost": true,
+    "gpu_nombre": "NVIDIA GeForce RTX 5070 Laptop GPU, 8151 MiB, 616.92"
+  },
+  "techo_bayes_matematico_demo": {
+    "beta_alpha_mle": 1.4883,
+    "beta_beta_mle": 19.5745,
+    "share_injustificada": 0.5377,
+    "dias_pre_nov_dic": [
+      44,
+      18,
+      15
+    ],
+    "oracle_conocida_lambda_exacta": {
+      "auc_medio": 0.8235,
+      "acc_05_media": 0.8115,
+      "prec_20_media": 0.6894,
+      "prec_40_media": 0.596,
+      "prec_40_ic95": [
+        0.425,
+        0.75
+      ]
+    },
+    "posterior_optimo_44_dias": {
+      "auc_medio": 0.7609,
+      "acc_05_media": 0.7947,
+      "prec_20_media": 0.6061,
+      "prec_40_media": 0.5223,
+      "prec_40_ic95": [
+        0.375,
+        0.675
+      ]
+    }
+  },
+  "referencia_auditor_5splits": {
+    "logit_historico_9vars_orig_tp40": 23,
+    "logit_historico_9vars_5split_tp40_mean": 20.8,
+    "logit_historico_9vars_5split_ap_mean": 0.5048,
+    "logit_historico_9vars_5split_auc_mean": 0.7508
+  },
+  "demo_ausentismo_5splits_sota": {
+    "ScenA_TabMmini_ICLR25": {
+      "orig_tp40": 23,
+      "orig_prec40": 0.575,
+      "orig_prec20": 0.6,
+      "orig_prec10": 0.6,
+      "orig_ap": 0.5365,
+      "orig_auc": 0.7674,
+      "orig_brier": 0.1729,
+      "orig_acc05": 0.7375,
+      "splits5_tp40_mean": 23.4,
+      "splits5_tp40_min": 22,
+      "splits5_tp40_max": 25,
+      "splits5_ap_mean": 0.5285,
+      "splits5_auc_mean": 0.7634,
+      "splits5_brier_mean": 0.1745
+    },
+    "ScenA_CatBoostTD_CountReg_NeurIPS24": {
+      "orig_tp40": 20,
+      "orig_prec40": 0.5,
+      "orig_prec20": 0.5,
+      "orig_prec10": 0.4,
+      "orig_ap": 0.4638,
+      "orig_auc": 0.7355,
+      "orig_brier": 0.1778,
+      "orig_acc05": 0.7167,
+      "splits5_tp40_mean": 19.6,
+      "splits5_tp40_min": 19,
+      "splits5_tp40_max": 20,
+      "splits5_ap_mean": 0.459,
+      "splits5_auc_mean": 0.7351,
+      "splits5_brier_mean": 0.1777
+    },
+    "ScenA_PoissonBivar_Count": {
+      "orig_tp40": 24,
+      "orig_prec40": 0.6,
+      "orig_prec20": 0.5,
+      "orig_prec10": 0.6,
+      "orig_ap": 0.534,
+      "orig_auc": 0.7669,
+      "orig_brier": 0.174,
+      "orig_acc05": 0.7292,
+      "splits5_tp40_mean": 23.0,
+      "splits5_tp40_min": 22,
+      "splits5_tp40_max": 24,
+      "splits5_ap_mean": 0.5275,
+      "splits5_auc_mean": 0.7641,
+      "splits5_brier_mean": 0.1751
+    },
+    "ScenA_EB_BetaBinomial": {
+      "orig_tp40": 22,
+      "orig_prec40": 0.55,
+      "orig_prec20": 0.55,
+      "orig_prec10": 0.7,
+      "orig_ap": 0.5284,
+      "orig_auc": 0.7664,
+      "orig_brier": 0.17,
+      "orig_acc05": 0.7292,
+      "splits5_tp40_mean": 22.2,
+      "splits5_tp40_min": 21,
+      "splits5_tp40_max": 24,
+      "splits5_ap_mean": 0.528,
+      "splits5_auc_mean": 0.7689,
+      "splits5_brier_mean": 0.1701
+    },
+    "ScenA_Caruana_GES_Ensemble": {
+      "orig_tp40": 22,
+      "orig_prec40": 0.55,
+      "orig_prec20": 0.55,
+      "orig_prec10": 0.7,
+      "orig_ap": 0.5256,
+      "orig_auc": 0.7644,
+      "orig_brier": 0.1704,
+      "orig_acc05": 0.7333,
+      "splits5_tp40_mean": 21.8,
+      "splits5_tp40_min": 21,
+      "splits5_tp40_max": 23,
+      "splits5_ap_mean": 0.5215,
+      "splits5_auc_mean": 0.7654,
+      "splits5_brier_mean": 0.1706
+    },
+    "ScenB_TabMmini_ICLR25_Notas": {
+      "orig_tp40": 23,
+      "orig_prec40": 0.575,
+      "orig_prec20": 0.65,
+      "orig_prec10": 0.6,
+      "orig_ap": 0.555,
+      "orig_auc": 0.7676,
+      "orig_brier": 0.1715,
+      "orig_acc05": 0.725,
+      "splits5_tp40_mean": 22.8,
+      "splits5_tp40_min": 22,
+      "splits5_tp40_max": 23,
+      "splits5_ap_mean": 0.5511,
+      "splits5_auc_mean": 0.7705,
+      "splits5_brier_mean": 0.1722
+    },
+    "ScenB_Caruana_GES_Ensemble_Notas": {
+      "orig_tp40": 22,
+      "orig_prec40": 0.55,
+      "orig_prec20": 0.55,
+      "orig_prec10": 0.7,
+      "orig_ap": 0.5264,
+      "orig_auc": 0.7661,
+      "orig_brier": 0.1705,
+      "orig_acc05": 0.7292,
+      "splits5_tp40_mean": 22.2,
+      "splits5_tp40_min": 22,
+      "splits5_tp40_max": 23,
+      "splits5_ap_mean": 0.5269,
+      "splits5_auc_mean": 0.768,
+      "splits5_brier_mean": 0.171
+    }
+  },
+  "demo_objetivos_internacionales_ausentismo": {
+    "y_ausencia_total_ambos_meses_estandar_internacional": {
+      "positivos": 109,
+      "prevalencia": 0.4542,
+      "auc_oof": 0.7754,
+      "ap_oof": 0.7444,
+      "prec10_oof": 1.0,
+      "prec20_oof": 0.85,
+      "prec40_oof": 0.8,
+      "tp40_oof": 32
+    },
+    "y_ausentismo_cronico_12pct_4mas_dias": {
+      "positivos": 68,
+      "prevalencia": 0.2833,
+      "auc_oof": 0.7822,
+      "ap_oof": 0.5916,
+      "prec10_oof": 0.7,
+      "prec20_oof": 0.7,
+      "prec40_oof": 0.6,
+      "tp40_oof": 24
+    }
+  },
+  "demo_colecturia_household_pooled": {
+    "morosidad_cronica_2m_24_de_240": {
+      "positivos": 24,
+      "auc_oof": 0.7557,
+      "ap_oof": 0.3328,
+      "prec20_oof": 0.4,
+      "tp20_oof": 8,
+      "prec40_oof": 0.325,
+      "tp40_oof": 13
+    },
+    "incumplimiento_1m_72_de_240": {
+      "positivos": 72,
+      "auc_oof": 0.5792,
+      "ap_oof": 0.4552,
+      "prec20_oof": 0.7,
+      "tp20_oof": 14,
+      "prec40_oof": 0.55,
+      "tp40_oof": 22
+    }
+  },
+  "amie_ecuador_multianual_2025": {
+    "n_planteles_prueba_2025": 6291,
+    "n_estudiantes_prueba_2025": 1616492,
+    "n_abandonos_reales_2025": 21103,
+    "pesos_validacion_2024_ponderados": true,
+    "baseline_previo_logit_aditivo_2025": {
+      "auc": 0.71,
+      "ap": 0.0401,
+      "brier": 0.012747,
+      "top5pct_planteles_capturados": 8434,
+      "top5pct_recall_abandonos": 0.3997
+    },
+    "ablacion_mismo_modelo_solo_historial_plantel_gpu_2025": {
+      "auc": 0.7146,
+      "ap": 0.0412,
+      "brier": 0.012772,
+      "top5pct_planteles_capturados": 8746,
+      "top5pct_recall_abandonos": 0.4144,
+      "best_it_2024": 202
+    },
+    "catboost_rtx5070_gpu_2025": {
+      "auc": 0.7322,
+      "ap": 0.044,
+      "brier": 0.01273,
+      "top5pct_planteles_capturados": 8792,
+      "top5pct_recall_abandonos": 0.4166,
+      "best_it_2024": 351
+    },
+    "blend_rtx5070_catboost_lgbm_2025": {
+      "auc": 0.736,
+      "ap": 0.0439,
+      "brier": 0.01272,
+      "top5pct_planteles_capturados": 8740,
+      "top5pct_recall_abandonos": 0.4142
+    }
+  },
+  "uci_educacion_superior_10bloques": {
+    "n_estudiantes": 4424,
+    "n_deserciones": 1421,
+    "n_bloques_macro": 10,
+    "baseline_previo_rf_8vars_macro": {
+      "auc": 0.8719,
+      "ap": 0.7996,
+      "brier": 0.1249,
+      "prec_737": 0.8792,
+      "tp_737": 648
+    },
+    "mismo_alcance_8vars_macro_gpu": {
+      "auc": 0.8695,
+      "ap": 0.803,
+      "brier": 0.1242,
+      "prec_737": 0.8887,
+      "tp_737": 655,
+      "acc_05": 0.8309
+    },
+    "primer_semestre_completo_con_matricula_gpu": {
+      "auc": 0.9015,
+      "ap": 0.8603,
+      "brier": 0.1055,
+      "prec_737": 0.9335,
+      "tp_737": 688,
+      "acc_05": 0.8544
+    }
+  },
+  "mineduc_chile_k12_1_3M_2025": {
+    "n_train_2024": 1290840,
+    "n_test_reservado_2025": 1299423,
+    "n_deserciones_reales_2025": 42500,
+    "cupo_exacto_5pct_plantel": 64971,
+    "configuracion_ablacion_identica": "CatBoost GPU (iter=1000, depth=7, lr=0.04, l2=10, seed=5147) + escala asistencia [0,1] corregida",
+    "baseline_previo_lightgbm_junio_2025": {
+      "auc": 0.7824,
+      "ap": 0.1908,
+      "brier": 0.02884,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 10562
+    },
+    "ablacion_paso0_solo_micro_15vars": {
+      "auc": 0.7889,
+      "ap": 0.1995,
+      "brier": 0.028663,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 10756,
+      "prec_top1pct_nacional": 0.3977
+    },
+    "ablacion_paso1_mas_demografia_region_18vars": {
+      "auc": 0.8027,
+      "ap": 0.2058,
+      "brier": 0.028556,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 10910,
+      "prec_top1pct_nacional": 0.405
+    },
+    "ablacion_paso2_mas_pobreza_comunal_21vars": {
+      "auc": 0.8125,
+      "ap": 0.2119,
+      "brier": 0.028432,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 10955,
+      "prec_top1pct_nacional": 0.4064
+    },
+    "ablacion_paso3_mas_meso_plantel_eb_27vars": {
+      "auc": 0.8319,
+      "ap": 0.2231,
+      "brier": 0.028178,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 11031,
+      "prec_top1pct_nacional": 0.414
+    },
+    "blend_rtx5070_catboost_lgbm_2025": {
+      "auc": 0.8335,
+      "ap": 0.2259,
+      "brier": 0.028133,
+      "cupo_exacto_alertas": 64971,
+      "top5pct_plantel_capturados": 11067,
+      "prec_top1pct_nacional": 0.4185
+    }
+  }
+}

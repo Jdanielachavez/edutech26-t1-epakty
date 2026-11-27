@@ -1,0 +1,48 @@
+{
+  "configuration": "PASS",
+  "database": {
+    "ssl": true,
+    "tls_version": "TLSv1.3",
+    "status": "PASS"
+  },
+  "n8n": {
+    "status": "PENDING",
+    "missing": [
+      "N8N_WEBHOOK_BASE_URL",
+      "N8N_WEBHOOK_HMAC_SECRET"
+    ]
+  },
+  "bedrock": {
+    "status": "PENDING",
+    "missing": [
+      "AWS_BEDROCK_MODEL_ID",
+      "AWS_ACCESS_KEY_ID",
+      "AWS_SECRET_ACCESS_KEY"
+    ]
+  },
+  "smtp": {
+    "status": "PENDING",
+    "missing": [
+      "SMTP_HOST",
+      "SMTP_USER",
+      "SMTP_PASSWORD"
+    ]
+  },
+  "whatsapp": {
+    "status": "PENDING",
+    "missing": [
+      "WHATSAPP_PHONE_NUMBER_ID",
+      "WHATSAPP_ACCESS_TOKEN"
+    ]
+  },
+  "staging": {
+    "status": "CONFIGURED_NOT_VERIFIED",
+    "missing": []
+  },
+  "webhook_auth": "PENDING",
+  "aws_iam": "PENDING: inspect effective permissions and successful invocation",
+  "aws_budget": "PENDING: create stack with actual budget and administrator email",
+  "spf_dkim": "PENDING: verify domain DNS and provider status",
+  "backup_restore": "PENDING: daily schedule and restore drill on managed service",
+  "predictive_model": "REFERENCE_IMPLEMENTED_NOT_TRAINED_ON_WITHDRAWALS"
+}

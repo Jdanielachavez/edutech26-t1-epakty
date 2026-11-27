@@ -1,0 +1,123 @@
+{
+  "id": "epAvisoDocente",
+  "name": "E-Pakty · Aviso al docente (correo)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-aviso-docente",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "w",
+      "name": "Webhook aviso docente",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        200
+      ],
+      "webhookId": "epakti-aviso-docente",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epWebhook",
+          "name": "E-Pakty webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Arma el correo con el informe resumido. Todo el texto viene del servidor (informe pedagógico, sin pensiones).\nconst b=$input.first().json.body||$input.first().json;\nconst esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));\nconst inf=b.informe||null;\nconst sec=(t,h)=>`<h3 style=\"font:700 15px Arial;margin:22px 0 8px;color:#24113F\">${t}</h3>${h}`;\nlet cuerpo='';\nif(inf){\n  cuerpo+=`<p style=\"font-size:15px;line-height:1.6;margin:0 0 6px\">${esc(inf.resumen)}</p>`;\n  cuerpo+=sec('Qué problema tiene',(inf.problemas||[]).length?`<ol style=\"padding-left:18px;margin:0;line-height:1.55\">${inf.problemas.map(p=>`<li style=\"margin-bottom:8px\"><b>${esc(p.titulo)}.</b> ${esc(p.explicacion)}</li>`).join('')}</ol>`:'<p style=\"margin:0\">No se ven factores de riesgo destacados.</p>');\n  cuerpo+=sec('Cómo mitigarlo',(inf.que_hacer||[]).length?inf.que_hacer.map(a=>`<div style=\"border:1px solid #E5E0F0;border-radius:12px;padding:12px 14px;margin-bottom:8px\"><b>${esc(a.accion)}</b> <span style=\"color:#5B36B4;font-size:13px\">· ${esc(a.responsable)} · ${esc(a.cuando)}</span><div style=\"font-size:14px;line-height:1.5;margin-top:4px\">${esc(a.como)}</div><div style=\"font-size:12.5px;color:#666;margin-top:4px\">Escenario: el riesgo bajaría de ${String(a.antes).replace('.',',')} % a ${String(a.despues).replace('.',',')} % si la acción logra su objetivo.</div></div>`).join(''):'<p style=\"margin:0\">Conversa con el estudiante y su familia para entender mejor la situación.</p>');\n}else{\n  cuerpo+=`<p style=\"font-size:15px;line-height:1.6\">Foco: <b>${esc(b.foco)}</b> · Prioridad: <b>${esc(b.prioridad)} / 100</b>${b.materia?` · Materia a mirar: <b>${esc(b.materia)}</b>`:''}.</p>`;\n}\nconst html=`<div style=\"font-family:Arial,sans-serif;max-width:600px;color:#1d1d1f\"><div style=\"background:#24113F;color:#fff;padding:16px 20px;border-radius:12px 12px 0 0\"><b style=\"letter-spacing:.14em\">E-PAKTY</b> <span style=\"float:right;background:#F5C84C;color:#24113F;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700\">PRUEBA</span></div>\n<div style=\"border:1px solid #E5E0F0;border-top:0;padding:20px;border-radius:0 0 12px 12px\"><h2 style=\"margin:0 0 4px;font:700 20px Arial\">Seguimiento de ${esc(b.id_estudiante)} (${esc(b.curso||'')} ${esc(b.paralelo||'')})</h2><p style=\"margin:0 0 14px;color:#666\">Hola ${esc(b.docente_nombre)}, el equipo te pide acompañar a este estudiante.</p>${cuerpo}\n${sec('Siguiente paso','<p style=\"margin:0;line-height:1.55\">Conversa con la familia y registra la reunión en E-Pakty (<b>Seguimiento</b>). Allí puedes descargar el informe completo en PDF.</p>')}\n<p style=\"color:#888;font-size:12px;margin-top:20px\">Mensaje automático de E-Pakty. Es una señal para acompañar, no un veredicto. Entorno de prueba: datos sintéticos.</p></div></div>`;\nreturn [{json:{destinatario:b.destinatario,asunto:`[PRUEBA] Seguimiento · ${b.id_estudiante} (${b.curso||''} ${b.paralelo||''})`,html}}];"
+      },
+      "id": "arma",
+      "name": "Armar informe en el correo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.EPAKTI_MAIL_FROM}}",
+        "toEmail": "={{$json.destinatario}}",
+        "subject": "={{$json.asunto}}",
+        "emailFormat": "html",
+        "html": "={{$json.html}}",
+        "options": {}
+      },
+      "id": "m",
+      "name": "Enviar aviso al docente",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        200
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "LUNtB4C5VPb3J6Vl",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({ok:true})}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "r",
+      "name": "Responder 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook aviso docente": {
+      "main": [
+        [
+          {
+            "node": "Armar informe en el correo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar informe en el correo": {
+      "main": [
+        [
+          {
+            "node": "Enviar aviso al docente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar aviso al docente": {
+      "main": [
+        [
+          {
+            "node": "Responder 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

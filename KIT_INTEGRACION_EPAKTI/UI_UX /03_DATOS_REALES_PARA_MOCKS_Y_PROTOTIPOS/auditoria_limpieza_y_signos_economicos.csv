@@ -1,0 +1,37 @@
+modelo,objetivo,variable,descripcion,signo_teorico_esperado,r_bivariado,p_value_bivariado,vif_multicolinealidad,peso_neuronal_monotono,efecto_marginal_1sd_pp,signo_estimado,coherencia_teorica_100pct
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,frac_semanas_ausencia_total,Micro Trayectoria: Fracción de semanas escolares con >=1 ausencia total (persistencia semanal),+,0.4255,0.0,3.25,0.3712,11.018,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,tasa_injustificada_historica,Micro: Tasa histórica de faltas injustificadas,+,0.3505,0.0,4.1,0.1301,3.536,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,persistencia_injust_sep_oct,Micro Trayectoria: Persistencia de faltas injustificadas en ambos meses previos (Sep y Oct),+,0.2596,4.7e-05,2.5,0.0436,0.609,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,prop_materias_bajo_7_corte,Micro: Proporción de materias < 7 al corte,+,0.2659,3e-05,3.82,0.0901,2.157,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,brecha_materia_critica_nee,Inclusión DECE: Brecha en materia crítica asociada a NEE,+,0.0842,0.19357,1.32,0.0145,0.236,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,inter_ausencia_x_bajo7_ort,Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada),+,0.325,0.0,2.25,0.045,1.853,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,inter_bajo7_x_brecha_digital_ort,Sinergia Macro×Micro: Materias < 7 × Exceso Brecha Digital Censo,+,0.1905,0.00305,2.53,0.0331,0.809,+,True
+1_Ausentismo_Recurrente_MonotonicFiLM,y_falta_en_ambos_meses,prior_macro_ortogonal,Macro/Meso: Prior Territorial y Socioeconómico (ENEMDU/INEVAL <=2024),+,0.1418,0.028022,2.23,0.0219,1.064,+,True
+2_Morosidad_Pagos_MonotonicFiLM,y_incumplimiento_futuro,cuotas_vencidas_pre,Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct),+,0.1115,0.084689,2.77,0.0153,0.265,+,True
+2_Morosidad_Pagos_MonotonicFiLM,y_incumplimiento_futuro,exceso_dia_pago_sobre_vencimiento,Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja),+,0.2708,2.1e-05,2.67,0.2276,5.013,+,True
+2_Morosidad_Pagos_MonotonicFiLM,y_incumplimiento_futuro,hogar_tardios_hermanos_extra,Hogar Representante: Pagos tardíos adicionales en hermanos del plantel,+,0.1174,0.069459,1.3,0.1206,2.405,+,True
+2_Morosidad_Pagos_MonotonicFiLM,y_incumplimiento_futuro,hogar_tasa_incumpl_eb,Hogar Empirical Bayes: Tasa suavizada de incumplimiento del hogar,+,0.2696,2.3e-05,5.19,0.1972,4.079,+,True
+2_Morosidad_Pagos_MonotonicFiLM,y_incumplimiento_futuro,inter_friccion_pago_x_nbi_ort,Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial,+,0.2211,0.000559,1.63,0.1302,2.546,+,True
+3_Morosidad_Cronica_MonotonicFiLM,y_dos_incumpl_futuros,cuotas_vencidas_pre,Micro Finanzas: Cuotas vencidas impagas al corte (Sep-Oct),+,0.2417,0.000156,2.77,0.0206,0.19,+,True
+3_Morosidad_Cronica_MonotonicFiLM,y_dos_incumpl_futuros,exceso_dia_pago_sobre_vencimiento,Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja),+,0.3505,0.0,2.67,0.2142,2.572,+,True
+3_Morosidad_Cronica_MonotonicFiLM,y_dos_incumpl_futuros,hogar_tardios_hermanos_extra,Hogar Representante: Pagos tardíos adicionales en hermanos del plantel,+,0.1262,0.050879,1.3,0.1099,1.218,+,True
+3_Morosidad_Cronica_MonotonicFiLM,y_dos_incumpl_futuros,hogar_tasa_incumpl_eb,Hogar Empirical Bayes: Tasa suavizada de incumplimiento del hogar,+,0.3794,0.0,5.19,0.2452,2.943,+,True
+3_Morosidad_Cronica_MonotonicFiLM,y_dos_incumpl_futuros,inter_friccion_pago_x_nbi_ort,Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial,+,0.2806,1e-05,1.63,0.1297,1.364,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,prop_materias_bajo_7_corte,Micro Académico: Proporción de materias < 7 al corte,+,0.7513,0.0,4.64,0.5394,10.063,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,n_materias_criticas_bajo_6_corte,Micro Académico: Número de materias críticas < 6 al corte,+,0.6556,0.0,2.97,0.4358,8.333,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,deficit_mat_vs_umbral_7,"Micro Académico: Déficit en Matemática bajo umbral 7,0 (escala 0-10)",+,0.6019,0.0,2.39,0.3686,6.136,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,deficit_len_vs_umbral_7,"Micro Académico: Déficit en Lengua bajo umbral 7,0 (escala 0-10)",+,0.6356,0.0,2.98,0.3863,6.587,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,brecha_materia_critica_nee,Inclusión DECE: Brecha en materia crítica asociada a NEE,+,0.3638,0.0,1.34,0.1167,1.539,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,tasa_ausencia_total_historica,Micro Asistencia: Tasa de ausencia total acumulada,+,0.1586,0.013915,1.72,0.0101,0.108,+,True
+4_Riesgo_Academico_Q2_MonotonicFiLM,y_reprobacion_q2,inter_ausencia_x_bajo7_ort,Sinergia Micro×Micro: Ausentismo × Materias < 7 (Ortogonalizada),+,0.4188,0.0,2.59,0.0944,1.18,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,prop_bajo7_diagnostico_p1,Diagnóstico Ingreso: Proporción de áreas < 7 en prueba/libreta previa,+,0.7527,0.0,3.61,0.6537,13.575,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,n_criticas_bajo6_diagnostico_p1,Diagnóstico Ingreso: Áreas críticas < 6 en prueba/libreta previa,+,0.6256,0.0,5.15,0.3865,7.375,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,brecha_mat_diagnostico_p1,"Diagnóstico Ingreso: Déficit en Matemática bajo umbral 7,0 (escala 0-10)",+,0.4777,0.0,2.41,0.2133,3.388,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,brecha_len_diagnostico_p1,"Diagnóstico Ingreso: Déficit en Lengua bajo umbral 7,0 (escala 0-10)",+,0.5251,0.0,2.81,0.1724,2.647,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,brecha_nee_diagnostico_p1,Inclusión DECE: Brecha diagnóstica en materia asociada a NEE,+,0.3702,0.0,1.39,0.1789,2.753,+,True
+5_PreIngreso_Educativo_M1_MonotonicFiLM,y_reprobacion_q2,inter_diag_x_brecha_digital_ort,Sinergia Macro×Diagnóstico: Áreas < 7 × Exceso Brecha Digital Censo,+,0.5739,0.0,2.38,0.2949,4.939,+,True
+6_PreIngreso_Financiero_M1_MonotonicFiLM,y_incumplimiento_futuro,cuota_vencida_matricula_sep,Matrícula Mes 1: Cuota inicial vencida/impaga en septiembre,+,0.1001,0.121881,1.75,0.0789,1.406,+,True
+6_PreIngreso_Financiero_M1_MonotonicFiLM,y_incumplimiento_futuro,pago_tardio_matricula_sep,Matrícula Mes 1: Pago tardío posterior al día 10 en septiembre,+,0.1933,0.002633,2.64,0.1579,3.059,+,True
+6_PreIngreso_Financiero_M1_MonotonicFiLM,y_incumplimiento_futuro,exceso_dia_pago_sep,Matrícula Mes 1: Exceso de días después del vencimiento (día 5),+,0.2061,0.001324,1.86,0.1849,3.404,+,True
+6_PreIngreso_Financiero_M1_MonotonicFiLM,y_incumplimiento_futuro,hermanos_incumpl_sep_puro,Hogar Representante: Incumplimiento en cuota de matrícula de hermanos (solo Sep),+,0.0844,0.192792,1.01,0.1169,2.183,+,True
+6_PreIngreso_Financiero_M1_MonotonicFiLM,y_incumplimiento_futuro,inter_matricula_sep_x_nbi_ort,Sinergia Macro×Matrícula: Fricción inicial Sep × Exceso NBI Parroquial,+,0.208,0.00119,2.39,0.1596,3.11,+,True

@@ -1,0 +1,29 @@
+{
+  "amie": {
+    "institution": "Ministerio de Educación del Ecuador",
+    "landing_page": "https://www.datosabiertos.gob.ec/dataset/descomposicion-de-la-matricula-mineduc",
+    "download_url": "https://www.datosabiertos.gob.ec/dataset/137ebd87-8998-4c1b-aa3f-ad6daf411b6d/resource/e4a967a3-7bed-44eb-92d7-d23a1f2129d3/download/registro-administrativo-historico_2009-2024-fin.csv",
+    "input_file": "amie_abandono.csv",
+    "use": "Tasa agregada por período, provincia, sostenimiento, tipo de educación, área y régimen.",
+    "individual_linkage": false,
+    "status": "descargado y agregado por sync_public_sources.py"
+  },
+  "enemdu": {
+    "institution": "Instituto Nacional de Estadística y Censos",
+    "landing_page": "https://www.ecuadorencifras.gob.ec/enemdu-anual/",
+    "download_url": "https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip",
+    "input_file": "enemdu_hogar.csv",
+    "use": "Tasas oficiales de empleo y pobreza por ingresos en nivel agregado nacional, urbano/rural y provincial.",
+    "individual_linkage": false,
+    "status": "descargado y normalizado por sync_public_sources.py"
+  },
+  "ineval": {
+    "institution": "Instituto Nacional de Evaluación Educativa",
+    "landing_page": "https://evaluaciones.evaluacion.gob.ec/BI/ser-estudiante-2/",
+    "factor_report": "https://cloud.evaluacion.gob.ec/dagireportes/sestciclo21/nacional/2024-2025_10FA.pdf",
+    "input_file": "ineval_factores.csv",
+    "use": "Distribuciones agregadas del cuestionario de factores asociados; no es registro individual del colegio.",
+    "individual_linkage": false,
+    "status": "extracto agregado documentado del boletín oficial 2024-2025"
+  }
+}

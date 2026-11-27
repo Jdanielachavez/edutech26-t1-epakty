@@ -1,0 +1,37 @@
+{$API_DOMAIN} {
+  tls {
+    protocols tls1.3
+  }
+  request_body {
+    max_size 25MB
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options nosniff
+    -Server
+  }
+  reverse_proxy api:8000
+}
+
+# n8n: Internet solo alcanza los webhooks. El editor (login, credenciales, flujos) NO se publica: se usa por túnel SSH
+# (ssh -L 5678:localhost:5678 servidor, con `docker compose exec`/puerto local) o desde la red interna.
+{$N8N_DOMAIN} {
+  tls {
+    protocols tls1.3
+  }
+  request_body {
+    max_size 5MB
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options nosniff
+    -Server
+  }
+  @webhooks path /webhook/*
+  handle @webhooks {
+    reverse_proxy n8n:5678
+  }
+  handle {
+    respond "No encontrado" 404
+  }
+}

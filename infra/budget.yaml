@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: PAKTAI monthly cost alert. Notification only, not a spending cap.
+Parameters:
+  BudgetUsd:
+    Type: Number
+    MinValue: 1
+    Description: Set available monthly budget; do not assume remaining promotional credits.
+  AdminEmail:
+    Type: String
+    AllowedPattern: '.+@.+'
+Resources:
+  PaktaiBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: PAKTAI-Bedrock
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit: {Amount: !Ref BudgetUsd, Unit: USD}
+      NotificationsWithSubscribers:
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 50, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AdminEmail}]
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 80, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AdminEmail}]

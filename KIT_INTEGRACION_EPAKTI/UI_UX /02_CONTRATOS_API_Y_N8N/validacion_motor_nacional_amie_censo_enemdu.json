@@ -1,0 +1,75 @@
+{
+  "n_planteles_grado_validados": 30559,
+  "n_planteles_unicos": 6441,
+  "n_provincias": 23,
+  "n_parroquias_homologadas": 955,
+  "estudiantes_expuestos_2024_2025": 1765898,
+  "abandonos_observados_2024_2025": 40646,
+  "tasa_abandono_media_nacional_pct": 2.3017,
+  "politica_ordenamiento_sin_fuga": "probabilidad_cruda_sin_recentrar_x_matricula_previa_2023_2024",
+  "sesgo_calibracion_media_macro_meso_pp": -0.9362,
+  "brier_binomial_solo_plantel": 0.022245,
+  "brier_binomial_macro_meso_censo_enemdu": 0.022197,
+  "mse_tasa_ponderado_x10000_solo_plantel": 24.8612,
+  "mse_tasa_ponderado_x10000_macro_meso": 24.3775,
+  "reduccion_error_mse_tasa_pct": 1.95,
+  "abandonos_capturados_top10pct_solo_plantel": 19603,
+  "abandonos_capturados_top10pct_macro_meso": 19821,
+  "recall_top10pct_solo_plantel_pct": 48.23,
+  "recall_top10pct_macro_meso_pct": 48.76,
+  "abandonos_adicionales_detectados_con_macro_meso": 218,
+  "validacion_temporal_multianual_reservada_2025": {
+    "esquema_validacion": "Reserva estricta de ciclo futuro: Train 2019-2023, Val 2024 (Pool ponderado), Test Reservado 2025",
+    "pesos_validacion_2024_ponderados": true,
+    "gpu_rtx5070_activa": true,
+    "planteles_prueba_2025": 6291,
+    "estudiantes_expuestos_2025": 1616492,
+    "abandonos_reales_2025": 21103,
+    "cupo_top5pct_planteles": 315,
+    "referencia_previa_logit_aditivo_2025": {
+      "auc_roc": 0.71,
+      "ap": 0.0401,
+      "brier": 0.012747,
+      "top5pct_planteles_conteo": 8434,
+      "recall_top5pct_conteo_pct": 39.97
+    },
+    "ablacion_mismo_modelo_solo_historial_plantel_2025": {
+      "auc_roc": 0.7153,
+      "ap": 0.0421,
+      "brier": 0.012795,
+      "top5pct_planteles_conteo": 9013,
+      "recall_top5pct_conteo_pct": 42.71,
+      "top5pct_planteles_tasa": 4898,
+      "recall_top5pct_tasa_pct": 23.21,
+      "best_iteration_2024": 198
+    },
+    "catboost_gpu_rtx5070_2025": {
+      "auc_roc": 0.7312,
+      "ap": 0.0438,
+      "brier": 0.012733,
+      "top5pct_planteles_conteo": 8782,
+      "recall_top5pct_conteo_pct": 41.61,
+      "top5pct_planteles_tasa": 4553,
+      "recall_top5pct_tasa_pct": 21.58,
+      "best_iteration_2024": 280
+    },
+    "lightgbm_multianual_2025": {
+      "auc_roc": 0.7341,
+      "ap": 0.0424,
+      "brier": 0.012728,
+      "top5pct_planteles_conteo": 8837,
+      "recall_top5pct_conteo_pct": 41.88,
+      "top5pct_planteles_tasa": 4578,
+      "recall_top5pct_tasa_pct": 21.69
+    },
+    "ensamble_gpu_catboost_lgbm_2025": {
+      "auc_roc": 0.7354,
+      "ap": 0.044,
+      "brier": 0.012721,
+      "top5pct_planteles_conteo": 8739,
+      "recall_top5pct_conteo_pct": 41.41,
+      "top5pct_planteles_tasa": 4642,
+      "recall_top5pct_tasa_pct": 22.0
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "PAKTAI EDU · Errores",
+  "active": false,
+  "nodes": [
+    {
+      "id": "error-trigger",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "sanitize-error",
+      "name": "Reducir error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return {json:{execution_id:String($json.execution?.id??'trigger').slice(0,100),workflow_id:String($json.workflow?.id??'unknown').slice(0,100),node:String($json.execution?.lastNodeExecuted??'trigger').slice(0,120),code:'WORKFLOW_FAILED'}};"
+      }
+    },
+    {
+      "id": "record-error",
+      "name": "Registrar error y avisar administrador",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{$vars.PAKTAI_API_URL + '/api/v1/workflow-errors'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{JSON.stringify($json)}}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_API_CREDENTIAL",
+          "name": "PAKTAI API Worker Bearer"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 4,
+      "waitBetweenTries": 2000
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Reducir error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reducir error": {
+      "main": [
+        [
+          {
+            "node": "Registrar error y avisar administrador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false,
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none"
+  },
+  "id": "paktaiEduErrors"
+}

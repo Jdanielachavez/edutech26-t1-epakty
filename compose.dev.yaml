@@ -1,0 +1,21 @@
+# Base de datos de DESARROLLO local (PostgreSQL 16 con TLS). Solo escucha en tu Mac, puerto 5544.
+# No es la configuración de producción: allí se usa Supabase con su propio certificado.
+services:
+  db:
+    image: postgres:16
+    container_name: epakty-dev-db
+    environment:
+      POSTGRES_PASSWORD: dev-superuser-password
+      POSTGRES_DB: paktai_dev
+    ports: ["127.0.0.1:5544:5432"]
+    volumes:
+      - ./certs:/certs:ro
+      - epakty_dev_pg:/var/lib/postgresql/data
+    entrypoint: ["bash","-c","cp /certs/dev-server.crt /certs/dev-server.key /tmp/ && chown postgres:postgres /tmp/dev-server.* && chmod 600 /tmp/dev-server.key && exec docker-entrypoint.sh postgres -c ssl=on -c ssl_cert_file=/tmp/dev-server.crt -c ssl_key_file=/tmp/dev-server.key"]
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres -d paktai_dev"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+volumes:
+  epakty_dev_pg:

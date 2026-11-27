@@ -1,0 +1,372 @@
+periodo,provincia,area,indicador,valor,unidad,fuente_url,fecha_extraccion
+2018,Nacional,Total,Tasa de desempleo,3.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Nacional,Urbano,Tasa de desempleo,5.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Nacional,Rural,Tasa de desempleo,1.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Azuay,Total,Tasa de desempleo,3.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Bolívar,Total,Tasa de desempleo,1.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Cañar,Total,Tasa de desempleo,3.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Carchi,Total,Tasa de desempleo,3.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Cotopaxi,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Chimborazo,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,El Oro,Total,Tasa de desempleo,4.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Esmeraldas,Total,Tasa de desempleo,7.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Guayas,Total,Tasa de desempleo,3.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Imbabura,Total,Tasa de desempleo,4.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Loja,Total,Tasa de desempleo,3.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Los Ríos,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Manabí,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Morona Santiago,Total,Tasa de desempleo,1.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Napo,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Pastaza,Total,Tasa de desempleo,2.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Pichincha,Total,Tasa de desempleo,7.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Tungurahua,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Zamora Chinchipe,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Galápagos,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Sucumbíos,Total,Tasa de desempleo,4.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Orellana,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Santo Domingo,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Santa Elena,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Total,Tasa de desempleo,4.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Urbano,Tasa de desempleo,5.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Rural,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Azuay,Total,Tasa de desempleo,3.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Bolívar,Total,Tasa de desempleo,1.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Cañar,Total,Tasa de desempleo,3.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Carchi,Total,Tasa de desempleo,4.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Cotopaxi,Total,Tasa de desempleo,1.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Chimborazo,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,El Oro,Total,Tasa de desempleo,4.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Esmeraldas,Total,Tasa de desempleo,10.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Guayas,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Imbabura,Total,Tasa de desempleo,6.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Loja,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Los Ríos,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Manabí,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Morona Santiago,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Napo,Total,Tasa de desempleo,2.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Pastaza,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Pichincha,Total,Tasa de desempleo,8.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Tungurahua,Total,Tasa de desempleo,2.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Zamora Chinchipe,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Galápagos,Total,Tasa de desempleo,2.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Sucumbíos,Total,Tasa de desempleo,4.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Orellana,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Santo Domingo,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Santa Elena,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Total,Tasa de desempleo,5.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Urbano,Tasa de desempleo,6.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Rural,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Azuay,Total,Tasa de desempleo,5.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Bolívar,Total,Tasa de desempleo,1.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Cañar,Total,Tasa de desempleo,4.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Carchi,Total,Tasa de desempleo,6.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Cotopaxi,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Chimborazo,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,El Oro,Total,Tasa de desempleo,6.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Esmeraldas,Total,Tasa de desempleo,10.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Guayas,Total,Tasa de desempleo,3.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Imbabura,Total,Tasa de desempleo,6.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Loja,Total,Tasa de desempleo,4.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Los Ríos,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Manabí,Total,Tasa de desempleo,2.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Morona Santiago,Total,Tasa de desempleo,1.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Napo,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Pastaza,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Pichincha,Total,Tasa de desempleo,10.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Tungurahua,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Zamora Chinchipe,Total,Tasa de desempleo,3.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Galápagos,Total,Tasa de desempleo,9.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Sucumbíos,Total,Tasa de desempleo,5.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Orellana,Total,Tasa de desempleo,2.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Santo Domingo,Total,Tasa de desempleo,3.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Santa Elena,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Total,Tasa de desempleo,4.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Urbano,Tasa de desempleo,5.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Rural,Tasa de desempleo,2.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Azuay,Total,Tasa de desempleo,3.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Bolívar,Total,Tasa de desempleo,0.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Cañar,Total,Tasa de desempleo,3.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Carchi,Total,Tasa de desempleo,5.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Cotopaxi,Total,Tasa de desempleo,1.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Chimborazo,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,El Oro,Total,Tasa de desempleo,6.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Esmeraldas,Total,Tasa de desempleo,9.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Guayas,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Imbabura,Total,Tasa de desempleo,7.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Loja,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Los Ríos,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Manabí,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Morona Santiago,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Napo,Total,Tasa de desempleo,1.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Pastaza,Total,Tasa de desempleo,1.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Pichincha,Total,Tasa de desempleo,8.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Tungurahua,Total,Tasa de desempleo,2.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Zamora Chinchipe,Total,Tasa de desempleo,3.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Galápagos,Total,Tasa de desempleo,5.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Sucumbíos,Total,Tasa de desempleo,4.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Orellana,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Santo Domingo,Total,Tasa de desempleo,2.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Santa Elena,Total,Tasa de desempleo,2.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Total,Tasa de desempleo,3.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Urbano,Tasa de desempleo,5.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Rural,Tasa de desempleo,1.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Azuay,Total,Tasa de desempleo,3.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Bolívar,Total,Tasa de desempleo,0.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Cañar,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Carchi,Total,Tasa de desempleo,4.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Cotopaxi,Total,Tasa de desempleo,1.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Chimborazo,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,El Oro,Total,Tasa de desempleo,5.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Esmeraldas,Total,Tasa de desempleo,9.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Guayas,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Imbabura,Total,Tasa de desempleo,5.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Loja,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Los Ríos,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Manabí,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Morona Santiago,Total,Tasa de desempleo,0.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Napo,Total,Tasa de desempleo,0.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Pastaza,Total,Tasa de desempleo,1.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Pichincha,Total,Tasa de desempleo,7.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Tungurahua,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Zamora Chinchipe,Total,Tasa de desempleo,2.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Galápagos,Total,Tasa de desempleo,4.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Sucumbíos,Total,Tasa de desempleo,2.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Orellana,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Santo Domingo,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Santa Elena,Total,Tasa de desempleo,2.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Total,Tasa de desempleo,3.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Urbano,Tasa de desempleo,5.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Rural,Tasa de desempleo,1.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Azuay,Total,Tasa de desempleo,2.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Bolívar,Total,Tasa de desempleo,0.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Cañar,Total,Tasa de desempleo,1.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Carchi,Total,Tasa de desempleo,4.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Cotopaxi,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Chimborazo,Total,Tasa de desempleo,1.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,El Oro,Total,Tasa de desempleo,4.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Esmeraldas,Total,Tasa de desempleo,8.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Guayas,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Imbabura,Total,Tasa de desempleo,6.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Loja,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Los Ríos,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Manabí,Total,Tasa de desempleo,2.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Morona Santiago,Total,Tasa de desempleo,0.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Napo,Total,Tasa de desempleo,0.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Pastaza,Total,Tasa de desempleo,2.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Pichincha,Total,Tasa de desempleo,7.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Tungurahua,Total,Tasa de desempleo,2.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Zamora Chinchipe,Total,Tasa de desempleo,2.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Galápagos,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Sucumbíos,Total,Tasa de desempleo,4.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Orellana,Total,Tasa de desempleo,0.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Santo Domingo,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Santa Elena,Total,Tasa de desempleo,2.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Urbano,Tasa de desempleo,4.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Rural,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Azuay,Total,Tasa de desempleo,2.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Bolívar,Total,Tasa de desempleo,1.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Cañar,Total,Tasa de desempleo,3.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Carchi,Total,Tasa de desempleo,4.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Cotopaxi,Total,Tasa de desempleo,2.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Chimborazo,Total,Tasa de desempleo,1.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,El Oro,Total,Tasa de desempleo,3.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Esmeraldas,Total,Tasa de desempleo,9.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Guayas,Total,Tasa de desempleo,2.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Imbabura,Total,Tasa de desempleo,6.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Loja,Total,Tasa de desempleo,4.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Los Ríos,Total,Tasa de desempleo,1.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Manabí,Total,Tasa de desempleo,2.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Morona Santiago,Total,Tasa de desempleo,0.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Napo,Total,Tasa de desempleo,1.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Pastaza,Total,Tasa de desempleo,2.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Pichincha,Total,Tasa de desempleo,6.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Tungurahua,Total,Tasa de desempleo,1.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Zamora Chinchipe,Total,Tasa de desempleo,1.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Galápagos,Total,Tasa de desempleo,3.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Sucumbíos,Total,Tasa de desempleo,6.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Orellana,Total,Tasa de desempleo,1.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Santo Domingo,Total,Tasa de desempleo,1.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Santa Elena,Total,Tasa de desempleo,2.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Nacional,Total,Pobreza por ingresos,22.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Nacional,Urbano,Pobreza por ingresos,14.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Nacional,Rural,Pobreza por ingresos,39.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Azuay,Total,Pobreza por ingresos,14.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Bolívar,Total,Pobreza por ingresos,33.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Cañar,Total,Pobreza por ingresos,21.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Carchi,Total,Pobreza por ingresos,27.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Cotopaxi,Total,Pobreza por ingresos,29.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Chimborazo,Total,Pobreza por ingresos,43.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,El Oro,Total,Pobreza por ingresos,15.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Esmeraldas,Total,Pobreza por ingresos,40.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Guayas,Total,Pobreza por ingresos,16.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Imbabura,Total,Pobreza por ingresos,29.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Loja,Total,Pobreza por ingresos,32.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Los Ríos,Total,Pobreza por ingresos,24.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Manabí,Total,Pobreza por ingresos,26.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Morona Santiago,Total,Pobreza por ingresos,61.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Napo,Total,Pobreza por ingresos,57.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Pastaza,Total,Pobreza por ingresos,47.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Pichincha,Total,Pobreza por ingresos,11.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Tungurahua,Total,Pobreza por ingresos,19.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Zamora Chinchipe,Total,Pobreza por ingresos,40.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Sucumbíos,Total,Pobreza por ingresos,46.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Orellana,Total,Pobreza por ingresos,58.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Santo Domingo,Total,Pobreza por ingresos,18.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2018,Santa Elena,Total,Pobreza por ingresos,26.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Total,Pobreza por ingresos,23.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Urbano,Pobreza por ingresos,15.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Nacional,Rural,Pobreza por ingresos,40.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Azuay,Total,Pobreza por ingresos,13.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Bolívar,Total,Pobreza por ingresos,34.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Cañar,Total,Pobreza por ingresos,18.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Carchi,Total,Pobreza por ingresos,32.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Cotopaxi,Total,Pobreza por ingresos,31.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Chimborazo,Total,Pobreza por ingresos,44.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,El Oro,Total,Pobreza por ingresos,14.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Esmeraldas,Total,Pobreza por ingresos,49.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Guayas,Total,Pobreza por ingresos,17.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Imbabura,Total,Pobreza por ingresos,34.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Loja,Total,Pobreza por ingresos,28.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Los Ríos,Total,Pobreza por ingresos,24.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Manabí,Total,Pobreza por ingresos,24.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Morona Santiago,Total,Pobreza por ingresos,62.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Napo,Total,Pobreza por ingresos,60.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Pastaza,Total,Pobreza por ingresos,54.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Pichincha,Total,Pobreza por ingresos,12.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Tungurahua,Total,Pobreza por ingresos,20.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Zamora Chinchipe,Total,Pobreza por ingresos,41.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Sucumbíos,Total,Pobreza por ingresos,52.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Orellana,Total,Pobreza por ingresos,62.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Santo Domingo,Total,Pobreza por ingresos,20.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2019,Santa Elena,Total,Pobreza por ingresos,27.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Total,Pobreza por ingresos,28.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Urbano,Pobreza por ingresos,22.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Nacional,Rural,Pobreza por ingresos,41.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Azuay,Total,Pobreza por ingresos,17.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Bolívar,Total,Pobreza por ingresos,42.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Cañar,Total,Pobreza por ingresos,24.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Carchi,Total,Pobreza por ingresos,35.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Cotopaxi,Total,Pobreza por ingresos,26.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Chimborazo,Total,Pobreza por ingresos,40.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,El Oro,Total,Pobreza por ingresos,21.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Esmeraldas,Total,Pobreza por ingresos,52.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Guayas,Total,Pobreza por ingresos,25.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Imbabura,Total,Pobreza por ingresos,34.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Loja,Total,Pobreza por ingresos,31.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Los Ríos,Total,Pobreza por ingresos,32.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Manabí,Total,Pobreza por ingresos,32.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Morona Santiago,Total,Pobreza por ingresos,70.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Napo,Total,Pobreza por ingresos,59.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Pastaza,Total,Pobreza por ingresos,52.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Pichincha,Total,Pobreza por ingresos,19.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Tungurahua,Total,Pobreza por ingresos,23.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Zamora Chinchipe,Total,Pobreza por ingresos,30.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Sucumbíos,Total,Pobreza por ingresos,50.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Orellana,Total,Pobreza por ingresos,55.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Santo Domingo,Total,Pobreza por ingresos,26.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2021,Santa Elena,Total,Pobreza por ingresos,34.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Total,Pobreza por ingresos,25.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Urbano,Pobreza por ingresos,18.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Nacional,Rural,Pobreza por ingresos,40.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Azuay,Total,Pobreza por ingresos,12.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Bolívar,Total,Pobreza por ingresos,34.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Cañar,Total,Pobreza por ingresos,26.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Carchi,Total,Pobreza por ingresos,35.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Cotopaxi,Total,Pobreza por ingresos,26.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Chimborazo,Total,Pobreza por ingresos,38.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,El Oro,Total,Pobreza por ingresos,15.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Esmeraldas,Total,Pobreza por ingresos,50.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Guayas,Total,Pobreza por ingresos,20.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Imbabura,Total,Pobreza por ingresos,29.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Loja,Total,Pobreza por ingresos,31.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Los Ríos,Total,Pobreza por ingresos,27.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Manabí,Total,Pobreza por ingresos,29.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Morona Santiago,Total,Pobreza por ingresos,65.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Napo,Total,Pobreza por ingresos,63.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Pastaza,Total,Pobreza por ingresos,64.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Pichincha,Total,Pobreza por ingresos,15.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Tungurahua,Total,Pobreza por ingresos,20.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Zamora Chinchipe,Total,Pobreza por ingresos,35.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Sucumbíos,Total,Pobreza por ingresos,54.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Orellana,Total,Pobreza por ingresos,59.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Santo Domingo,Total,Pobreza por ingresos,23.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2022,Santa Elena,Total,Pobreza por ingresos,31.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Total,Pobreza por ingresos,23.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Urbano,Pobreza por ingresos,17.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Nacional,Rural,Pobreza por ingresos,38.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Azuay,Total,Pobreza por ingresos,13.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Bolívar,Total,Pobreza por ingresos,31.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Cañar,Total,Pobreza por ingresos,16.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Carchi,Total,Pobreza por ingresos,38.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Cotopaxi,Total,Pobreza por ingresos,30.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Chimborazo,Total,Pobreza por ingresos,31.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,El Oro,Total,Pobreza por ingresos,12.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Esmeraldas,Total,Pobreza por ingresos,49.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Guayas,Total,Pobreza por ingresos,20.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Imbabura,Total,Pobreza por ingresos,30.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Loja,Total,Pobreza por ingresos,28.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Los Ríos,Total,Pobreza por ingresos,24.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Manabí,Total,Pobreza por ingresos,24.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Morona Santiago,Total,Pobreza por ingresos,63.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Napo,Total,Pobreza por ingresos,73.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Pastaza,Total,Pobreza por ingresos,69.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Pichincha,Total,Pobreza por ingresos,12.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Tungurahua,Total,Pobreza por ingresos,14.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Zamora Chinchipe,Total,Pobreza por ingresos,36.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Sucumbíos,Total,Pobreza por ingresos,60.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Orellana,Total,Pobreza por ingresos,66.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Santo Domingo,Total,Pobreza por ingresos,24.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2023,Santa Elena,Total,Pobreza por ingresos,32.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Total,Pobreza por ingresos,24.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Urbano,Pobreza por ingresos,17.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Nacional,Rural,Pobreza por ingresos,38.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Azuay,Total,Pobreza por ingresos,12.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Bolívar,Total,Pobreza por ingresos,40.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Cañar,Total,Pobreza por ingresos,25.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Carchi,Total,Pobreza por ingresos,36.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Cotopaxi,Total,Pobreza por ingresos,37.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Chimborazo,Total,Pobreza por ingresos,31.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,El Oro,Total,Pobreza por ingresos,12.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Esmeraldas,Total,Pobreza por ingresos,51.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Guayas,Total,Pobreza por ingresos,21.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Imbabura,Total,Pobreza por ingresos,32.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Loja,Total,Pobreza por ingresos,25.1,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Los Ríos,Total,Pobreza por ingresos,21.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Manabí,Total,Pobreza por ingresos,26.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Morona Santiago,Total,Pobreza por ingresos,64.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Napo,Total,Pobreza por ingresos,57.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Pastaza,Total,Pobreza por ingresos,44.5,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Pichincha,Total,Pobreza por ingresos,12.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Tungurahua,Total,Pobreza por ingresos,12.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Zamora Chinchipe,Total,Pobreza por ingresos,34.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Sucumbíos,Total,Pobreza por ingresos,58.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Orellana,Total,Pobreza por ingresos,76.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Santo Domingo,Total,Pobreza por ingresos,22.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2024,Santa Elena,Total,Pobreza por ingresos,35.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Total,Pobreza por ingresos,21.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Urbano,Pobreza por ingresos,16.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Nacional,Rural,Pobreza por ingresos,33.4,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Azuay,Total,Pobreza por ingresos,12.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Bolívar,Total,Pobreza por ingresos,27.9,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Cañar,Total,Pobreza por ingresos,15.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Carchi,Total,Pobreza por ingresos,39.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Cotopaxi,Total,Pobreza por ingresos,23.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Chimborazo,Total,Pobreza por ingresos,26.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,El Oro,Total,Pobreza por ingresos,15.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Esmeraldas,Total,Pobreza por ingresos,44.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Guayas,Total,Pobreza por ingresos,19.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Imbabura,Total,Pobreza por ingresos,31.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Loja,Total,Pobreza por ingresos,30.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Los Ríos,Total,Pobreza por ingresos,22.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Manabí,Total,Pobreza por ingresos,24.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Morona Santiago,Total,Pobreza por ingresos,74.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Napo,Total,Pobreza por ingresos,58.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Pastaza,Total,Pobreza por ingresos,36.3,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Pichincha,Total,Pobreza por ingresos,11.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Tungurahua,Total,Pobreza por ingresos,11.0,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Zamora Chinchipe,Total,Pobreza por ingresos,27.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Sucumbíos,Total,Pobreza por ingresos,46.7,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Orellana,Total,Pobreza por ingresos,44.2,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Santo Domingo,Total,Pobreza por ingresos,14.6,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24
+2025,Santa Elena,Total,Pobreza por ingresos,29.8,porcentaje,https://www.ecuadorencifras.gob.ec/documentos/web-inec/EMPLEO/2025/anual/ENEMDU_Tabulados_anual_2025-CSV.zip,2026-11-24

@@ -1,0 +1,11 @@
+{
+  "data_mode": "production",
+  "synthetic": false,
+  "approved_for_processing": false,
+  "institution_id": "",
+  "source_system": "",
+  "imported_at": "",
+  "approval_reference": "",
+  "payment_due_day": null,
+  "financial_exposure_months": null
+}

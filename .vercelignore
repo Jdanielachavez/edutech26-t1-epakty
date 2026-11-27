@@ -1,0 +1,33 @@
+# Secretos: nunca se suben
+.env
+.env.*
+env
+certs
+.claude
+*.pem
+*.key
+# Lo que no corre en Vercel
+.venv
+__pycache__
+*.pyc
+.DS_Store
+.pytest_cache
+_archivo
+engine_stub
+n8n
+scripts
+skills
+KIT_INTEGRACION_EPAKTI
+tmp
+outputs
+docs
+infra
+backend/tests
+# Datos: solo lo que usa la API (referencias públicas y el modelo)
+data/bronze/dataset-ficticio-colegio
+data/bronze/production
+data/silver
+data/operational
+data/gold
+frontend-v2/data/demo-bundle.json.bak
+data/bronze/public/raw

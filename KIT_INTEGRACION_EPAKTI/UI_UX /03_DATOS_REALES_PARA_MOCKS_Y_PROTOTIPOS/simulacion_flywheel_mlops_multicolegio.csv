@@ -1,0 +1,7 @@
+colegios_conectados_saas,estudiantes_anonimizados_pool,auc_colegios_nuevos_zero_shot,ap_colegios_nuevos_zero_shot,brier_colegios_nuevos_zero_shot,ece_zero_shot_pp,brier_tras_calibracion_bayesiana_60est,ece_tras_calibracion_bayesiana_pp
+1,240,0.8404,0.8819,0.1808,11.39,0.1674,9.38
+3,720,0.8496,0.8891,0.1609,5.28,0.1595,4.98
+5,1200,0.8585,0.8973,0.1528,3.2,0.1537,3.25
+10,2400,0.8596,0.8979,0.1519,2.72,0.1527,2.87
+15,3600,0.8602,0.8982,0.1513,2.41,0.1522,2.46
+25,6000,0.8622,0.8996,0.15,2.27,0.1515,2.35

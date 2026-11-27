@@ -1,0 +1,165 @@
+{
+  "id": "epExamenOcr",
+  "name": "E-Pakty · Lector de exámenes (Nova Lite)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-examen-ocr",
+        "responseMode": "onReceived",
+        "options": {
+          "responseCode": 202
+        },
+        "authentication": "headerAuth"
+      },
+      "id": "wb",
+      "name": "Webhook exámenes",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        200
+      ],
+      "webhookId": "epakti-examen-ocr",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epWebhook",
+          "name": "E-Pakty webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Una fila por foto, con el cuerpo ya armado para Amazon Nova Lite. Las fotos no se guardan en ningún lado.\nconst PROMPT=\"Eres un lector de exámenes escolares ya calificados. Mira la imagen y, para CADA pregunta numerada, indica si quedó CORRECTA o INCORRECTA según la marca del docente (visto/bien/puntaje completo = correcta; cruz/mal/0 = incorrecta). Si ves un puntaje por pregunta, devuélvelo también. IGNORA nombres de personas: solo devuelve el código del estudiante si aparece escrito como «Código» (por ejemplo EST-064); si no hay, usa null. No inventes preguntas que no veas. Responde SOLO con JSON válido, sin texto extra, con esta forma exacta: {\\\"codigo\\\":\\\"EST-064\\\",\\\"respuestas\\\":[{\\\"pregunta\\\":1,\\\"correcta\\\":true},{\\\"pregunta\\\":2,\\\"correcta\\\":false,\\\"puntaje\\\":0,\\\"puntaje_max\\\":10}]}\";\nconst b=$input.first().json.body||$input.first().json;\nreturn (b.imagenes||[]).map((im,i)=>{const formato=im.mime==='image/png'?'png':im.mime==='image/webp'?'webp':'jpeg';\n  return {json:{evaluacion_id:b.evaluacion_id,hoja:i+1,req:{messages:[{role:'user',content:[{image:{format:formato,source:{bytes:im.b64}}},{text:PROMPT}]}],inferenceConfig:{maxTokens:1200,temperature:0}}}}});"
+      },
+      "id": "prep",
+      "name": "Una fila por foto",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.nova-lite-v1:0/converse",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "aws",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.req) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "nova",
+      "name": "Nova Lite lee la hoja",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        200
+      ],
+      "credentials": {
+        "aws": {
+          "id": "LVNKyAvZZeKDUl3s",
+          "name": "AWS (IAM) account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Une las hojas leídas y las valida. Si algo no se pudo leer, se avisa a la API (no se inventa nada).\nconst ev=$('Una fila por foto').first().json.evaluacion_id;\nconst hojas=[],fallas=[];\nfor(const [i,it] of $input.all().entries()){\n  try{\n    if(it.json.error) throw new Error('AWS: '+(it.json.error.message||it.json.error));\n    let txt=(it.json.output?.message?.content||[]).map(c=>c.text||'').join('');\n    txt=txt.replace(/```json|```/g,'').trim(); const j=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));\n    const resp=(j.respuestas||[]).filter(r=>Number.isInteger(r.pregunta)&&r.pregunta>=1&&r.pregunta<=300).map(r=>{const o={pregunta:r.pregunta};\n      if(typeof r.correcta==='boolean')o.correcta=r.correcta;\n      if(typeof r.puntaje==='number'&&typeof r.puntaje_max==='number'&&r.puntaje_max>0){o.puntaje=r.puntaje;o.puntaje_max=r.puntaje_max}\n      return o}).filter(o=>o.correcta!==undefined||o.puntaje!==undefined);\n    const cod=typeof j.codigo==='string'&&/^[A-Za-z0-9-]{1,24}$/.test(j.codigo)?j.codigo:null;\n    if(resp.length) hojas.push({codigo:cod,respuestas:resp}); else fallas.push('hoja '+(i+1)+' sin respuestas legibles');\n  }catch(e){fallas.push('hoja '+(i+1)+': '+String(e.message).slice(0,80))}\n}\nreturn [{json:{evaluacion_id:ev,body:hojas.length?{hojas}:{error:('No se pudo leer: '+fallas.join('; ')).slice(0,290)}}}];"
+      },
+      "id": "join",
+      "name": "Unir y validar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{'http://host.docker.internal:8000/api/v1/evaluaciones/'+$json.evaluacion_id+'/resultado'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{JSON.stringify($json.body)}}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "cb",
+      "name": "Devolver a E-Pakty (queda por revisar)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epApiWorker",
+          "name": "E-Pakty API worker"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook exámenes": {
+      "main": [
+        [
+          {
+            "node": "Una fila por foto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Una fila por foto": {
+      "main": [
+        [
+          {
+            "node": "Nova Lite lee la hoja",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nova Lite lee la hoja": {
+      "main": [
+        [
+          {
+            "node": "Unir y validar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unir y validar": {
+      "main": [
+        [
+          {
+            "node": "Devolver a E-Pakty (queda por revisar)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

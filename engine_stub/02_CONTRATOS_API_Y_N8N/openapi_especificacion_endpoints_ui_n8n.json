@@ -1,0 +1,1908 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "E-Pakti EduTech SaaS API — Arquitectura Dual-Plane (Portal Colegio Cliente + Consola E-Pakti CEO & MLOps)",
+    "version": "2.1.0",
+    "description": "API RESTful Multi-Tenant de E-Pakti con dos planos estrictamente aislados vía JWT RBAC bajo LOPDP y LOEI Ecuador: (1) PLANO A — Portal del Colegio Cliente (`app.epakti.ec`, EP-01 a EP-11): separa vistas pedagógicas (Docentes/Tutores/DECE/Inspección sin datos financieros) de vistas financieras (Colecturía/Admisiones) y orquesta agentes IA en n8n con registro de intervenciones. (2) PLANO B — Consola Interna E-Pakti (`admin.epakti.ec`, EP-12 a EP-18): exclusiva para CEO, Data Science y MLOps de E-Pakti para gestionar todos los colegios conectados, explorar el Data Lake k-anónimo (CERO PII), disparar re-entrenamientos, auditar drift PSI/ECE, aprobar candados Champion-Challenger, controlar Feature Flags / Canary Releases y observar flujos n8n."
+  },
+  "servers": [
+    {
+      "url": "https://api.epakti.ec/api/v1",
+      "description": "Producción SaaS E-Pakti Ecuador (Tenant Plane + Control Plane)"
+    },
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Servidor Local de Desarrollo FastAPI"
+    }
+  ],
+  "security": [
+    {
+      "BearerJWT_RBAC": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerJWT_RBAC": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Claims obligatorios en JWT: `plane` in ['TENANT_SCHOOL', 'EPAKTI_CONTROL_PLANE'], `school_id`, `codigo_amie`, `dpa_parroquia`, `role` in ['RECTORADO','DOCENTE_TUTOR','DECE','INSPECCION','COLECTURIA','ADMISIONES','N8N_ORCHESTRATOR','EPAKTI_CEO','EPAKTI_MLOPS','EPAKTI_DATA_SCIENCE','EPAKTI_CS']."
+      }
+    },
+    "schemas": {
+      "SemaforoColor": {
+        "type": "string",
+        "enum": [
+          "VERDE",
+          "AMARILLO",
+          "NARANJA",
+          "ROJO"
+        ]
+      },
+      "ErrorRBAC": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "endpoints_catalogo": [
+    {
+      "id": "EP-01",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "POST",
+      "path": "/api/v1/tenants/onboard",
+      "summary": "Onboarding de Unidad Educativa + Enlace Automático con Backbone Nacional (AMIE + Censo 2022 + ENEMDU + INEVAL)",
+      "roles_permitidos": [
+        "RECTORADO",
+        "EPAKTI_CEO",
+        "EPAKTI_CS"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Wizard Onboarding)",
+        "admin.epakti.ec (Alta de Colegio)",
+        "Motor Macro-Meso Nacional"
+      ],
+      "request_example": {
+        "codigo_amie": "01H00123",
+        "nombre_institucion": "Unidad Educativa Particular Demo Cuenca",
+        "dpa_parroquia_plantel": "010150",
+        "regimen": "Sierra-Amazonía",
+        "sostenimiento": "Particular",
+        "sistema_origen_erp": "Idukay / Runachay / Educalinks / Academium / CSV"
+      },
+      "response_example": {
+        "school_id": "SCH-01H00123",
+        "contexto_macro_meso_vinculado": {
+          "provincia": "AZUAY",
+          "canton": "CUENCA",
+          "parroquia_censo_2022": "Cuenca (El Batán)",
+          "tasa_nbi_parroquia_pct": 8.5,
+          "cobertura_internet_fijo_pct": 86.3,
+          "pobreza_provincial_enemdu_pct": 12.7,
+          "tasa_abandono_amie_canton_pct": 0.72,
+          "ineval_matematica_ref": 700.86,
+          "ineval_lengua_ref": 700.47
+        },
+        "adaptador_empirical_bayes": {
+          "n_historico_etiquetado": 0,
+          "lambda_shrinkage": 0.0,
+          "modo_inicial": "Red_MultiEscuela_Zero_Shot"
+        }
+      }
+    },
+    {
+      "id": "EP-02",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "POST",
+      "path": "/api/v1/ingestion/batch-sync",
+      "summary": "Ingesta y Homologación de las 6 Tablas del ERP Escolar (Bronze -> Silver -> Gold + Inferencia Batch)",
+      "roles_permitidos": [
+        "RECTORADO",
+        "EPAKTI_MLOPS",
+        "N8N_ORCHESTRATOR"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Carga CSV/Excel)",
+        "n8n Nightly Sync Cron"
+      ],
+      "request_example": {
+        "school_id": "SCH-01H00123",
+        "fecha_corte": "2025-10-31",
+        "archivos_cargados": [
+          "estudiantes.csv",
+          "asistencia.csv",
+          "notas.csv",
+          "pensiones.csv",
+          "horarios.csv",
+          "docentes.csv"
+        ]
+      },
+      "response_example": {
+        "job_id": "JOB-20251031-001",
+        "estudiantes_procesados": 240,
+        "hogares_procesados": 204,
+        "auditoria_econometrica_automatica": {
+          "variables_auditadas": 39,
+          "coherencia_signos_100pct": true,
+          "vif_maximo": 5.26
+        },
+        "resumen_semaforos": {
+          "docente_integrado": {
+            "ROJO": 93,
+            "NARANJA": 8,
+            "AMARILLO": 60,
+            "VERDE": 79
+          },
+          "permanencia_asistencia": {
+            "ROJO": 77,
+            "AMARILLO": 76,
+            "VERDE": 87
+          },
+          "academico_q2": {
+            "ROJO": 47,
+            "NARANJA": 23,
+            "AMARILLO": 38,
+            "VERDE": 132
+          },
+          "colecturia_pagos": {
+            "ROJO": 22,
+            "NARANJA": 24,
+            "AMARILLO": 106,
+            "VERDE": 88
+          }
+        }
+      }
+    },
+    {
+      "id": "EP-03",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "POST",
+      "path": "/api/v1/admissions/evaluate-applicant",
+      "summary": "Evaluación Individual N=1 de Pre-Ingreso / Admisión (Semáforo Educativo Día 1 + Semáforo Financiero Matrícula M1)",
+      "roles_permitidos": [
+        "ADMISIONES",
+        "DECE",
+        "COLECTURIA",
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Simulador de Admisión / Matrícula en Vivo)"
+      ],
+      "request_example": {
+        "codigo_postulante": "POST-2026-019",
+        "curso_postulado": "1 BGU",
+        "anio_nacimiento": 2009,
+        "necesidad_educativa": "discalculia",
+        "dpa_parroquia_residencia": "010169",
+        "n_hijos_representante": 2,
+        "beca_porcentaje": 10,
+        "evaluacion_diagnostica_o_libreta_previa": {
+          "prop_areas_bajo_7": 0.4286,
+          "n_areas_criticas_bajo_6": 1,
+          "nota_matematica_0_10": 6.1,
+          "nota_lengua_0_10": 6.8
+        },
+        "comportamiento_matricula_mes1": {
+          "cuota_matricula_vencida": 0,
+          "pago_posterior_dia_10": 1,
+          "dia_pago_matricula": 14,
+          "hermano_con_atraso_matricula": 1
+        }
+      },
+      "response_example": {
+        "vista_admision_pedagogica_dece": {
+          "semaforo_ingreso_educativo": "ROJO",
+          "etiqueta": "ROJO — Plan de Acompañamiento DECE / Nivelación desde Día 1",
+          "prob_riesgo_academico_pct": 78.4,
+          "indice_estabilidad_educativa_0_100": 21.6,
+          "protocolo_dia_1": "Activar ficha DECE (discalculia) + Nivelación preventiva en Matemática desde semana 1"
+        },
+        "vista_admision_financiera_solo_colecturia": {
+          "semaforo_ingreso_financiero": "ROJO",
+          "etiqueta": "ROJO — Fricción en Matrícula / Ofrecer Fecha Flexible (Día 15-20) o Convenio",
+          "prob_incumplimiento_pago_pct": 51.4,
+          "prob_morosidad_cronica_2m_pct": 28.9,
+          "protocolo_matricula": "Acordar fecha de pago flexible (día 15-20) o descuento multi-hijo en matrícula"
+        }
+      }
+    },
+    {
+      "id": "EP-04",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/dashboard/rectorado/kpis-roi",
+      "summary": "Tablero Ejecutivo de Rectorado: KPIs Globales, Valor Financiero en Riesgo (USD), ROI de Retención y Diagnóstico Docente",
+      "roles_permitidos": [
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A1: Rectorado y Directorio)"
+      ],
+      "response_example": {
+        "colegiatura_anual_total_240_alumnos_usd": 401357.5,
+        "colegiatura_restante_8_meses_total_usd": 321086.0,
+        "pension_mensual_neta_promedio_usd": 167.23,
+        "alumnos_en_alerta_pedagogica_rojo_naranja": 101,
+        "alumnos_en_alerta_financiera_rojo_naranja": 46,
+        "alumnos_totales_en_alerta_360": 124,
+        "cartera_restante_expuesta_en_alertas_360_usd": 167684.0,
+        "perdida_esperada_sin_intervencion_usd": 102693.07,
+        "ahorro_esperado_por_intervencion_360_top40_usd": 13933.66,
+        "ahorro_esperado_por_intervencion_360_plantel_usd": 35751.1
+      }
+    },
+    {
+      "id": "EP-05",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/dashboard/docente-tutor/triage",
+      "summary": "Matriz de Semaforización Pedagógica y Permanencia para Docentes e Inspección (CERO Datos Financieros — LOPDP/LOEI)",
+      "roles_permitidos": [
+        "DOCENTE_TUTOR",
+        "INSPECCION",
+        "DECE",
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A2: Matriz Triage Docente e Inspección)"
+      ],
+      "query_params": [
+        "curso",
+        "paralelo",
+        "semaforo_color",
+        "tiene_nee"
+      ],
+      "response_example": {
+        "politica_rbac": "CERO_DATOS_FINANCIEROS_EXPUESTOS",
+        "conteos_semaforo_docente": {
+          "ROJO": 93,
+          "NARANJA": 8,
+          "AMARILLO": 60,
+          "VERDE": 79
+        },
+        "estudiante_ejemplo": {
+          "codigo_estudiante": "EST-064",
+          "nombre_ficticio": "Paula León Torres",
+          "curso_paralelo": "9 EGB B",
+          "necesidad_educativa": "ninguna",
+          "semaforo_docente_color": "ROJO",
+          "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+          "semaforo_permanencia_color": "ROJO",
+          "prob_oof_ausentismo_pct": 90.1,
+          "semaforo_academico_color": "ROJO",
+          "prob_oof_riesgo_academico_q2_pct": 97.6,
+          "materia_critica_corte": "Inglés",
+          "palanca_optima_recomendada": "Inspección y Familia (Plan de asistencia y puntualidad)"
+        }
+      }
+    },
+    {
+      "id": "EP-06",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/students/{codigo_estudiante}/ficha-360",
+      "summary": "Ficha 360° del Estudiante: Cascada SHAP en Puntos Porcentuales + Simulador Contrafactual Interactivo ('What-If')",
+      "roles_permitidos": [
+        "DOCENTE_TUTOR",
+        "DECE",
+        "INSPECCION",
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A3: Drawer Ficha 360° con Sliders Contrafactuales)"
+      ],
+      "response_example": {
+        "codigo_estudiante": "EST-064",
+        "nombre_ficticio": "Paula León Torres",
+        "prob_base_plantel_pct": 29.17,
+        "prob_actual_ausentismo_oof_pct": 84.8,
+        "prob_actual_ausentismo_full_pct": 86.3,
+        "desglose_shap_4_niveles_pp": {
+          "micro_asistencia_pp": 42.63,
+          "micro_academico_nee_pp": 0.75,
+          "sinergia_doble_vulnerabilidad_pp": 6.53,
+          "contexto_meso_macro_film_pp": 11.27
+        },
+        "top_3_impulsores_shap": [
+          "Racha máxima faltas injustificadas (+10.3 pp)",
+          "Tasa histórica faltas injustificadas (+8.5 pp)",
+          "Tasa histórica faltas justificadas (+8.4 pp)"
+        ],
+        "simulador_contrafactual_what_if": {
+          "reduccion_plan_asistencia_pp": -15.37,
+          "reduccion_tutoria_y_nee_pp": -14.32,
+          "reduccion_paquete_integral_360_pp": -31.74,
+          "prob_post_intervencion_360_pct": 54.6
+        }
+      }
+    },
+    {
+      "id": "EP-07",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/dashboard/dece/inclusion-nee",
+      "summary": "Tablero Especializado DECE: 92 Estudiantes con NEE (TDAH, TEA, Discalculia, Dislexia, Visual) x Materia Crítica",
+      "roles_permitidos": [
+        "DECE",
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A4: Bandeja Psicopedagógica DECE)"
+      ],
+      "response_example": {
+        "total_estudiantes_nee": 92,
+        "prioridad_alta_dece": 32,
+        "prioridad_media_dece": 16,
+        "hallazgos_clave_por_condicion": {
+          "discalculia_19_alumnos": "Promedio Matemática Q1 = 7,32 (brecha específica numérica)",
+          "TEA_21_alumnos": "Promedio Inglés = 7,03 y Lengua = 7,12 (requiere mediación comunicativa)",
+          "TDAH_15_alumnos": "Promedio 4,13 faltas injustificadas vs 2,76 sin NEE (requiere estructura y seguimiento)"
+        }
+      }
+    },
+    {
+      "id": "EP-08",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/dashboard/colecturia/cartera-hogares",
+      "summary": "Tablero EXCLUSIVO Colecturía: Semáforo de Pagos por Estudiante y Representante (204 Hogares) + El Porqué SHAP",
+      "roles_permitidos": [
+        "COLECTURIA",
+        "RECTORADO"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A5: Gestión Preventiva de Cartera y Convenios)"
+      ],
+      "response_example": {
+        "acceso_rbac": "BLOQUEADO_PARA_DOCENTES_E_INSPECCION",
+        "resumen_cartera_colegio": {
+          "hogares_totales": 204,
+          "familias_con_mora": 56,
+          "cuotas_vencidas_totales": 74
+        },
+        "conteos_semaforo_pagos": {
+          "ROJO": 22,
+          "NARANJA": 24,
+          "AMARILLO": 106,
+          "VERDE": 88
+        },
+        "caso_ejemplo_shap_morosidad": {
+          "codigo_estudiante": "EST-105",
+          "representante_codigo": "REP-090",
+          "semaforo_pagos_color": "ROJO",
+          "prob_incumplimiento_nov_ene_pct": 77.08,
+          "prob_morosidad_cronica_2m_pct": 62.18,
+          "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+          "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.8 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+12.3 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+11.1 pp)",
+          "accion_recomendada_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía"
+        }
+      }
+    },
+    {
+      "id": "EP-09",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/dashboard/vicerrectorado/docentes-horarios",
+      "summary": "Diagnóstico de Carga Docente (14 Profesores, Efecto Fijo) y Faltas/Atrasos en Primer Bloque Matutino",
+      "roles_permitidos": [
+        "RECTORADO",
+        "INSPECCION"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Vista A6: Control Académico y Horarios)"
+      ]
+    },
+    {
+      "id": "EP-10",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "POST",
+      "path": "/api/v1/n8n/dispatch-alerts",
+      "summary": "Disparador de Alertas Priorizadas hacia el Webhook de n8n con Partición RBAC y Aprobación Humana (Human-in-the-Loop)",
+      "roles_permitidos": [
+        "RECTORADO",
+        "DECE",
+        "COLECTURIA",
+        "N8N_ORCHESTRATOR"
+      ],
+      "conectado_con": [
+        "n8n Webhook Node (`POST /webhook/epakti-alerta-360`)",
+        "app.epakti.ec (Botón 'Aprobar y Enviar')"
+      ]
+    },
+    {
+      "id": "EP-11",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "POST",
+      "path": "/api/v1/interventions/log-outcome",
+      "summary": "Webhook de Retorno desde n8n / UI para Registrar Intervención Aplicada (Candado MLOps contra Feedback Loops)",
+      "roles_permitidos": [
+        "DOCENTE_TUTOR",
+        "DECE",
+        "INSPECCION",
+        "COLECTURIA",
+        "N8N_ORCHESTRATOR"
+      ],
+      "conectado_con": [
+        "n8n Node 9 (HTTP Request Callback)",
+        "app.epakti.ec (Bitácora MTSS de Seguimiento)"
+      ],
+      "request_example": {
+        "school_id": "SCH-01H00123",
+        "codigo_estudiante": "EST-089",
+        "rol_ejecutor": "DECE",
+        "tipo_intervencion": "TUTORIA_Y_ADAPTACION_NEE",
+        "canal_n8n": "WhatsApp_y_Agenda_Presencial",
+        "intervencion_aplicada": 1,
+        "fecha_ejecucion": "2025-11-03T10:30:00-05:00",
+        "compromiso_representante": "Firmado plan de nivelación en Matemática e Inglés 2 veces por semana"
+      }
+    },
+    {
+      "id": "EP-12",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "GET",
+      "path": "/api/v1/admin/mlops/overview-and-drift",
+      "summary": "Monitor Global MLOps de E-Pakti: Data Drift (PSI), Calibración (ECE), 5 Candados Champion-Challenger, Data Flywheel y Feedback Loop Audit",
+      "roles_permitidos": [
+        "EPAKTI_CEO",
+        "EPAKTI_MLOPS",
+        "EPAKTI_DATA_SCIENCE"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B3 & B4: MLOps Studio y Monitor de Drift)"
+      ],
+      "response_example": {
+        "colegios_activos_en_flywheel": 25,
+        "estudiantes_anonimizados_pool": 6000,
+        "psi_global_drift": 0.0364,
+        "ece_actual_calibracion_pp": 2.22,
+        "ece_si_reentrenamiento_ingenuo_sin_log_pp": 23.56,
+        "intervenciones_registradas_protegidas": 2963,
+        "versiones_champion_activas": {
+          "ausentismo_film": "v2.1.0-monotonic-film",
+          "academico_q2": "v2.1.0-monotonic-film",
+          "morosidad_cronica": "v2.1.0-monotonic-film",
+          "preingreso_m1": "v2.1.0-platt-calibrated"
+        }
+      }
+    },
+    {
+      "id": "EP-13",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "GET",
+      "path": "/api/v1/admin/tenants",
+      "summary": "Centro de Comando Multi-Tenant de E-Pakti: Salud, Calidad de Datos, ERP, Territorio DPA, MRR, Lambda Empirical Bayes y ROI de Todos los Colegios",
+      "roles_permitidos": [
+        "EPAKTI_CEO",
+        "EPAKTI_CS",
+        "EPAKTI_MLOPS"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B1: Centro de Comando CEO & Mapa de Colegios)"
+      ],
+      "response_example": {
+        "total_colegios_activos": 25,
+        "mrr_total_usd": 7250.0,
+        "colegios_con_alerta_calidad_datos": 1,
+        "colegio_ejemplo": {
+          "school_id": "SCH-01H00123",
+          "nombre": "U.E. Particular Demo Cuenca",
+          "provincia": "AZUAY",
+          "dpa_parroquia": "010150",
+          "erp_conectado": "Idukay",
+          "estudiantes_activos": 240,
+          "completitud_datos_pct": 99.4,
+          "lambda_empirical_bayes": 0.67,
+          "psi_drift_local": 0.031,
+          "roi_retenido_estimado_usd": 35751.1,
+          "estado_sync_n8n": "HEALTHY"
+        }
+      }
+    },
+    {
+      "id": "EP-14",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "POST",
+      "path": "/api/v1/admin/mlops/retrain",
+      "summary": "Disparador de Re-entrenamiento MLOps de E-Pakti (Tronco Multi-Colegio Anonimizado o Adaptador Empirical Bayes Local)",
+      "roles_permitidos": [
+        "EPAKTI_MLOPS",
+        "EPAKTI_DATA_SCIENCE",
+        "EPAKTI_CEO"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B3: MLOps Studio — Botón 'Lanzar Re-entrenamiento')"
+      ],
+      "request_example": {
+        "alcance": "MULTI_SCHOOL_BACKBONE",
+        "familias_modelo": [
+          "ausentismo_film",
+          "academico_q2",
+          "morosidad_cronica",
+          "preingreso_m1"
+        ],
+        "estrategia_feedback_loop": "EXCLUDE_OR_IPW_TREATED_LOGGED",
+        "exigir_5_candados_automaticos": true
+      },
+      "response_example": {
+        "training_run_id": "MLOPS-RUN-20261124-09",
+        "estado": "CANDIDATE_CHALLENGER_READY",
+        "candados_aprobados": "5/5",
+        "metricas_challenger_vs_champion": {
+          "auc_out_of_school": {
+            "champion": 0.8596,
+            "challenger": 0.8622
+          },
+          "brier": {
+            "champion": 0.1519,
+            "challenger": 0.15
+          },
+          "ece_pp": {
+            "champion": 2.72,
+            "challenger": 2.27
+          },
+          "coherencia_signos_100pct": true,
+          "vif_max": 5.26
+        }
+      }
+    },
+    {
+      "id": "EP-15",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "POST",
+      "path": "/api/v1/admin/mlops/models/{model_version}/promote",
+      "summary": "Promoción Segura de Modelo Challenger -> Champion con Despliegue Progresivo Canary (%) o Rollback Instantáneo",
+      "roles_permitidos": [
+        "EPAKTI_MLOPS",
+        "EPAKTI_CEO"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B3: Model Registry — Promover / Rollback)"
+      ],
+      "request_example": {
+        "accion": "PROMOTE_CANARY",
+        "porcentaje_colegios_canary": 20,
+        "justificacion_release": "Reducción de ECE de 2.72 pp a 2.27 pp con 39/39 signos verificados"
+      },
+      "response_example": {
+        "model_version": "v2.2.0-monotonic-film",
+        "estado_despliegue": "CANARY_20PCT_ACTIVE",
+        "colegios_en_canary": 5,
+        "rollback_disponible_a": "v2.1.0-monotonic-film"
+      }
+    },
+    {
+      "id": "EP-16",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "GET",
+      "path": "/api/v1/admin/data-lake/anonymized-explorer",
+      "summary": "Explorador Auditado del Data Lake K-Anónimo de E-Pakti (CERO PII — LOPDP) y Gestión de Ediciones Oficiales AMIE / Censo / ENEMDU / INEVAL",
+      "roles_permitidos": [
+        "EPAKTI_DATA_SCIENCE",
+        "EPAKTI_MLOPS",
+        "EPAKTI_CEO"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B2: Data Lake Anonimizado & Fuentes Nacionales)"
+      ],
+      "response_example": {
+        "cumplimiento_lopdp": "K_ANONIMATO_VERIFICADO_CERO_PII",
+        "fuentes_nacionales_vigentes": {
+          "MINEDUC_AMIE": "2024-2025 (30.559 cohortes, 6.441 planteles, 1.765.898 alumnos)",
+          "INEC_CENSO": "Censo 2022 (955+ parroquias DPA, homologación 99,96%)",
+          "INEC_ENEMDU": "2024-2025 (24 provincias)",
+          "INEVAL_PISA": "Ser Estudiante 2023-2024 + OCDE PISA 2025 Ecuador"
+        },
+        "auditoria_variables_globales": {
+          "total_variables": 39,
+          "coherencia_signos_pct": 100.0,
+          "vif_max": 5.26
+        }
+      }
+    },
+    {
+      "id": "EP-17",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "PATCH",
+      "path": "/api/v1/admin/tenants/{school_id}/feature-flags",
+      "summary": "Control de Releases, Planes Comerciales y Feature Flags por Colegio (Activar Módulos, Versiones Canary y Límites de Mensajes)",
+      "roles_permitidos": [
+        "EPAKTI_CEO",
+        "EPAKTI_CS",
+        "EPAKTI_MLOPS"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B5: Gestión de Releases, Planes y Feature Flags)"
+      ],
+      "request_example": {
+        "plan_comercial": "ENTERPRISE_360",
+        "feature_flags": {
+          "modulo_preingreso_m1": true,
+          "simulador_contrafactual_what_if": true,
+          "agentes_whatsapp_n8n": true,
+          "modelo_canary_v2_2": false,
+          "encuesta_bienestar_whatsapp_beta": true
+        },
+        "cupo_mensual_mensajes_whatsapp": 1500
+      },
+      "response_example": {
+        "school_id": "SCH-01H00123",
+        "actualizado": true,
+        "auditoria_registrada": true
+      }
+    },
+    {
+      "id": "EP-18",
+      "plano": "PLANO_B_EPAKTI_CONTROL_PLANE",
+      "method": "GET",
+      "path": "/api/v1/admin/n8n/observability",
+      "summary": "Observabilidad Global de Orquestación n8n, Entregas WhatsApp/Gmail, Latencia LLM y Reintento de Webhooks Fallidos en Todos los Colegios",
+      "roles_permitidos": [
+        "EPAKTI_MLOPS",
+        "EPAKTI_CS",
+        "EPAKTI_CEO"
+      ],
+      "conectado_con": [
+        "admin.epakti.ec (Vista B4: Salud de n8n y Agentes IA)"
+      ],
+      "response_example": {
+        "alertas_despachadas_30d": 1480,
+        "tasa_entrega_whatsapp_pct": 98.7,
+        "tasa_callback_bitacora_mlops_pct": 96.2,
+        "latencia_media_agente_ia_seg": 2.4,
+        "webhooks_fallidos_pendientes_reintento": 2
+      }
+    },
+    {
+      "id": "EP-02B",
+      "plano": "PLANO_A_COLEGIO_CLIENTE",
+      "method": "GET",
+      "path": "/api/v1/ingestion/jobs/{job_id}",
+      "summary": "Consulta Asíncrona de Estado del Worker de Ingesta/Scoring (Evita Timeouts HTTP en Procesos de 10-30s)",
+      "roles_permitidos": [
+        "RECTORADO",
+        "EPAKTI_MLOPS",
+        "N8N_ORCHESTRATOR"
+      ],
+      "conectado_con": [
+        "app.epakti.ec (Polling Progreso Carga CSV)",
+        "Worker Asíncrono con Backoff Exponencial"
+      ],
+      "response_example": {
+        "job_id": "JOB-20251031-001",
+        "status": "COMPLETED",
+        "intento_actual": 1,
+        "duracion_ms": 2140,
+        "estudiantes_procesados": 240,
+        "callback_webhook_entregado": true
+      }
+    },
+    {
+      "id": "EP-19",
+      "plano": "PUBLICO_LANDING_WEB",
+      "method": "POST",
+      "path": "/api/v1/public/contact-lead",
+      "summary": "Formulario Público de Contacto Comercial de E-Pakti (Rate-Limited, Sin Secretos en Frontend -> Webhook n8n Comercial)",
+      "roles_permitidos": [
+        "PUBLIC_RATE_LIMITED"
+      ],
+      "conectado_con": [
+        "epakti.ec (Landing / Formulario de Demo)",
+        "n8n Flujo Comercial CRM + WhatsApp/Correo"
+      ],
+      "request_example": {
+        "nombre_contacto": "Rectora Ejemplo",
+        "institucion": "U.E. Particular Ejemplo",
+        "ciudad": "Cuenca",
+        "correo": "rectorado@colegioejemplo.edu.ec",
+        "whatsapp_e164": "+593999000000",
+        "n_estudiantes_aprox": 450,
+        "erp_actual": "Idukay"
+      },
+      "response_example": {
+        "lead_id": "LEAD-2026-0041",
+        "recibido": true,
+        "despachado_a_n8n": true
+      }
+    }
+  ],
+  "paths": {
+    "/api/v1/tenants/onboard": {
+      "post": {
+        "operationId": "ep_01_post",
+        "summary": "Onboarding de Unidad Educativa + Enlace Automático con Backbone Nacional (AMIE + Censo 2022 + ENEMDU + INEVAL)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-01",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO",
+          "EPAKTI_CEO",
+          "EPAKTI_CS"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "school_id": "SCH-01H00123",
+                  "contexto_macro_meso_vinculado": {
+                    "provincia": "AZUAY",
+                    "canton": "CUENCA",
+                    "parroquia_censo_2022": "Cuenca (El Batán)",
+                    "tasa_nbi_parroquia_pct": 8.5,
+                    "cobertura_internet_fijo_pct": 86.3,
+                    "pobreza_provincial_enemdu_pct": 12.7,
+                    "tasa_abandono_amie_canton_pct": 0.72,
+                    "ineval_matematica_ref": 700.86,
+                    "ineval_lengua_ref": 700.47
+                  },
+                  "adaptador_empirical_bayes": {
+                    "n_historico_etiquetado": 0,
+                    "lambda_shrinkage": 0.0,
+                    "modo_inicial": "Red_MultiEscuela_Zero_Shot"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "codigo_amie": "01H00123",
+                "nombre_institucion": "Unidad Educativa Particular Demo Cuenca",
+                "dpa_parroquia_plantel": "010150",
+                "regimen": "Sierra-Amazonía",
+                "sostenimiento": "Particular",
+                "sistema_origen_erp": "Idukay / Runachay / Educalinks / Academium / CSV"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/batch-sync": {
+      "post": {
+        "operationId": "ep_02_post",
+        "summary": "Ingesta y Homologación de las 6 Tablas del ERP Escolar (Bronze -> Silver -> Gold + Inferencia Batch)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-02",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO",
+          "EPAKTI_MLOPS",
+          "N8N_ORCHESTRATOR"
+        ],
+        "responses": {
+          "202": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "job_id": "JOB-20251031-001",
+                  "estudiantes_procesados": 240,
+                  "hogares_procesados": 204,
+                  "auditoria_econometrica_automatica": {
+                    "variables_auditadas": 39,
+                    "coherencia_signos_100pct": true,
+                    "vif_maximo": 5.26
+                  },
+                  "resumen_semaforos": {
+                    "docente_integrado": {
+                      "ROJO": 93,
+                      "NARANJA": 8,
+                      "AMARILLO": 60,
+                      "VERDE": 79
+                    },
+                    "permanencia_asistencia": {
+                      "ROJO": 77,
+                      "AMARILLO": 76,
+                      "VERDE": 87
+                    },
+                    "academico_q2": {
+                      "ROJO": 47,
+                      "NARANJA": 23,
+                      "AMARILLO": 38,
+                      "VERDE": 132
+                    },
+                    "colecturia_pagos": {
+                      "ROJO": 22,
+                      "NARANJA": 24,
+                      "AMARILLO": 106,
+                      "VERDE": 88
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "school_id": "SCH-01H00123",
+                "fecha_corte": "2025-10-31",
+                "archivos_cargados": [
+                  "estudiantes.csv",
+                  "asistencia.csv",
+                  "notas.csv",
+                  "pensiones.csv",
+                  "horarios.csv",
+                  "docentes.csv"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admissions/evaluate-applicant": {
+      "post": {
+        "operationId": "ep_03_post",
+        "summary": "Evaluación Individual N=1 de Pre-Ingreso / Admisión (Semáforo Educativo Día 1 + Semáforo Financiero Matrícula M1)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-03",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "ADMISIONES",
+          "DECE",
+          "COLECTURIA",
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "vista_admision_pedagogica_dece": {
+                    "semaforo_ingreso_educativo": "ROJO",
+                    "etiqueta": "ROJO — Plan de Acompañamiento DECE / Nivelación desde Día 1",
+                    "prob_riesgo_academico_pct": 78.4,
+                    "indice_estabilidad_educativa_0_100": 21.6,
+                    "protocolo_dia_1": "Activar ficha DECE (discalculia) + Nivelación preventiva en Matemática desde semana 1"
+                  },
+                  "vista_admision_financiera_solo_colecturia": {
+                    "semaforo_ingreso_financiero": "ROJO",
+                    "etiqueta": "ROJO — Fricción en Matrícula / Ofrecer Fecha Flexible (Día 15-20) o Convenio",
+                    "prob_incumplimiento_pago_pct": 51.4,
+                    "prob_morosidad_cronica_2m_pct": 28.9,
+                    "protocolo_matricula": "Acordar fecha de pago flexible (día 15-20) o descuento multi-hijo en matrícula"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "codigo_postulante": "POST-2026-019",
+                "curso_postulado": "1 BGU",
+                "anio_nacimiento": 2009,
+                "necesidad_educativa": "discalculia",
+                "dpa_parroquia_residencia": "010169",
+                "n_hijos_representante": 2,
+                "beca_porcentaje": 10,
+                "evaluacion_diagnostica_o_libreta_previa": {
+                  "prop_areas_bajo_7": 0.4286,
+                  "n_areas_criticas_bajo_6": 1,
+                  "nota_matematica_0_10": 6.1,
+                  "nota_lengua_0_10": 6.8
+                },
+                "comportamiento_matricula_mes1": {
+                  "cuota_matricula_vencida": 0,
+                  "pago_posterior_dia_10": 1,
+                  "dia_pago_matricula": 14,
+                  "hermano_con_atraso_matricula": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/rectorado/kpis-roi": {
+      "get": {
+        "operationId": "ep_04_get",
+        "summary": "Tablero Ejecutivo de Rectorado: KPIs Globales, Valor Financiero en Riesgo (USD), ROI de Retención y Diagnóstico Docente",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-04",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "colegiatura_anual_total_240_alumnos_usd": 401357.5,
+                  "colegiatura_restante_8_meses_total_usd": 321086.0,
+                  "pension_mensual_neta_promedio_usd": 167.23,
+                  "alumnos_en_alerta_pedagogica_rojo_naranja": 101,
+                  "alumnos_en_alerta_financiera_rojo_naranja": 46,
+                  "alumnos_totales_en_alerta_360": 124,
+                  "cartera_restante_expuesta_en_alertas_360_usd": 167684.0,
+                  "perdida_esperada_sin_intervencion_usd": 102693.07,
+                  "ahorro_esperado_por_intervencion_360_top40_usd": 13933.66,
+                  "ahorro_esperado_por_intervencion_360_plantel_usd": 35751.1
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/docente-tutor/triage": {
+      "get": {
+        "operationId": "ep_05_get",
+        "summary": "Matriz de Semaforización Pedagógica y Permanencia para Docentes e Inspección (CERO Datos Financieros — LOPDP/LOEI)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-05",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "DOCENTE_TUTOR",
+          "INSPECCION",
+          "DECE",
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "politica_rbac": "CERO_DATOS_FINANCIEROS_EXPUESTOS",
+                  "conteos_semaforo_docente": {
+                    "ROJO": 93,
+                    "NARANJA": 8,
+                    "AMARILLO": 60,
+                    "VERDE": 79
+                  },
+                  "estudiante_ejemplo": {
+                    "codigo_estudiante": "EST-064",
+                    "nombre_ficticio": "Paula León Torres",
+                    "curso_paralelo": "9 EGB B",
+                    "necesidad_educativa": "ninguna",
+                    "semaforo_docente_color": "ROJO",
+                    "foco_pedagogico": "Doble Foco: Permanencia + Aprendizaje",
+                    "semaforo_permanencia_color": "ROJO",
+                    "prob_oof_ausentismo_pct": 90.1,
+                    "semaforo_academico_color": "ROJO",
+                    "prob_oof_riesgo_academico_q2_pct": 97.6,
+                    "materia_critica_corte": "Inglés",
+                    "palanca_optima_recomendada": "Inspección y Familia (Plan de asistencia y puntualidad)"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "parameters": [
+          {
+            "name": "curso",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paralelo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "semaforo_color",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tiene_nee",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/students/{codigo_estudiante}/ficha-360": {
+      "get": {
+        "operationId": "ep_06_get",
+        "summary": "Ficha 360° del Estudiante: Cascada SHAP en Puntos Porcentuales + Simulador Contrafactual Interactivo ('What-If')",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-06",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "DOCENTE_TUTOR",
+          "DECE",
+          "INSPECCION",
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "codigo_estudiante": "EST-064",
+                  "nombre_ficticio": "Paula León Torres",
+                  "prob_base_plantel_pct": 29.17,
+                  "prob_actual_ausentismo_oof_pct": 84.8,
+                  "prob_actual_ausentismo_full_pct": 86.3,
+                  "desglose_shap_4_niveles_pp": {
+                    "micro_asistencia_pp": 42.63,
+                    "micro_academico_nee_pp": 0.75,
+                    "sinergia_doble_vulnerabilidad_pp": 6.53,
+                    "contexto_meso_macro_film_pp": 11.27
+                  },
+                  "top_3_impulsores_shap": [
+                    "Racha máxima faltas injustificadas (+10.3 pp)",
+                    "Tasa histórica faltas injustificadas (+8.5 pp)",
+                    "Tasa histórica faltas justificadas (+8.4 pp)"
+                  ],
+                  "simulador_contrafactual_what_if": {
+                    "reduccion_plan_asistencia_pp": -15.37,
+                    "reduccion_tutoria_y_nee_pp": -14.32,
+                    "reduccion_paquete_integral_360_pp": -31.74,
+                    "prob_post_intervencion_360_pct": 54.6
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "parameters": [
+          {
+            "name": "codigo_estudiante",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboard/dece/inclusion-nee": {
+      "get": {
+        "operationId": "ep_07_get",
+        "summary": "Tablero Especializado DECE: 92 Estudiantes con NEE (TDAH, TEA, Discalculia, Dislexia, Visual) x Materia Crítica",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-07",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "DECE",
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "total_estudiantes_nee": 92,
+                  "prioridad_alta_dece": 32,
+                  "prioridad_media_dece": 16,
+                  "hallazgos_clave_por_condicion": {
+                    "discalculia_19_alumnos": "Promedio Matemática Q1 = 7,32 (brecha específica numérica)",
+                    "TEA_21_alumnos": "Promedio Inglés = 7,03 y Lengua = 7,12 (requiere mediación comunicativa)",
+                    "TDAH_15_alumnos": "Promedio 4,13 faltas injustificadas vs 2,76 sin NEE (requiere estructura y seguimiento)"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/colecturia/cartera-hogares": {
+      "get": {
+        "operationId": "ep_08_get",
+        "summary": "Tablero EXCLUSIVO Colecturía: Semáforo de Pagos por Estudiante y Representante (204 Hogares) + El Porqué SHAP",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-08",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "COLECTURIA",
+          "RECTORADO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "acceso_rbac": "BLOQUEADO_PARA_DOCENTES_E_INSPECCION",
+                  "resumen_cartera_colegio": {
+                    "hogares_totales": 204,
+                    "familias_con_mora": 56,
+                    "cuotas_vencidas_totales": 74
+                  },
+                  "conteos_semaforo_pagos": {
+                    "ROJO": 22,
+                    "NARANJA": 24,
+                    "AMARILLO": 106,
+                    "VERDE": 88
+                  },
+                  "caso_ejemplo_shap_morosidad": {
+                    "codigo_estudiante": "EST-105",
+                    "representante_codigo": "REP-090",
+                    "semaforo_pagos_color": "ROJO",
+                    "prob_incumplimiento_nov_ene_pct": 77.08,
+                    "prob_morosidad_cronica_2m_pct": 62.18,
+                    "tipologia_morosidad": "1. MORA ACTIVA + LIQUIDEZ CRÓNICA",
+                    "por_que_morosidad_shap": "Micro Finanzas: Pagos tardíos realizados después del día 10 (Sep-Oct) (+12.8 pp) | Micro Finanzas: Días de pago posteriores al día 5 (Fricción de caja) (+12.3 pp) | Sinergia Macro×Micro: Incumplimiento temprano × Exceso NBI Parroquial (+11.1 pp)",
+                    "accion_recomendada_colecturia": "Convenio de reestructuración inmediata + revisión socioeconómica de beca con Colecturía"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/vicerrectorado/docentes-horarios": {
+      "get": {
+        "operationId": "ep_09_get",
+        "summary": "Diagnóstico de Carga Docente (14 Profesores, Efecto Fijo) y Faltas/Atrasos en Primer Bloque Matutino",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-09",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO",
+          "INSPECCION"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/n8n/dispatch-alerts": {
+      "post": {
+        "operationId": "ep_10_post",
+        "summary": "Disparador de Alertas Priorizadas hacia el Webhook de n8n con Partición RBAC y Aprobación Humana (Human-in-the-Loop)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-10",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO",
+          "DECE",
+          "COLECTURIA",
+          "N8N_ORCHESTRATOR"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/interventions/log-outcome": {
+      "post": {
+        "operationId": "ep_11_post",
+        "summary": "Webhook de Retorno desde n8n / UI para Registrar Intervención Aplicada (Candado MLOps contra Feedback Loops)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-11",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "DOCENTE_TUTOR",
+          "DECE",
+          "INSPECCION",
+          "COLECTURIA",
+          "N8N_ORCHESTRATOR"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "school_id": "SCH-01H00123",
+                "codigo_estudiante": "EST-089",
+                "rol_ejecutor": "DECE",
+                "tipo_intervencion": "TUTORIA_Y_ADAPTACION_NEE",
+                "canal_n8n": "WhatsApp_y_Agenda_Presencial",
+                "intervencion_aplicada": 1,
+                "fecha_ejecucion": "2025-11-03T10:30:00-05:00",
+                "compromiso_representante": "Firmado plan de nivelación en Matemática e Inglés 2 veces por semana"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/mlops/overview-and-drift": {
+      "get": {
+        "operationId": "ep_12_get",
+        "summary": "Monitor Global MLOps de E-Pakti: Data Drift (PSI), Calibración (ECE), 5 Candados Champion-Challenger, Data Flywheel y Feedback Loop Audit",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-12",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_CEO",
+          "EPAKTI_MLOPS",
+          "EPAKTI_DATA_SCIENCE"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "colegios_activos_en_flywheel": 25,
+                  "estudiantes_anonimizados_pool": 6000,
+                  "psi_global_drift": 0.0364,
+                  "ece_actual_calibracion_pp": 2.22,
+                  "ece_si_reentrenamiento_ingenuo_sin_log_pp": 23.56,
+                  "intervenciones_registradas_protegidas": 2963,
+                  "versiones_champion_activas": {
+                    "ausentismo_film": "v2.1.0-monotonic-film",
+                    "academico_q2": "v2.1.0-monotonic-film",
+                    "morosidad_cronica": "v2.1.0-monotonic-film",
+                    "preingreso_m1": "v2.1.0-platt-calibrated"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/tenants": {
+      "get": {
+        "operationId": "ep_13_get",
+        "summary": "Centro de Comando Multi-Tenant de E-Pakti: Salud, Calidad de Datos, ERP, Territorio DPA, MRR, Lambda Empirical Bayes y ROI de Todos los Colegios",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-13",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_CEO",
+          "EPAKTI_CS",
+          "EPAKTI_MLOPS"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "total_colegios_activos": 25,
+                  "mrr_total_usd": 7250.0,
+                  "colegios_con_alerta_calidad_datos": 1,
+                  "colegio_ejemplo": {
+                    "school_id": "SCH-01H00123",
+                    "nombre": "U.E. Particular Demo Cuenca",
+                    "provincia": "AZUAY",
+                    "dpa_parroquia": "010150",
+                    "erp_conectado": "Idukay",
+                    "estudiantes_activos": 240,
+                    "completitud_datos_pct": 99.4,
+                    "lambda_empirical_bayes": 0.67,
+                    "psi_drift_local": 0.031,
+                    "roi_retenido_estimado_usd": 35751.1,
+                    "estado_sync_n8n": "HEALTHY"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/mlops/retrain": {
+      "post": {
+        "operationId": "ep_14_post",
+        "summary": "Disparador de Re-entrenamiento MLOps de E-Pakti (Tronco Multi-Colegio Anonimizado o Adaptador Empirical Bayes Local)",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-14",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_MLOPS",
+          "EPAKTI_DATA_SCIENCE",
+          "EPAKTI_CEO"
+        ],
+        "responses": {
+          "202": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "training_run_id": "MLOPS-RUN-20261124-09",
+                  "estado": "CANDIDATE_CHALLENGER_READY",
+                  "candados_aprobados": "5/5",
+                  "metricas_challenger_vs_champion": {
+                    "auc_out_of_school": {
+                      "champion": 0.8596,
+                      "challenger": 0.8622
+                    },
+                    "brier": {
+                      "champion": 0.1519,
+                      "challenger": 0.15
+                    },
+                    "ece_pp": {
+                      "champion": 2.72,
+                      "challenger": 2.27
+                    },
+                    "coherencia_signos_100pct": true,
+                    "vif_max": 5.26
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "alcance": "MULTI_SCHOOL_BACKBONE",
+                "familias_modelo": [
+                  "ausentismo_film",
+                  "academico_q2",
+                  "morosidad_cronica",
+                  "preingreso_m1"
+                ],
+                "estrategia_feedback_loop": "EXCLUDE_OR_IPW_TREATED_LOGGED",
+                "exigir_5_candados_automaticos": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/mlops/models/{model_version}/promote": {
+      "post": {
+        "operationId": "ep_15_post",
+        "summary": "Promoción Segura de Modelo Challenger -> Champion con Despliegue Progresivo Canary (%) o Rollback Instantáneo",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-15",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_MLOPS",
+          "EPAKTI_CEO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "model_version": "v2.2.0-monotonic-film",
+                  "estado_despliegue": "CANARY_20PCT_ACTIVE",
+                  "colegios_en_canary": 5,
+                  "rollback_disponible_a": "v2.1.0-monotonic-film"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "parameters": [
+          {
+            "name": "model_version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "accion": "PROMOTE_CANARY",
+                "porcentaje_colegios_canary": 20,
+                "justificacion_release": "Reducción de ECE de 2.72 pp a 2.27 pp con 39/39 signos verificados"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/data-lake/anonymized-explorer": {
+      "get": {
+        "operationId": "ep_16_get",
+        "summary": "Explorador Auditado del Data Lake K-Anónimo de E-Pakti (CERO PII — LOPDP) y Gestión de Ediciones Oficiales AMIE / Censo / ENEMDU / INEVAL",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-16",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_DATA_SCIENCE",
+          "EPAKTI_MLOPS",
+          "EPAKTI_CEO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "cumplimiento_lopdp": "K_ANONIMATO_VERIFICADO_CERO_PII",
+                  "fuentes_nacionales_vigentes": {
+                    "MINEDUC_AMIE": "2024-2025 (30.559 cohortes, 6.441 planteles, 1.765.898 alumnos)",
+                    "INEC_CENSO": "Censo 2022 (955+ parroquias DPA, homologación 99,96%)",
+                    "INEC_ENEMDU": "2024-2025 (24 provincias)",
+                    "INEVAL_PISA": "Ser Estudiante 2023-2024 + OCDE PISA 2025 Ecuador"
+                  },
+                  "auditoria_variables_globales": {
+                    "total_variables": 39,
+                    "coherencia_signos_pct": 100.0,
+                    "vif_max": 5.26
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/tenants/{school_id}/feature-flags": {
+      "patch": {
+        "operationId": "ep_17_patch",
+        "summary": "Control de Releases, Planes Comerciales y Feature Flags por Colegio (Activar Módulos, Versiones Canary y Límites de Mensajes)",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-17",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_CEO",
+          "EPAKTI_CS",
+          "EPAKTI_MLOPS"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "school_id": "SCH-01H00123",
+                  "actualizado": true,
+                  "auditoria_registrada": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "parameters": [
+          {
+            "name": "school_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "plan_comercial": "ENTERPRISE_360",
+                "feature_flags": {
+                  "modulo_preingreso_m1": true,
+                  "simulador_contrafactual_what_if": true,
+                  "agentes_whatsapp_n8n": true,
+                  "modelo_canary_v2_2": false,
+                  "encuesta_bienestar_whatsapp_beta": true
+                },
+                "cupo_mensual_mensajes_whatsapp": 1500
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/n8n/observability": {
+      "get": {
+        "operationId": "ep_18_get",
+        "summary": "Observabilidad Global de Orquestación n8n, Entregas WhatsApp/Gmail, Latencia LLM y Reintento de Webhooks Fallidos en Todos los Colegios",
+        "tags": [
+          "PLANO_B_EPAKTI_CONTROL_PLANE"
+        ],
+        "x-epakti-id": "EP-18",
+        "x-epakti-plane": "PLANO_B_EPAKTI_CONTROL_PLANE",
+        "x-rbac-roles": [
+          "EPAKTI_MLOPS",
+          "EPAKTI_CS",
+          "EPAKTI_CEO"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "alertas_despachadas_30d": 1480,
+                  "tasa_entrega_whatsapp_pct": 98.7,
+                  "tasa_callback_bitacora_mlops_pct": 96.2,
+                  "latencia_media_agente_ia_seg": 2.4,
+                  "webhooks_fallidos_pendientes_reintento": 2
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        }
+      }
+    },
+    "/api/v1/ingestion/jobs/{job_id}": {
+      "get": {
+        "operationId": "ep_02b_get",
+        "summary": "Consulta Asíncrona de Estado del Worker de Ingesta/Scoring (Evita Timeouts HTTP en Procesos de 10-30s)",
+        "tags": [
+          "PLANO_A_COLEGIO_CLIENTE"
+        ],
+        "x-epakti-id": "EP-02B",
+        "x-epakti-plane": "PLANO_A_COLEGIO_CLIENTE",
+        "x-rbac-roles": [
+          "RECTORADO",
+          "EPAKTI_MLOPS",
+          "N8N_ORCHESTRATOR"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "job_id": "JOB-20251031-001",
+                  "status": "COMPLETED",
+                  "intento_actual": 1,
+                  "duracion_ms": 2140,
+                  "estudiantes_procesados": 240,
+                  "callback_webhook_entregado": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/public/contact-lead": {
+      "post": {
+        "operationId": "ep_19_post",
+        "summary": "Formulario Público de Contacto Comercial de E-Pakti (Rate-Limited, Sin Secretos en Frontend -> Webhook n8n Comercial)",
+        "tags": [
+          "PUBLICO_LANDING_WEB"
+        ],
+        "x-epakti-id": "EP-19",
+        "x-epakti-plane": "PUBLICO_LANDING_WEB",
+        "x-rbac-roles": [
+          "PUBLIC_RATE_LIMITED"
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta exitosa del motor E-Pakti",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "lead_id": "LEAD-2026-0041",
+                  "recibido": true,
+                  "despachado_a_n8n": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token JWT inválido o expirado"
+          },
+          "403": {
+            "description": "Acceso denegado por política RBAC / LOPDP"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "nombre_contacto": "Rectora Ejemplo",
+                "institucion": "U.E. Particular Ejemplo",
+                "ciudad": "Cuenca",
+                "correo": "rectorado@colegioejemplo.edu.ec",
+                "whatsapp_e164": "+593999000000",
+                "n_estudiantes_aprox": 450,
+                "erp_actual": "Idukay"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

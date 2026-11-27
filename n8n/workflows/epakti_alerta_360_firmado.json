@@ -1,0 +1,625 @@
+{
+  "name": "E-Pakti v2.4 (con firma HMAC) — Orquestador Agéntico Multinivel n8n v2 (Webhook body + IfV2 + Proyección RBAC + Bedrock + WhatsApp)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "node-1-webhook",
+      "name": "1. Webhook Alerta 360 E-Pakti (POST /webhook/epakti-alerta-360)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-alerta-360",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "webhookId": "epakti-alerta-360"
+    },
+    {
+      "id": "node-2-split",
+      "name": "2. Split Out Alertas Priorizadas",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        300
+      ],
+      "parameters": {
+        "fieldToSplitOut": "body.alertas_priorizadas_360"
+      }
+    },
+    {
+      "id": "node-3a-rbac-pedagogico",
+      "name": "3A. Proyección RBAC Pedagógica (Elimina Todos los Campos Financieros)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        160
+      ],
+      "parameters": {
+        "jsCode": "// Proyección estricta RBAC/LOPDP: elimina físicamente el bloque financiero antes de enviar a Docentes/DECE/Inspección\nconst salida = [];\nfor (const item of $input.all()) {\n  const d = item.json;\n  const ped = d.vista_rbac_docente_dece_sin_datos_financieros || {};\n  if (['ROJO', 'NARANJA', 'AMARILLO'].includes(ped.semaforo_docente)) {\n    salida.push({ json: {\n      canal_rbac: 'PEDAGOGICO_CERO_DATOS_FINANCIEROS',\n      codigo_estudiante: d.codigo_estudiante,\n      nombre_estudiante: d.nombre_estudiante,\n      curso_paralelo: d.curso_paralelo,\n      subnivel: d.subnivel,\n      prioridad_ranking: d.prioridad_ranking,\n      necesidad_educativa_nee: d.necesidad_educativa_nee,\n      tiene_nee: d.necesidad_educativa_nee !== 'ninguna',\n      vista_rbac_docente_dece_sin_datos_financieros: ped\n    }});\n  }\n}\nreturn salida;"
+      }
+    },
+    {
+      "id": "node-3b-if-colecturia",
+      "name": "3B. Filtro Colecturía (IF activar_flujo_colecturia_n8n == true)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        440
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-colecturia-flag",
+              "leftValue": "={{ $json.vista_rbac_colecturia_exclusiva_financiera.activar_flujo_colecturia_n8n }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "node-3c-rbac-colecturia",
+      "name": "3C. Proyección RBAC Colecturía (Solo Cartera Hogar, Elimina DECE/NEE)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        440
+      ],
+      "parameters": {
+        "jsCode": "// Proyección estricta Colecturía: elimina datos clínicos NEE/DECE y bloque pedagógico\nreturn $input.all().map((item) => ({\n  json: {\n    canal_rbac: 'COLECTURIA_EXCLUSIVA_SIN_DECE',\n    codigo_estudiante: item.json.codigo_estudiante,\n    vista_rbac_colecturia_exclusiva_financiera: item.json.vista_rbac_colecturia_exclusiva_financiera\n  }\n}));"
+      }
+    },
+    {
+      "id": "node-4-nee-modifier",
+      "name": "4. Modificador Transversal de Inclusión NEE (DECE)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        160
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-tiene-nee",
+              "leftValue": "={{ $json.tiene_nee }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "node-5-switch-pedagogico",
+      "name": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2000,
+        160
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "sw-aprendizaje",
+                    "leftValue": "={{ $json.vista_rbac_docente_dece_sin_datos_financieros.foco_pedagogico }}",
+                    "rightValue": "Aprendizaje",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "sw-permanencia",
+                    "leftValue": "={{ $json.vista_rbac_docente_dece_sin_datos_financieros.foco_pedagogico }}",
+                    "rightValue": "Permanencia",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "node-llm-bedrock",
+      "name": "LLM. AWS Bedrock Chat Model (Nova Lite → Claude 3.5 Sonnet cuando esté habilitado)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        620
+      ],
+      "parameters": {
+        "model": "amazon.nova-lite-v1:0",
+        "options": {
+          "temperature": 0.2,
+          "maxTokensToSample": 500
+        }
+      },
+      "credentials": {
+        "aws": {
+          "id": "HybUagc3DoksRzb5",
+          "name": "AWS Bedrock E-Pakty"
+        }
+      }
+    },
+    {
+      "id": "node-6a-agent-tutor",
+      "name": "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        2260,
+        60
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$json.vista_rbac_docente_dece_sin_datos_financieros.prompt_ia_pedagogico}}\nTarea: plan de apoyo en aula adaptado a la necesidad educativa ({{$json.necesidad_educativa_nee}}). Responsables posibles: Tutor, DECE, docente de la materia.\nResponde SOLO en texto plano: sin Markdown (nada de #, *, negritas ni viñetas), sin saludo ni firma, máximo 130 palabras, con este formato EXACTO:\nACCIONES:\n1. <acción concreta y verificable> | Responsable: <rol> | Plazo: <cuándo>\n2. <acción> | Responsable: <rol> | Plazo: <cuándo>\n3. <acción> | Responsable: <rol> | Plazo: <cuándo>\nMENSAJE PARA LA FAMILIA:\n<2 o 3 frases cálidas en segunda persona con una propuesta concreta de reunión o contacto>\nBasa las acciones en los factores y la acción sugerida que te doy. No inventes datos, no diagnostiques y no menciones probabilidades ni puntajes en el mensaje a la familia."
+      }
+    },
+    {
+      "id": "node-6b-agent-inspeccion",
+      "name": "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        2260,
+        240
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$json.vista_rbac_docente_dece_sin_datos_financieros.prompt_ia_pedagogico}}\nTarea: plan de permanencia enfocado en asistencia y puntualidad, con contacto temprano a la familia. Responsables posibles: Tutor, Inspección.\nResponde SOLO en texto plano: sin Markdown (nada de #, *, negritas ni viñetas), sin saludo ni firma, máximo 130 palabras, con este formato EXACTO:\nACCIONES:\n1. <acción concreta y verificable> | Responsable: <rol> | Plazo: <cuándo>\n2. <acción> | Responsable: <rol> | Plazo: <cuándo>\n3. <acción> | Responsable: <rol> | Plazo: <cuándo>\nMENSAJE PARA LA FAMILIA:\n<2 o 3 frases cálidas en segunda persona con una propuesta concreta de reunión o contacto>\nBasa las acciones en los factores y la acción sugerida que te doy. No inventes datos, no diagnostiques y no menciones probabilidades ni puntajes en el mensaje a la familia."
+      }
+    },
+    {
+      "id": "node-7-agent-colecturia",
+      "name": "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        2000,
+        440
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Representante: {{$json.vista_rbac_colecturia_exclusiva_financiera.representante_codigo}}. Semáforo de pagos: {{$json.vista_rbac_colecturia_exclusiva_financiera.semaforo_pagos_etiqueta}}. Tipología: {{$json.vista_rbac_colecturia_exclusiva_financiera.tipologia_morosidad}}. Causa (motor): {{$json.vista_rbac_colecturia_exclusiva_financiera.por_que_morosidad_shap}}. Acción sugerida: {{$json.vista_rbac_colecturia_exclusiva_financiera.accion_colecturia}}.\nTarea: propuesta confidencial de Colecturía (reprogramar la fecha de cobro al día 15-20 o convenio fraccionado) sin afectar la actividad académica. Responsable: Colecturía. El mensaje a la familia NO menciona notas, asistencia ni temas pedagógicos.\nResponde SOLO en texto plano: sin Markdown (nada de #, *, negritas ni viñetas), sin saludo ni firma, máximo 130 palabras, con este formato EXACTO:\nACCIONES:\n1. <acción concreta y verificable> | Responsable: <rol> | Plazo: <cuándo>\n2. <acción> | Responsable: <rol> | Plazo: <cuándo>\n3. <acción> | Responsable: <rol> | Plazo: <cuándo>\nMENSAJE PARA LA FAMILIA:\n<2 o 3 frases cálidas en segunda persona con una propuesta concreta de reunión o contacto>\nBasa las acciones en los factores y la acción sugerida que te doy. No inventes datos, no diagnostiques y no menciones probabilidades ni puntajes en el mensaje a la familia."
+      }
+    },
+    {
+      "id": "node-9-mlops-callback",
+      "name": "9. Registro Automático de Intervención en Motor MLOps E-Pakti (POST /api/v1/interventions/log-outcome)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3060,
+        260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EPAKTI_CALLBACK_BASE_URL + '/interventions/log-outcome' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Epakti-Callback-Token",
+              "value": "={{ $env.EPAKTI_CALLBACK_TOKEN }}"
+            },
+            {
+              "name": "X-School-Id",
+              "value": "={{ $('8a. Preparar alerta (correo + callback)').item.json.school_id }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ school_id: $('8a. Preparar alerta (correo + callback)').item.json.school_id, codigo_estudiante: $('8a. Preparar alerta (correo + callback)').item.json.codigo_estudiante, rol_ejecutor: $('8a. Preparar alerta (correo + callback)').item.json.rol_ejecutor, tipo_intervencion: $('8a. Preparar alerta (correo + callback)').item.json.tipo_intervencion, canal_n8n: 'Correo_prueba_interna', intervencion_aplicada: 1, fecha_ejecucion: $now.toISO(), compromiso_representante: null }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      }
+    },
+    {
+      "id": "verify-hmac",
+      "name": "1b. Verificar firma HMAC",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        350,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Verifica la firma HMAC-SHA256 que pone el motor de E-Pakti: X-Epakti-Signature = \"sha256=\" + HMAC(secreto, bytes originales del cuerpo).\n// Falla cerrado: sin secreto configurado, sin firma, firma falsa o envío vencido => se rechaza y NO se procesa nada.\nconst crypto = require('crypto');\nconst item = $input.first();\nconst headers = item.json.headers || {};\nlet ok = false, motivo = 'firma inválida', body = null;\ntry {\n  const secret = $env.N8N_WEBHOOK_HMAC_SECRET || '';\n  if (secret.length < 32) throw new Error('secreto HMAC no configurado en n8n');\n  const sig = String(headers['x-epakti-signature'] || '');\n  if (!sig.startsWith('sha256=')) throw new Error('falta X-Epakti-Signature');\n  const ts = headers['x-epakti-timestamp'];                      // opcional: si el motor lo envía, se exige que sea reciente\n  if (ts && Math.abs(Date.now() / 1000 - Number(ts)) > 300) throw new Error('envío vencido');\n  const raw = await this.helpers.getBinaryDataBuffer(0, 'data');  // bytes originales (opción Raw Body del Webhook)\n  const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(raw).digest('hex');\n  const a = Buffer.from(sig), b = Buffer.from(expected);\n  if (!(a.length === b.length && crypto.timingSafeEqual(a, b))) throw new Error('firma inválida');\n  const parsed = JSON.parse(raw.toString('utf8'));               // el cuerpo que se procesa es exactamente el que se firmó\n  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('cuerpo inválido');\n  body = parsed;\n  ok = true;                                                      // solo si la firma Y el cuerpo son válidos\n} catch (e) { motivo = e.message; }\nreturn [{ json: { firma_valida: ok, motivo_rechazo: ok ? null : motivo, ...(ok ? { headers, body } : {}) } }];"
+      }
+    },
+    {
+      "id": "if-firma",
+      "name": "1c. ¿Firma válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.firma_valida }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "resp-202",
+      "name": "1d. Responder 202 (firma válida)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        850,
+        220
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({recibido:true}) }}",
+        "options": {
+          "responseCode": 202
+        }
+      }
+    },
+    {
+      "id": "resp-401",
+      "name": "1e. Responder 401 (firma inválida)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        850,
+        420
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({recibido:false,detalle:'firma inválida'}) }}",
+        "options": {
+          "responseCode": 401
+        }
+      }
+    },
+    {
+      "id": "prep-alerta",
+      "name": "8a. Preparar alerta (correo + callback)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2540,
+        260
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Arma el informe por correo de cada alerta. RBAC: usa SOLO la vista del rol (pedagógica o Colecturía) que recibió el agente.\n// Plantilla de correo: tablas + estilos en línea (Gmail/Outlook), 600 px, una columna en móvil, sin imágenes ni recursos externos.\nconst PED = '3A. Proyección RBAC Pedagógica (Elimina Todos los Campos Financieros)';\nconst COL = '3C. Proyección RBAC Colecturía (Solo Cartera Hogar, Elimina DECE/NEE)';\nconst origen = $prevNode.name;\nconst esCol = origen.startsWith('7.');\nconst base = esCol ? $(COL).item.json : $(PED).item.json;          // vista ya proyectada por rol\nconst cuerpo = $('1b. Verificar firma HMAC').first().json.body;\nconst sid = cuerpo.school_id;\nconst corte = cuerpo.fecha_corte_evaluacion || '';\nconst totalAlertas = (cuerpo.alertas_priorizadas_360 || []).length || cuerpo.cupo_alertas_emitidas;\nconst ruta = esCol ? ['COLECTURIA', 'CONVENIO_PAGO'] : origen.startsWith('6B.') ? ['INSPECCION', 'PLAN_ASISTENCIA'] : ['DOCENTE_TUTOR', 'TUTORIA_Y_ADAPTACION_NEE'];\nconst enfoque = esCol ? 'Colecturía' : origen.startsWith('6B.') ? 'Permanencia e Inspección' : 'Tutoría y DECE';\n\n// --- utilidades ---\nconst esc = (s) => String(s ?? '').replace(/[&<>\"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' }[c]));\nconst limpio = (s) => String(s ?? '').replace(/^\\s*#+\\s*/gm, '').replace(/^\\s*[\\*\\-•]\\s+/gm, '').replace(/[*_`#]+/g, '').replace(/\\n{3,}/g, '\\n\\n').trim();\nconst num = (v) => (v == null || isNaN(Number(v))) ? null : Number(v);\nconst pct = (v) => num(v) == null ? '—' : num(v).toLocaleString('es-EC', { maximumFractionDigits: 1 }) + ' %';\nconst fechaLarga = (d) => { const t = new Date(d + 'T12:00:00'); return isNaN(t) ? esc(d) : t.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric' }); };\n\n// --- tokens (estilo editorial) ---\nconst T = { tinta: '#111827', suave: '#4B5563', tenue: '#6B7280', linea: '#E5E7EB', fondo: '#F3F1EC', papel: '#FFFFFF', marca: '#1F1A3D', acento: '#5A3DE6' };\nconst SERIF = \"Georgia,'Times New Roman',serif\";\nconst SANS = 'Arial,Helvetica,sans-serif';\nconst SEM = {\n  ROJO: { f: '#B42318', b: '#FEF3F2', n: 'Rojo', d: 'Intervención prioritaria' },\n  NARANJA: { f: '#B54708', b: '#FFF6ED', n: 'Naranja', d: 'Atención esta semana' },\n  AMARILLO: { f: '#8A6100', b: '#FEF7E0', n: 'Amarillo', d: 'Seguimiento preventivo' },\n  VERDE: { f: '#067647', b: '#ECFDF3', n: 'Verde', d: 'Sin alerta' },\n};\nconst sem = (c) => SEM[String(c || '').split(/[\\s—-]/)[0].toUpperCase()] || { f: '#374151', b: '#F3F4F6', n: String(c || '—'), d: '' };\nconst chip = (c, txt) => { const s = sem(c); return `<span style=\"display:inline-block;padding:4px 12px;border-radius:999px;background:${s.b};color:${s.f};font:700 12px ${SANS};letter-spacing:.04em;text-transform:uppercase;border:1px solid ${s.f}33\">● ${esc(txt || s.n)}</span>`; };\nconst barra = (v, color, max = 100) => { const w = Math.max(2, Math.min(100, Math.round(((num(v) || 0) / max) * 100))); return `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\"><tr><td style=\"background:#EEF0F3;border-radius:4px;height:8px;font-size:0;line-height:0\"><table role=\"presentation\" width=\"${w}%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\"><tr><td style=\"background:${color};border-radius:4px;height:8px;font-size:0;line-height:0\">&nbsp;</td></tr></table></td></tr></table>`; };\nconst titulo = (t, sub) => `<tr><td style=\"padding:28px 32px 10px\"><div style=\"font:700 11px ${SANS};letter-spacing:.14em;text-transform:uppercase;color:${T.acento}\">${esc(t)}</div>${sub ? `<div style=\"font:13px/1.5 ${SANS};color:${T.tenue};margin-top:4px\">${esc(sub)}</div>` : ''}</td></tr>`;\nconst bloque = (html) => `<tr><td style=\"padding:0 32px\">${html}</td></tr>`;\nconst separador = `<tr><td style=\"padding:24px 32px 0\"><div style=\"border-top:1px solid ${T.linea};font-size:0;line-height:0\">&nbsp;</div></td></tr>`;\nconst metrica = (etq, valor, nota, color, v) => `<td class=\"col\" valign=\"top\" style=\"padding:0 6px 12px;width:50%\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border:1px solid ${T.linea};border-radius:10px;border-collapse:separate\"><tr><td style=\"padding:14px 16px\">\n  <div style=\"font:12px/1.4 ${SANS};color:${T.tenue}\">${esc(etq)}</div>\n  <div style=\"font:700 28px/1.2 ${SERIF};color:${color};margin:4px 0 8px\">${valor}</div>${barra(v, color)}\n  <div style=\"font:12px/1.4 ${SANS};color:${T.tenue};margin-top:8px\">${nota}</div></td></tr></table></td>`;\n\n// --- texto del agente: ACCIONES (3 líneas «acción | responsable | plazo») y MENSAJE PARA LA FAMILIA ---\nconst bruto = String($json.output ?? $json.text ?? '');\nconst parte = (re) => { const m = bruto.match(re); return m ? m[1].trim() : ''; };\nconst bloqueAcc = parte(/ACCIONES\\s*:?\\s*([\\s\\S]*?)(?:MENSAJE[^\\n:]*:|$)/i);\nconst mensaje = limpio(parte(/MENSAJE[^\\n:]*:\\s*([\\s\\S]*)$/i));\nlet acciones = bloqueAcc.split('\\n').map((l) => limpio(l.replace(/^\\s*\\d+[\\.\\)]\\s*/, ''))).filter(Boolean).slice(0, 3)\n  .map((l) => { const [a, r, p] = l.split('|').map((x) => x.trim().replace(/^(Responsable|Plazo)\\s*:\\s*/i, '').trim()); return { a, r: r || '—', p: p || '—' }; });\nconst formatoOk = acciones.length === 3 && Boolean(mensaje);\nif (!formatoOk) acciones = [];   // si el modelo no respetó el formato, se muestra su texto tal cual (limpio) para revisión humana\n\n// --- contenido según rol ---\nlet semCodigo, semTexto, resumen, metricas, porQue, simul = '', asunto, preheader, destinatarios;\nif (esCol) {\n  const f = base.vista_rbac_colecturia_exclusiva_financiera || {};\n  semCodigo = f.semaforo_pagos; semTexto = `${sem(semCodigo).n} · pagos`;\n  resumen = `Representante <b>${esc(f.representante_codigo)}</b>${f.n_hermanos_en_plantel ? ` · ${esc(f.n_hermanos_en_plantel)} estudiante(s) en el plantel` : ''}. Tipología: ${esc((t => t.charAt(0) + t.slice(1).toLowerCase())(String(f.tipologia_morosidad || '—').replace(/^\\d+\\.\\s*/, '')))}.`;\n  metricas = metrica('Pago tardío o incumplimiento', pct(f.prob_incumplimiento_o_tardio_pct), 'Probabilidad para el próximo cobro', sem(semCodigo).f, f.prob_incumplimiento_o_tardio_pct)\n           + metrica('Dos meses seguidos', pct(f.prob_dos_meses_incumpl_o_tardio_pct), 'Probabilidad de acumular mora', T.suave, f.prob_dos_meses_incumpl_o_tardio_pct);\n  porQue = `<p style=\"margin:0;font:15px/1.6 ${SANS};color:${T.tinta}\">${esc(f.por_que_morosidad_shap || '—')}</p>`;\n  if (f.accion_colecturia) simul = titulo('Acción sugerida por el motor') + bloque(`<p style=\"margin:0;font:15px/1.6 ${SANS};color:${T.tinta}\">${esc(f.accion_colecturia)}</p>`);\n  destinatarios = f.acceso_restringido_solo_rol || 'Colecturía / Administración / Rectorado';\n  asunto = `[PRUEBA] Colecturía · ${sem(semCodigo).n} · ${base.codigo_estudiante}`;\n  preheader = `Pagos ${sem(semCodigo).n.toLowerCase()}: ${pct(f.prob_incumplimiento_o_tardio_pct)} de probabilidad de pago tardío. 3 acciones sugeridas.`;\n} else {\n  const v = base.vista_rbac_docente_dece_sin_datos_financieros || {};\n  const s = v.simulacion_sensibilidad_puntaje_no_causal || {};\n  semCodigo = v.semaforo_docente; semTexto = sem(semCodigo).n;\n  resumen = `<b>${esc(base.curso_paralelo)}</b>${base.subnivel ? ` · ${esc(base.subnivel)}` : ''} · NEE: ${esc(base.necesidad_educativa_nee || 'ninguna')}${base.prioridad_ranking ? ` · prioridad <b>#${esc(base.prioridad_ranking)}</b>${totalAlertas ? ` de ${esc(totalAlertas)} alertas` : ''}` : ''}.`;\n  const sp = sem(String(v.semaforo_permanencia || semCodigo)), sa = sem(String(v.semaforo_academico || semCodigo));\n  metricas = metrica('Ausentismo recurrente', pct(v.prob_ausentismo_recurrente_pct), `Promedio del colegio: ${pct(v.prob_base_permanencia_pct)}`, sp.f, v.prob_ausentismo_recurrente_pct)\n           + metrica('Riesgo de reprobar (2.º quimestre)', pct(v.prob_reprobacion_academica_q2_pct), esc(String(v.semaforo_academico || '').split('—')[1] || 'Riesgo académico').trim(), sa.f, v.prob_reprobacion_academica_q2_pct);\n  const factores = (v.top_3_factores_shap_pedagogico || []).map((x) => { const m = String(x).match(/^(.*?)\\s*\\(([+−-]?\\s*[\\d.,]+)\\s*pp\\)\\s*$/); const txt = (m ? m[1] : String(x)).replace(/^[^:]{0,40}:\\s*/, '').replace(/>=\\s*/g, '≥ ').replace(/<=\\s*/g, '≤ ').replace(/\\s*<\\s*/g, ' menor a '); return { txt: txt.charAt(0).toUpperCase() + txt.slice(1), pp: m ? Number(m[2].replace(/[\\s,−]/g, (c) => (c === ',' ? '.' : c === '−' ? '-' : ''))) : null }; });\n  const maxPP = Math.max(10, ...factores.map((x) => Math.abs(x.pp || 0)));\n  porQue = `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\">${factores.map((x, i) => `<tr><td valign=\"top\" style=\"padding:10px 12px 10px 0;width:28px\"><div style=\"width:26px;height:26px;border-radius:13px;background:${T.marca};color:#fff;font:700 13px/26px ${SANS};text-align:center\">${i + 1}</div></td><td style=\"padding:10px 0;border-bottom:${i < factores.length - 1 ? `1px solid ${T.linea}` : '0'}\"><div style=\"font:15px/1.5 ${SANS};color:${T.tinta}\">${esc(x.txt)}</div>${x.pp != null ? `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-top:6px\"><tr><td style=\"width:78%\">${barra(Math.abs(x.pp), '#B42318', maxPP)}</td><td style=\"padding-left:10px;font:700 12px ${SANS};color:#B42318;white-space:nowrap\">+${esc(x.pp.toLocaleString('es-EC', { maximumFractionDigits: 1 }))} pts</td></tr></table>` : ''}</td></tr>`).join('')}</table>\n    <p style=\"margin:8px 0 0;font:12px/1.5 ${SANS};color:${T.tenue}\">Cuánto suma cada factor a la probabilidad de ausentismo, según el modelo (SHAP).</p>`;\n  if (s.palanca_pedagogica_sugerida && num(s.prob_post_sensibilidad_combinada_pct) != null) {\n    simul = titulo('Qué bajaría el riesgo', `Palanca sugerida: ${s.palanca_pedagogica_sugerida}`) + bloque(`<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#F7F8FA;border-radius:10px;border-collapse:separate\"><tr><td style=\"padding:16px 18px\">\n      ${[['Hoy', v.prob_ausentismo_recurrente_pct, sp.f], ['Con plan de asistencia + tutoría', s.prob_post_sensibilidad_combinada_pct, '#067647']].map(([e, val, c], i) => `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-top:${i ? 12 : 0}px\"><tr><td style=\"font:13px ${SANS};color:${T.suave};padding-bottom:6px\">${e}</td><td align=\"right\" style=\"font:700 15px ${SANS};color:${c};padding-bottom:6px;white-space:nowrap\">${pct(val)}</td></tr><tr><td colspan=\"2\">${barra(val, c)}</td></tr></table>`).join('')}\n      <p style=\"margin:10px 0 0;font:12px/1.5 ${SANS};color:${T.tenue}\">Escenario de sensibilidad del puntaje, no un efecto garantizado.</p></td></tr></table>`);\n  }\n  destinatarios = (v.destinatarios_n8n || []).join(', ') || 'Tutor, Inspección y DECE';\n  asunto = `[PRUEBA] ${sem(semCodigo).n} · ${base.codigo_estudiante} (${base.curso_paralelo}) · ${v.foco_pedagogico || enfoque}`.trim();\n  preheader = `${pct(v.prob_ausentismo_recurrente_pct)} de ausentismo (promedio ${pct(v.prob_base_permanencia_pct)}). ${formatoOk ? 'Primera acción: ' + acciones[0].a : 'Revise el plan sugerido.'}`;\n}\nconst s0 = sem(semCodigo);\n\nconst accionesHtml = acciones.length\n  ? acciones.map((x, i) => `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border:1px solid ${T.linea};border-left:4px solid ${i === 0 ? s0.f : T.acento};border-radius:8px;border-collapse:separate;margin-bottom:10px\"><tr><td style=\"padding:14px 16px\">\n      <div style=\"font:700 11px ${SANS};letter-spacing:.1em;color:${T.tenue};text-transform:uppercase\">Acción ${i + 1}${i === 0 ? ' · empezar por aquí' : ''}</div>\n      <div style=\"font:600 16px/1.45 ${SANS};color:${T.tinta};margin:4px 0 10px\">${esc(x.a)}</div>\n      <span style=\"display:inline-block;margin:0 6px 4px 0;padding:3px 10px;border-radius:6px;background:#F1EEFD;color:#3B2A9E;font:12px ${SANS}\"><b>Responsable:</b> ${esc(x.r)}</span><span style=\"display:inline-block;margin:0 0 4px;padding:3px 10px;border-radius:6px;background:#F3F4F6;color:${T.suave};font:12px ${SANS}\"><b>Plazo:</b> ${esc(x.p)}</span>\n    </td></tr></table>`).join('')\n  : `<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#FFFBEB;border:1px solid #F5D78E;border-radius:8px;border-collapse:separate\"><tr><td style=\"padding:14px 16px\"><div style=\"font:700 12px ${SANS};color:#8A6100;margin-bottom:6px\">El borrador de la IA no vino en el formato esperado. Revíselo antes de usarlo:</div><div style=\"font:14px/1.6 ${SANS};color:${T.tinta};white-space:pre-line\">${esc(limpio(bruto))}</div></td></tr></table>`;\n\nconst familia = mensaje && formatoOk\n  ? titulo('Mensaje sugerido para la familia', 'Borrador. No se envía hasta que una persona lo apruebe en E-Pakty.') + bloque(`<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#FAF8F3;border-radius:10px;border-collapse:separate\"><tr><td style=\"padding:18px 20px;font:italic 16px/1.65 ${SERIF};color:${T.tinta}\">“${esc(mensaje)}”</td></tr></table>`)\n  : '';\n\nconst html = `<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"color-scheme\" content=\"light\"><meta name=\"supported-color-schemes\" content=\"light\"><title>${esc(asunto)}</title>\n<style>@media (max-width:620px){.wrap{width:100%!important}.pad{padding-left:20px!important;padding-right:20px!important}.col{display:block!important;width:100%!important;padding:0 0 12px!important}}</style></head>\n<body style=\"margin:0;padding:0;background:${T.fondo};-webkit-text-size-adjust:100%\">\n<div style=\"display:none;max-height:0;overflow:hidden;opacity:0;color:transparent\">${esc(preheader)}&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;</div>\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:${T.fondo}\"><tr><td align=\"center\" style=\"padding:24px 12px\">\n<table role=\"presentation\" class=\"wrap\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:600px;max-width:600px;background:${T.papel};border-radius:14px;overflow:hidden;border-collapse:separate\">\n  <tr><td style=\"background:${T.marca};padding:18px 32px\" class=\"pad\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n    <td style=\"font:700 15px ${SANS};letter-spacing:.16em;color:#fff;white-space:nowrap\">E-PAKTY</td>\n    <td align=\"right\"><span style=\"display:inline-block;background:#F5B92A;color:${T.marca};padding:3px 9px;border-radius:5px;font:700 11px ${SANS};letter-spacing:.08em;white-space:nowrap\">PRUEBA</span></td></tr></table></td></tr>\n  <tr><td style=\"height:6px;background:${s0.f};font-size:0;line-height:0\">&nbsp;</td></tr>\n  <tr><td class=\"pad\" style=\"padding:26px 32px 4px\">\n    <div style=\"font:12px/1.5 ${SANS};color:${T.tenue}\">Informe de alerta temprana · ${esc(enfoque)} · corte ${fechaLarga(corte)}</div>\n    <h1 style=\"margin:8px 0 10px;font:700 32px/1.15 ${SERIF};color:${T.tinta}\">${esc(base.codigo_estudiante)}</h1>\n    ${chip(semCodigo, semTexto)}${s0.d ? `<span style=\"font:13px ${SANS};color:${T.suave};margin-left:8px\">${esc(s0.d)}</span>` : ''}\n    <p style=\"margin:14px 0 0;font:15px/1.6 ${SANS};color:${T.suave}\">${resumen}</p>\n  </td></tr>\n  <tr><td class=\"pad\" style=\"padding:20px 26px 0\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>${metricas}</tr></table></td></tr>\n  ${separador}\n  ${titulo('Acciones para esta semana', 'Propuestas por la IA a partir del motor. Ajústelas a su contexto.')}\n  ${bloque(accionesHtml)}\n  ${separador}\n  ${titulo(esCol ? 'Por qué está en seguimiento' : 'Por qué está en alerta')}\n  ${bloque(porQue)}\n  ${simul}\n  ${familia}\n  <tr><td class=\"pad\" style=\"padding:28px 32px 8px\" align=\"left\"><a href=\"https://epakti.vercel.app/#panel\" style=\"display:inline-block;background:${T.marca};color:#fff;text-decoration:none;font:700 14px ${SANS};padding:13px 22px;border-radius:8px\">Abrir en E-Pakty →</a></td></tr>\n  <tr><td class=\"pad\" style=\"padding:20px 32px 26px;background:#FAFAF9;border-top:1px solid ${T.linea}\">\n    <p style=\"margin:0 0 6px;font:12px/1.6 ${SANS};color:${T.tenue}\"><b style=\"color:${T.suave}\">Para:</b> ${esc(destinatarios)} · ${esCol ? 'Confidencial: solo Colecturía y Rectorado. No incluye datos pedagógicos ni NEE.' : 'Vista pedagógica: no incluye datos financieros (LOPDP).'}</p>\n    <p style=\"margin:0;font:12px/1.6 ${SANS};color:${T.tenue}\">Borrador generado por IA (Amazon Nova Lite) a partir del motor de E-Pakty · ${esc(sid)}. Una persona debe revisarlo antes de cualquier contacto con la familia. Datos ficticios de prueba.</p>\n  </td></tr>\n</table></td></tr></table></body></html>`;\nreturn { json: { school_id: sid, codigo_estudiante: base.codigo_estudiante, curso_paralelo: base.curso_paralelo || '', rol_ejecutor: ruta[0],\n                 tipo_intervencion: ruta[1], asunto, html, formato_ok: formatoOk } };\n"
+      }
+    },
+    {
+      "id": "mail-prueba",
+      "name": "8b. Correo al destinatario interno (prueba)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2800,
+        260
+      ],
+      "parameters": {
+        "fromEmail": "={{ $env.EPAKTI_MAIL_FROM }}",
+        "toEmail": "={{ $env.EPAKTI_TEST_RECIPIENT_EMAIL }}",
+        "subject": "={{ $json.asunto }}",
+        "emailFormat": "html",
+        "options": {},
+        "html": "={{ $json.html }}"
+      },
+      "credentials": {
+        "smtp": {
+          "id": "LUNtB4C5VPb3J6Vl",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "1. Webhook Alerta 360 E-Pakti (POST /webhook/epakti-alerta-360)": {
+      "main": [
+        [
+          {
+            "node": "1b. Verificar firma HMAC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Split Out Alertas Priorizadas": {
+      "main": [
+        [
+          {
+            "node": "3A. Proyección RBAC Pedagógica (Elimina Todos los Campos Financieros)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "3B. Filtro Colecturía (IF activar_flujo_colecturia_n8n == true)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3A. Proyección RBAC Pedagógica (Elimina Todos los Campos Financieros)": {
+      "main": [
+        [
+          {
+            "node": "4. Modificador Transversal de Inclusión NEE (DECE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3B. Filtro Colecturía (IF activar_flujo_colecturia_n8n == true)": {
+      "main": [
+        [
+          {
+            "node": "3C. Proyección RBAC Colecturía (Solo Cartera Hogar, Elimina DECE/NEE)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "3C. Proyección RBAC Colecturía (Solo Cartera Hogar, Elimina DECE/NEE)": {
+      "main": [
+        [
+          {
+            "node": "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Modificador Transversal de Inclusión NEE (DECE)": {
+      "main": [
+        [
+          {
+            "node": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)": {
+      "main": [
+        [
+          {
+            "node": "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)": {
+      "main": [
+        [
+          {
+            "node": "8a. Preparar alerta (correo + callback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)": {
+      "main": [
+        [
+          {
+            "node": "8a. Preparar alerta (correo + callback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)": {
+      "main": [
+        [
+          {
+            "node": "8a. Preparar alerta (correo + callback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM. AWS Bedrock Chat Model (Nova Lite → Claude 3.5 Sonnet cuando esté habilitado)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1b. Verificar firma HMAC": {
+      "main": [
+        [
+          {
+            "node": "1c. ¿Firma válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1c. ¿Firma válida?": {
+      "main": [
+        [
+          {
+            "node": "1d. Responder 202 (firma válida)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "1e. Responder 401 (firma inválida)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1d. Responder 202 (firma válida)": {
+      "main": [
+        [
+          {
+            "node": "2. Split Out Alertas Priorizadas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a. Preparar alerta (correo + callback)": {
+      "main": [
+        [
+          {
+            "node": "8b. Correo al destinatario interno (prueba)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8b. Correo al destinatario interno (prueba)": {
+      "main": [
+        [
+          {
+            "node": "9. Registro Automático de Intervención en Motor MLOps E-Pakti (POST /api/v1/interventions/log-outcome)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "epAlerta360Firmado"
+}

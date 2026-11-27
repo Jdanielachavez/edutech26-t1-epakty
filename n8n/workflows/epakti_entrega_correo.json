@@ -1,0 +1,164 @@
+{
+  "id": "epEntregaCorreo",
+  "name": "E-Pakty · Entrega a familia (correo SMTP real)",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all",
+    "executionTimeout": 60
+  },
+  "nodes": [
+    {
+      "id": "wh",
+      "name": "Webhook entrega",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "epakti-entrega-familia",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-entrega-familia",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epWebhook",
+          "name": "E-Pakty webhook"
+        }
+      }
+    },
+    {
+      "id": "if",
+      "name": "¿Canal correo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{$json.body.canal}}",
+              "rightValue": "email",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "em",
+      "name": "Enviar correo",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        540,
+        200
+      ],
+      "parameters": {
+        "fromEmail": "E-Pakty <chavezdan82@gmail.com>",
+        "toEmail": "={{$json.body.destinatario}}",
+        "subject": "Mensaje de tu unidad educativa",
+        "emailFormat": "text",
+        "text": "={{$json.body.message}}",
+        "options": {}
+      },
+      "credentials": {
+        "smtp": {
+          "id": "LUNtB4C5VPb3J6Vl",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "id": "wa",
+      "name": "WhatsApp: pendiente de configurar",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        540,
+        420
+      ],
+      "parameters": {
+        "errorMessage": "Canal WhatsApp aún no configurado"
+      }
+    },
+    {
+      "id": "rs",
+      "name": "Responder 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        200
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({entregado:true}) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook entrega": {
+      "main": [
+        [
+          {
+            "node": "¿Canal correo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Canal correo?": {
+      "main": [
+        [
+          {
+            "node": "Enviar correo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WhatsApp: pendiente de configurar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar correo": {
+      "main": [
+        [
+          {
+            "node": "Responder 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

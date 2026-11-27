@@ -1,0 +1,274 @@
+{
+  "name": "E-Pakti v2.2 — Orquestador Agéntico Multinivel con RBAC/LOPDP, Semáforos y Bitácora MLOps",
+  "active": false,
+  "nodes": [
+    {
+      "id": "node-1-webhook",
+      "name": "1. Webhook Alerta 360 E-Pakti (POST /webhook/epakti-alerta-360)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-alerta-360",
+        "responseMode": "onReceived"
+      }
+    },
+    {
+      "id": "node-2-split",
+      "name": "2. Split Out Alertas Priorizadas",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        340,
+        300
+      ],
+      "parameters": {
+        "fieldToSplitOut": "alertas_priorizadas_360"
+      }
+    },
+    {
+      "id": "node-3-rbac-guard",
+      "name": "3. Guardián RBAC & LOPDP (Separa Canal Docente/DECE vs Canal Colecturía)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Garantiza que ningún mensaje ni payload enviado a Docentes/Tutores contenga datos de mora familiar\nfor (const item of $input.all()) {\n  const d = item.json;\n  item.json.es_alerta_pedagogica = ['ROJO', 'NARANJA'].includes(d.vista_rbac_docente_dece_sin_datos_financieros.semaforo_docente);\n  item.json.es_alerta_colecturia = d.vista_rbac_colecturia_exclusiva_financiera.activar_flujo_colecturia_n8n;\n  item.json.tiene_nee = d.necesidad_educativa_nee !== 'ninguna';\n}\nreturn $input.all();"
+      }
+    },
+    {
+      "id": "node-4-nee-modifier",
+      "name": "4. Modificador Transversal de Inclusión NEE (DECE)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        780,
+        180
+      ],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.tiene_nee}}",
+              "value2": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "node-5-switch-pedagogico",
+      "name": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1020,
+        180
+      ],
+      "parameters": {
+        "dataPropertyName": "vista_rbac_docente_dece_sin_datos_financieros.foco_pedagogico"
+      }
+    },
+    {
+      "id": "node-6a-agent-tutor",
+      "name": "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1280,
+        80
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$json.vista_rbac_docente_dece_sin_datos_financieros.prompt_ia_pedagogico}} Genera: (1) Ficha de 3 acciones concretas en aula adaptadas a su condición NEE ({{$json.necesidad_educativa_nee}}), y (2) Mensaje empático de invitación a tutoría para el representante legal sin mencionar temas financieros."
+      }
+    },
+    {
+      "id": "node-6b-agent-inspeccion",
+      "name": "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1280,
+        240
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$json.vista_rbac_docente_dece_sin_datos_financieros.prompt_ia_pedagogico}} Redacta un mensaje breve y cálido de WhatsApp para la familia indagando barreras de asistencia/puntualidad y agendando reunión con Tutoría."
+      }
+    },
+    {
+      "id": "node-7-agent-colecturia",
+      "name": "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1020,
+        440
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "Representante: {{$json.vista_rbac_colecturia_exclusiva_financiera.representante_codigo}}. Semáforo Pagos: {{$json.vista_rbac_colecturia_exclusiva_financiera.semaforo_pagos_etiqueta}}. Tipología: {{$json.vista_rbac_colecturia_exclusiva_financiera.tipologia_morosidad}}. Causa SHAP: {{$json.vista_rbac_colecturia_exclusiva_financiera.por_que_morosidad_shap}}. Acción sugerida: {{$json.vista_rbac_colecturia_exclusiva_financiera.accion_colecturia}}. Redacta una propuesta confidencial y respetuosa de reprogramación de fecha de pago (día 15-20) o convenio fraccionado sin afectar la actividad académica del estudiante."
+      }
+    },
+    {
+      "id": "node-8-whatsapp-gmail",
+      "name": "8. Despacho Multicanal (WhatsApp Business API + Gmail al Rol Responsable)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v20.0/WHATSAPP_PHONE_ID/messages"
+      }
+    },
+    {
+      "id": "node-9-mlops-callback",
+      "name": "9. Registro Automático de Intervención en Motor MLOps E-Pakti (POST /api/v1/interventions/log-outcome)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1780,
+        260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.epakti.ec/api/v1/interventions/log-outcome",
+        "sendBody": true
+      }
+    }
+  ],
+  "connections": {
+    "1. Webhook Alerta 360 E-Pakti (POST /webhook/epakti-alerta-360)": {
+      "main": [
+        [
+          {
+            "node": "2. Split Out Alertas Priorizadas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Split Out Alertas Priorizadas": {
+      "main": [
+        [
+          {
+            "node": "3. Guardián RBAC & LOPDP (Separa Canal Docente/DECE vs Canal Colecturía)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Guardián RBAC & LOPDP (Separa Canal Docente/DECE vs Canal Colecturía)": {
+      "main": [
+        [
+          {
+            "node": "4. Modificador Transversal de Inclusión NEE (DECE)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Modificador Transversal de Inclusión NEE (DECE)": {
+      "main": [
+        [
+          {
+            "node": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Switch Pedagógico por Foco (Aprendizaje vs Permanencia vs Doble Foco)": {
+      "main": [
+        [
+          {
+            "node": "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6A. Agente IA Tutor Adaptativo & DECE (Plan de Nivelación + Adaptación NEE)": {
+      "main": [
+        [
+          {
+            "node": "8. Despacho Multicanal (WhatsApp Business API + Gmail al Rol Responsable)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6B. Agente IA de Permanencia e Inspección (Contacto Temprano por Ausentismo)": {
+      "main": [
+        [
+          {
+            "node": "8. Despacho Multicanal (WhatsApp Business API + Gmail al Rol Responsable)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Agente IA Exclusivo Colecturía (Acuerdo de Pago Flexible según Tipología SHAP)": {
+      "main": [
+        [
+          {
+            "node": "8. Despacho Multicanal (WhatsApp Business API + Gmail al Rol Responsable)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Despacho Multicanal (WhatsApp Business API + Gmail al Rol Responsable)": {
+      "main": [
+        [
+          {
+            "node": "9. Registro Automático de Intervención en Motor MLOps E-Pakti (POST /api/v1/interventions/log-outcome)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

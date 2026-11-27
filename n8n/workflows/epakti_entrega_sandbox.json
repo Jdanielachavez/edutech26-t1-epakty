@@ -1,0 +1,63 @@
+{
+  "id": "epEntregaSandbox",
+  "name": "E-Pakty · Entrega a familia (SANDBOX, no envía)",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "executionTimeout": 60
+  },
+  "nodes": [
+    {
+      "id": "wh",
+      "name": "Webhook entrega",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "epakti-entrega-familia",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-entrega-familia",
+        "authentication": "headerAuth",
+        "responseMode": "onReceived",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epWebhook",
+          "name": "E-Pakty webhook"
+        }
+      }
+    },
+    {
+      "id": "nt",
+      "name": "Sandbox: aquí iría el correo o WhatsApp",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Webhook entrega": {
+      "main": [
+        [
+          {
+            "node": "Sandbox: aquí iría el correo o WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

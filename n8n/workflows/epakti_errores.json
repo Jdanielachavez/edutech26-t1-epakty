@@ -1,0 +1,102 @@
+{
+  "id": "epErrores",
+  "name": "E-Pakty · Registro de errores",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all",
+    "executionTimeout": 60
+  },
+  "nodes": [
+    {
+      "id": "wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "epakti-errores",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "epakti-errores",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epWebhook",
+          "name": "E-Pakty webhook"
+        }
+      }
+    },
+    {
+      "id": "em",
+      "name": "Enviar aviso",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        280,
+        300
+      ],
+      "parameters": {
+        "fromEmail": "E-Pakty <chavezdan82@gmail.com>",
+        "toEmail": "chavezdan82@gmail.com",
+        "subject": "={{'Error en flujo ' + $json.body.workflow_id}}",
+        "emailFormat": "text",
+        "text": "={{'Ejecución: ' + $json.body.execution_id + '\\nNodo: ' + $json.body.node + '\\nCódigo: ' + $json.body.code}}",
+        "options": {}
+      },
+      "credentials": {
+        "smtp": {
+          "id": "LUNtB4C5VPb3J6Vl",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "id": "rs",
+      "name": "Responder 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({recibido:true}) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Enviar aviso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar aviso": {
+      "main": [
+        [
+          {
+            "node": "Responder 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

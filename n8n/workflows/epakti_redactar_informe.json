@@ -1,0 +1,124 @@
+{
+ "id": "epRedactarInforme",
+ "name": "E-Pakty · Redactar informe en palabras simples (Nova Lite)",
+ "active": false,
+ "settings": {
+  "executionOrder": "v1"
+ },
+ "nodes": [
+  {
+   "id": "n1",
+   "name": "Webhook redactar informe",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    0,
+    0
+   ],
+   "webhookId": "epakti-redactar-informe",
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "epakti-redactar-informe",
+    "responseMode": "lastNode",
+    "authentication": "headerAuth",
+    "options": {}
+   },
+   "credentials": {
+    "httpHeaderAuth": {
+     "id": "epWebhook",
+     "name": "E-Pakty webhook"
+    }
+   }
+  },
+  {
+   "id": "n2",
+   "name": "Armar petición",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    240,
+    0
+   ],
+   "parameters": {
+    "jsCode": "// Arma la petición a Nova Lite. Solo recibe datos pedagógicos y SIN nombre: la IA reescribe, no decide ni inventa.\nconst b = $input.first().json.body || $input.first().json;\nconst SISTEMA = \"Eres un redactor para colegios de Ecuador. Reescribes un informe de acompañamiento escolar para que lo entienda una persona sin conocimientos técnicos (un docente, un padre o una madre). Reglas: frases cortas y claras, español de Ecuador, tono cálido y respetuoso, sin jerga (no digas 'riesgo relativo', 'SHAP', 'modelo', 'puntaje'). NO inventes datos ni cifras: usa solo las que te doy. No hagas diagnósticos ni culpes a la familia ni al estudiante. No menciones dinero, pensiones ni pagos. Di 'el estudiante' o 'la estudiante' como 'esta persona', sin nombre. Responde SOLO un JSON válido con esta forma: {\\\"resumen\\\":\\\"2 frases: quién es y qué pasa\\\",\\\"que_pasa\\\":[\\\"hasta 3 frases cortas, una por problema\\\"],\\\"que_hacer\\\":[\\\"hasta 3 frases cortas con la acción, quién la hace y cuándo\\\"]}\";\nconst datos = JSON.stringify(b.informe);\nreturn [{json:{req:{system:[{text:SISTEMA}],messages:[{role:'user',content:[{text:'Datos del informe (JSON):\\n'+datos}]}],inferenceConfig:{maxTokens:700,temperature:0.2}}}}];"
+   }
+  },
+  {
+   "id": "n3",
+   "name": "Nova Lite redacta",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    480,
+    0
+   ],
+   "parameters": {
+    "method": "POST",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.nova-lite-v1:0/converse",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "aws",
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify($json.req) }}",
+    "options": {
+     "timeout": 30000
+    }
+   },
+   "credentials": {
+    "aws": {
+     "id": "LVNKyAvZZeKDUl3s",
+     "name": "AWS (IAM) account"
+    }
+   },
+   "continueOnFail": true
+  },
+  {
+   "id": "n4",
+   "name": "Validar respuesta",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    720,
+    0
+   ],
+   "parameters": {
+    "jsCode": "// Extrae el JSON de la respuesta. Si no es válido, se devuelve error y la API usa el texto original.\nconst it = $input.first().json;\ntry {\n  if (it.error) throw new Error('AWS: ' + (it.error.message || it.error));\n  let t = (it.output?.message?.content || []).map(c => c.text || '').join('').trim();\n  t = t.replace(/^```json\\s*|^```\\s*|```$/g, '').trim();\n  const j = JSON.parse(t);\n  const arr = (a) => (Array.isArray(a) ? a : []).map(x => String(x).trim()).filter(Boolean).slice(0, 3);\n  return [{json:{ok:true, resumen:String(j.resumen||'').trim(), que_pasa:arr(j.que_pasa), que_hacer:arr(j.que_hacer)}}];\n} catch (e) { return [{json:{ok:false, error:String(e.message||e).slice(0,200)}}]; }"
+   }
+  }
+ ],
+ "connections": {
+  "Webhook redactar informe": {
+   "main": [
+    [
+     {
+      "node": "Armar petición",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Armar petición": {
+   "main": [
+    [
+     {
+      "node": "Nova Lite redacta",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Nova Lite redacta": {
+   "main": [
+    [
+     {
+      "node": "Validar respuesta",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ }
+}

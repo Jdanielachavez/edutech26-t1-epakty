@@ -1,0 +1,3 @@
+# Install on deployment host after configuring separate backup credentials.
+# UTC 03:00 daily. Runtime Bedrock role must not gain S3/KMS privileges.
+0 3 * * * cd /opt/paktai && .venv/bin/python scripts/backup_database.py >> /var/log/paktai-backup.log 2>&1

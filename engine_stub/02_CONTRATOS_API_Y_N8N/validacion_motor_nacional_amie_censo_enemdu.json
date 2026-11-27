@@ -1,0 +1,21 @@
+{
+  "n_planteles_grado_validados": 30559,
+  "n_planteles_unicos": 6441,
+  "n_provincias": 23,
+  "n_parroquias_homologadas": 955,
+  "estudiantes_expuestos_2024_2025": 1765898,
+  "abandonos_observados_2024_2025": 40646,
+  "tasa_abandono_media_nacional_pct": 2.3017,
+  "politica_ordenamiento_sin_fuga": "probabilidad_cruda_sin_recentrar_x_matricula_previa_2023_2024",
+  "sesgo_calibracion_media_macro_meso_pp": -0.9362,
+  "brier_binomial_solo_plantel": 0.022245,
+  "brier_binomial_macro_meso_censo_enemdu": 0.022197,
+  "mse_tasa_ponderado_x10000_solo_plantel": 24.8612,
+  "mse_tasa_ponderado_x10000_macro_meso": 24.3775,
+  "reduccion_error_mse_tasa_pct": 1.95,
+  "abandonos_capturados_top10pct_solo_plantel": 19603,
+  "abandonos_capturados_top10pct_macro_meso": 19821,
+  "recall_top10pct_solo_plantel_pct": 48.23,
+  "recall_top10pct_macro_meso_pct": 48.76,
+  "abandonos_adicionales_detectados_con_macro_meso": 218
+}

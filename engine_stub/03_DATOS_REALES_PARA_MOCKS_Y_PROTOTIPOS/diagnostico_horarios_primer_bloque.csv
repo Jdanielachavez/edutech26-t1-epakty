@@ -1,0 +1,61 @@
+dia_nombre,materia,docente_codigo,nombre_ficticio,registros_Jornada,tasa_falta_injustificada,tasa_atraso_primera_hora,tasa_ausencia_total
+jueves,Inglés,DOC-09,Sofía Espinoza,320,0.075,0.034375,0.10625
+miercoles,Inglés,DOC-09,Sofía Espinoza,320,0.0625,0.03125,0.103125
+martes,Educación Cultural y Artística,DOC-14,Renata Quiroga,300,0.06,0.03333333333333333,0.09666666666666666
+viernes,Ciencias Naturales,DOC-06,Valentina Torres,300,0.056666666666666664,0.05,0.1
+lunes,Educación Física,DOC-11,Camila Iturralde,300,0.056666666666666664,0.03,0.09
+martes,Estudios Sociales,DOC-07,Luciana Flores,300,0.056666666666666664,0.03,0.09
+viernes,Educación Cultural y Artística,DOC-13,Camila Espinoza,300,0.056666666666666664,0.03,0.10333333333333333
+lunes,Estudios Sociales,DOC-07,Luciana Flores,300,0.056666666666666664,0.02666666666666667,0.09666666666666666
+jueves,Lengua y Literatura,DOC-04,Sofía Benítez,320,0.05,0.059375,0.084375
+martes,Educación Física,DOC-11,Camila Iturralde,300,0.05,0.05,0.08666666666666667
+viernes,Educación Cultural y Artística,DOC-14,Renata Quiroga,300,0.05,0.04,0.08333333333333333
+miercoles,Ciencias Naturales,DOC-06,Valentina Torres,320,0.05,0.03125,0.075
+jueves,Educación Física,DOC-11,Camila Iturralde,320,0.046875,0.04375,0.0875
+viernes,Educación Física,DOC-12,Tomás Herrera,300,0.043333333333333335,0.043333333333333335,0.06666666666666667
+viernes,Matemática,DOC-01,Ana Salazar,300,0.043333333333333335,0.043333333333333335,0.07333333333333333
+viernes,Ciencias Naturales,DOC-05,Tomás Herrera,300,0.043333333333333335,0.04,0.06
+viernes,Educación Física,DOC-11,Camila Iturralde,300,0.043333333333333335,0.03666666666666667,0.06333333333333334
+jueves,Educación Cultural y Artística,DOC-13,Camila Espinoza,320,0.040625,0.0375,0.08125
+jueves,Lengua y Literatura,DOC-03,Gabriel Guerrero,320,0.040625,0.0375,0.0875
+miercoles,Inglés,DOC-10,Luciana León,320,0.040625,0.034375,0.096875
+miercoles,Educación Física,DOC-11,Camila Iturralde,320,0.040625,0.01875,0.06875
+lunes,Educación Física,DOC-12,Tomás Herrera,300,0.04,0.04,0.08666666666666667
+martes,Inglés,DOC-10,Luciana León,300,0.04,0.04,0.08
+lunes,Lengua y Literatura,DOC-03,Gabriel Guerrero,300,0.04,0.03666666666666667,0.07666666666666666
+lunes,Ciencias Naturales,DOC-05,Tomás Herrera,300,0.04,0.03333333333333333,0.08
+miercoles,Estudios Sociales,DOC-07,Luciana Flores,320,0.0375,0.046875,0.071875
+jueves,Matemática,DOC-01,Ana Salazar,320,0.0375,0.04375,0.065625
+jueves,Educación Física,DOC-12,Tomás Herrera,320,0.0375,0.040625,0.06875
+miercoles,Educación Cultural y Artística,DOC-13,Camila Espinoza,320,0.0375,0.0375,0.08125
+jueves,Matemática,DOC-02,Paula Delgado,320,0.0375,0.034375,0.071875
+miercoles,Ciencias Naturales,DOC-05,Tomás Herrera,320,0.0375,0.028125,0.0625
+lunes,Ciencias Naturales,DOC-06,Valentina Torres,300,0.03666666666666667,0.04,0.07333333333333333
+viernes,Inglés,DOC-09,Sofía Espinoza,300,0.03666666666666667,0.04,0.06333333333333334
+lunes,Inglés,DOC-09,Sofía Espinoza,300,0.03666666666666667,0.03666666666666667,0.07666666666666666
+martes,Educación Cultural y Artística,DOC-13,Camila Espinoza,300,0.03666666666666667,0.02666666666666667,0.056666666666666664
+viernes,Lengua y Literatura,DOC-03,Gabriel Guerrero,300,0.03666666666666667,0.016666666666666666,0.06333333333333334
+jueves,Inglés,DOC-10,Luciana León,320,0.034375,0.0375,0.053125
+jueves,Estudios Sociales,DOC-07,Luciana Flores,320,0.034375,0.028125,0.0625
+miercoles,Matemática,DOC-01,Ana Salazar,320,0.034375,0.01875,0.065625
+lunes,Estudios Sociales,DOC-08,Luciana León,300,0.03333333333333333,0.056666666666666664,0.06666666666666667
+martes,Lengua y Literatura,DOC-04,Sofía Benítez,300,0.03333333333333333,0.04666666666666667,0.05333333333333334
+viernes,Inglés,DOC-10,Luciana León,300,0.03333333333333333,0.043333333333333335,0.06666666666666667
+martes,Ciencias Naturales,DOC-06,Valentina Torres,300,0.03333333333333333,0.04,0.06
+martes,Inglés,DOC-09,Sofía Espinoza,300,0.03333333333333333,0.04,0.05333333333333334
+miercoles,Estudios Sociales,DOC-08,Luciana León,320,0.03125,0.040625,0.05625
+martes,Ciencias Naturales,DOC-05,Tomás Herrera,300,0.03,0.023333333333333334,0.07666666666666666
+lunes,Matemática,DOC-02,Paula Delgado,300,0.03,0.016666666666666666,0.06333333333333334
+miercoles,Matemática,DOC-02,Paula Delgado,320,0.028125,0.034375,0.065625
+viernes,Lengua y Literatura,DOC-04,Sofía Benítez,300,0.02666666666666667,0.04,0.05
+viernes,Matemática,DOC-02,Paula Delgado,300,0.02666666666666667,0.02,0.05
+jueves,Estudios Sociales,DOC-08,Luciana León,320,0.025,0.034375,0.0625
+jueves,Educación Cultural y Artística,DOC-14,Renata Quiroga,320,0.025,0.021875,0.071875
+lunes,Lengua y Literatura,DOC-04,Sofía Benítez,300,0.023333333333333334,0.043333333333333335,0.05333333333333334
+lunes,Matemática,DOC-01,Ana Salazar,300,0.023333333333333334,0.03333333333333333,0.043333333333333335
+miercoles,Educación Física,DOC-12,Tomás Herrera,320,0.021875,0.01875,0.046875
+martes,Estudios Sociales,DOC-08,Luciana León,300,0.02,0.043333333333333335,0.056666666666666664
+martes,Lengua y Literatura,DOC-03,Gabriel Guerrero,300,0.02,0.03666666666666667,0.03666666666666667
+martes,Educación Física,DOC-12,Tomás Herrera,300,0.02,0.03,0.06
+lunes,Inglés,DOC-10,Luciana León,300,0.02,0.023333333333333334,0.056666666666666664
+miercoles,Educación Cultural y Artística,DOC-14,Renata Quiroga,320,0.01875,0.034375,0.05

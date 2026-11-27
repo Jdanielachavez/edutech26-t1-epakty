@@ -1,0 +1,40 @@
+PROMPT PARA EL EQUIPO WEB, BACKEND, SUPABASE Y N8N DE E-PAKTI
+
+Pega este texto en el agente de código desde la raíz de tu repositorio Web/Backend, con el ZIP descomprimido y la carpeta UI_UX accesible. Implementa y verifica la conexión de staging con el motor E-Pakti administrado por Wilo. Inspecciona primero el repo, conserva su arquitectura y reutiliza el cliente HTTP, la autenticación, las migraciones y la cola existentes. El motor se consume por HTTPS desde el servidor.
+
+1. Comprueba el túnel y revisa el contrato
+- URL de staging verificada el 25 de noviembre de 2026. Puede cambiar al reiniciar el túnel. Si falla, pide la URL vigente a Wilo.
+  EPAKTI_ENGINE_BASE_URL=https://possess-buildings-surname-events.trycloudflare.com/api/v1
+  EPAKTI_ENGINE_API_KEY=<SOLICITAR_A_WILO_POR_CANAL_PRIVADO>
+- GET https://possess-buildings-surname-events.trycloudflare.com/health debe devolver HTTP 200, status=ok, mode=EPAKTI_LIVE_PYTORCH_ENGINE y siete modelos. Al entregar el kit, colegios_registrados era 0 y el webhook de n8n estaba pendiente.
+- Usa UI_UX/02_CONTRATOS_API_Y_N8N/openapi_motor_en_vivo_v24.json para las rutas del motor en vivo. Consulta tipos_typescript_epakti_frontend.ts y api_contrato_onboarding_colegio.json en esa misma carpeta, y MANUAL_OPERATIVO_CONEXION_EN_VIVO_EPAKTI.md en UI_UX/05_KIT_INTEGRACION_SIN_EXPONER_MOTOR. Para conectarte, usa la variable de entorno de staging aunque el contrato liste otros servidores de ejemplo.
+- Si el túnel está apagado, usa el stub incluido para avanzar el desarrollo local e identifica sus resultados como prueba con stub. Conserva la variable de staging para repetir las pruebas contra el motor real.
+
+2. Configura el BFF y el Worker
+- Guarda EPAKTI_ENGINE_BASE_URL y EPAKTI_ENGINE_API_KEY en el entorno o gestor de secretos del BFF y Worker. Usa la plantilla .env.templates_por_servicio.example del kit. El frontend llama al BFF. Mantén los secretos fuera de NEXT_PUBLIC_*, Git, URLs, logs y capturas.
+- Envía X-Epakti-Engine-Key con la clave del servidor. Agrega Authorization: Bearer <token> y X-School-Id cuando la ruta requiera colegio. Deriva el colegio y el rol de la identidad verificada y la autorización del servidor. Evita duplicar /api/v1 al unir rutas con la URL base.
+- Para esta demo con datos ficticios, el motor admite Bearer ROLE:DOCENTE_TUTOR y ROLE:RECTORADO. Úsalos únicamente en el smoke test de servidor o con un modo explícito de staging bajo control del BFF. Restringe ese modo al colegio y roles de prueba. Evita que el navegador elija el rol o el colegio.
+- Prueba GET /api/v1/dashboard/docente-tutor/triage con X-School-Id: SCH-DEMO-240 y ROLE:DOCENTE_TUTOR. Sin clave debe devolver 401 INVALID_ENGINE_API_KEY. Con clave válida y antes de la carga debe devolver 404 SCHOOL_NOT_INGESTED_YET. Si alguien ya cargó esa demo, la respuesta esperada con clave es 200. Comprueba que DOCENTE_TUTOR recibe 403 en GET /api/v1/dashboard/colecturia/cartera-hogares.
+
+3. Prueba la ingesta asíncrona desde la UI y el BFF
+- Usa únicamente el dataset sintético de UI_UX/06_DATASET_FICTICIO_INGESTA. Coordina con Wilo el momento de la carga si comparte la demo. El ejemplo usa school_id=SCH-DEMO-240, nombre=UE Piloto Ficticio Cuenca, dpa_parroquia_plantel=010150, regimen=Sierra-Amazonía y fecha_corte=2025-10-31.
+- Con ROLE:RECTORADO, envía POST /api/v1/ingestion/upload-csv como multipart/form-data. El nombre de campo del CSV obligatorio es estudiantes. Adjunta los demás con los campos asistencia, notas, pensiones, horarios y docentes. Si el repo ya usa batch JSON, integra POST /api/v1/ingestion/batch-sync según el contrato.
+- Genera un Idempotency-Key único por carga y reutilízalo si reintentas esa misma carga. Espera 202 ACCEPTED_ASYNC. Conserva el job_id de la respuesta y consulta GET /api/v1/ingestion/jobs/{job_id} cada 1–2 segundos hasta COMPLETED o FAILED. Muestra el estado al usuario y maneja el tiempo de espera y los errores del motor. Evita reenvíos cuando el trabajo ya fue aceptado.
+- Para el dataset completo, comprueba 240 estudiantes_procesados y 0 estudiantes_rechazados. Repite el triage y valida que la UI muestre datos del colegio sin campos de Colecturía para Docente. Comprueba que las rutas de otro colegio queden bloqueadas.
+
+4. Integra Supabase Auth en staging
+- Identifica el proyecto de staging y el algoritmo con el que firma los JWT de usuario. Verifica la sesión en el BFF, incluidos emisor, expiración y audiencia esperada. Usa app_metadata.role y app_metadata.school_id administrados por el servidor para rol y colegio. Revisa la migración SQL y las políticas RLS del kit contra el esquema existente. Prueba con sesiones de dos colegios y un docente que intenta ver Colecturía.
+- El motor desplegado verifica JWT HS256 cuando Wilo configura SUPABASE_JWT_SECRET. Si el proyecto usa HS256 compatible, coordina la carga del secreto con Wilo a través del gestor de secretos, el cambio EPAKTI_ALLOW_DEV_ROLE_TOKENS=false y el reinicio del motor. Verifica con un JWT real que la consulta autorizada funciona, que ROLE:* se rechaza y que el rol y el colegio se aplican correctamente.
+- Si Supabase usa firma asimétrica, informa el algoritmo y la URL pública de JWKS a Wilo para coordinar soporte en el motor. Conserva la firma vigente del proyecto y marca la autenticación real contra el motor como pendiente hasta que la validación funcione. Reserva el túnel para datos sintéticos mientras la autenticación esté en modo demo.
+- Referencia de Supabase sobre claves de firma y JWKS. https://supabase.com/docs/guides/auth/signing-keys
+
+5. Conecta n8n y valida la ida y vuelta
+- Importa UI_UX/02_CONTRATOS_API_Y_N8N/workflow_n8n_epakti_360.json en staging. Configura el Webhook para POST /webhook/epakti-alerta-360 y entrega a Wilo su URL HTTPS activa para N8N_WEBHOOK_URL en el motor.
+- Solicita por el gestor de secretos N8N_WEBHOOK_HMAC_SECRET para verificar las alertas y EPAKTI_CALLBACK_TOKEN para autenticar el callback. El workflow exportado requiere añadir la validación de firma antes de procesar o enviar alertas. Activa Raw Body y valida X-Epakti-Signature con HMAC-SHA256 de los bytes originales y formato sha256=<hex>. Rechaza firmas inválidas y conserva las proyecciones pedagógica y de Colecturía por separado.
+- Para el callback directo, fija EPAKTI_CALLBACK_BASE_URL a la URL del motor terminada en /api/v1. Completa el nodo de callback con POST /interventions/log-outcome sobre esa base, X-Epakti-Callback-Token, X-School-Id y school_id en el cuerpo. Verifica que HTTP 201 incluya registrado_en_bitacora_mlops=true. Si el repo necesita una copia en Supabase, verifica la sincronización que implemente el equipo. El callback directo registra la intervención en el motor.
+- Prueba POST /api/v1/n8n/dispatch-alerts primero con dry_run=true. Cuando el webhook esté activo, valida con datos ficticios una firma aceptada, una firma rechazada y el callback registrado. Si habilitas correo, WhatsApp o Bedrock en staging, configura sus credenciales por separado y usa destinatarios internos de prueba.
+- Referencia de n8n sobre URL activa del Webhook y Raw Body. https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/
+
+6. Entrega la evidencia
+- Reporta los archivos del repo modificados y los nombres de variables por servicio. Para cada prueba, reporta el entorno, el código HTTP y el resultado. Incluye salud, rechazo sin clave, ingesta 202 a COMPLETED, triage, aislamiento de roles y colegios, Auth real cuando esté conectado, recepción del webhook y callback.
+- Indica qué quedó listo, qué probaste contra el motor real, qué probaste con el stub y qué depende de Wilo o de accesos aún pendientes. Oculta tokens, claves y datos de usuarios en toda evidencia. Adjunta comandos reproducibles con marcadores para los secretos.

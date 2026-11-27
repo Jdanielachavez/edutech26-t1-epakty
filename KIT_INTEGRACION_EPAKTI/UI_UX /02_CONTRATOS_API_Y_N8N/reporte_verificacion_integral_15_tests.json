@@ -1,0 +1,140 @@
+{
+  "total_pruebas_ejecutadas": 22,
+  "pruebas_aprobadas": 22,
+  "estado_global_motor_saas": "PROTOTIPO_AUDITADO_LISTO_PARA_PILOTO_CONTROLADO",
+  "nota_alcance_cientifico": "Verificado sobre cohorte sintética (240 alumnos) y datos nacionales AMIE/Censo/ENEMDU. Para pasar a producción requiere datos reales fechados de notas, etiquetas reales de retiro y validación prospectiva.",
+  "pruebas": [
+    {
+      "id": "TEST-01",
+      "nombre": "Integridad de Cohorte y Llaves Primarias (240 alumnos, 204 hogares, 0 duplicados)",
+      "resultado": true,
+      "detalle": "N=240, IDs únicos=240, Hogares=204"
+    },
+    {
+      "id": "TEST-02",
+      "nombre": "Ausencia de Fuga entre Hermanos en CV (GroupKFold por representante_codigo)",
+      "resultado": true,
+      "detalle": "100 % de hermanos comparten pliegue de validación (0 familias partidas)."
+    },
+    {
+      "id": "TEST-03",
+      "nombre": "Coherencia de Signos Restringidos al 100 % en las 36 Variables de los 6 Modelos",
+      "resultado": true,
+      "detalle": "36/36 variables con r_bivariado > 0 e IME_1SD > 0."
+    },
+    {
+      "id": "TEST-04",
+      "nombre": "Control de Multicolinealidad tras Ortogonalización Aiken & West (VIF_max <= 5,50)",
+      "resultado": true,
+      "detalle": "VIF máximo = 5.19."
+    },
+    {
+      "id": "TEST-05",
+      "nombre": "Monotonicidad Individual de Sensibilidades (IME >= 0 en los 240 alumnos)",
+      "resultado": true,
+      "detalle": "Min IME faltas=2.18 pp, notas=0.00 pp."
+    },
+    {
+      "id": "TEST-06",
+      "nombre": "Aditividad SHAP en el Modelo Pedagógico Unificado (Error máximo < 0,05 pp)",
+      "resultado": true,
+      "detalle": "Error máximo de cierre SHAP en los 240 alumnos = 0.0200 pp."
+    },
+    {
+      "id": "TEST-07",
+      "nombre": "Consistencia de Inferencia Individual N=1 (Single-Applicant Test)",
+      "resultado": true,
+      "detalle": "|P_batch(x_0) - P_single(x_0)| < 1e-6 en los 6 modelos."
+    },
+    {
+      "id": "TEST-08",
+      "nombre": "Monotonicidad No Vacía del Semáforo de Permanencia (3 niveles calibrados OOF: Verde < Amarillo < Rojo)",
+      "resultado": true,
+      "detalle": "Verificada monotonicidad creciente sobre los 3 niveles no vacíos de permanencia OOF (Verde/Amarillo/Rojo)."
+    },
+    {
+      "id": "TEST-09",
+      "nombre": "Monotonicidad No Vacía del Semáforo Académico Q2 (4 niveles OOF)",
+      "resultado": true,
+      "detalle": "Verificada monotonicidad creciente sobre los 4 niveles no vacíos de riesgo Q2 OOF."
+    },
+    {
+      "id": "TEST-10",
+      "nombre": "Monotonicidad No Vacía del Semáforo de 2+ Incumplimientos/Pagos Tardíos (4 niveles OOF)",
+      "resultado": true,
+      "detalle": "Verificada monotonicidad creciente sobre los 4 niveles no vacíos de Colecturía OOF."
+    },
+    {
+      "id": "TEST-11",
+      "nombre": "Monotonicidad No Vacía de los Semáforos Pre-Ingreso M1 (Educativo 4 niveles + Financiero 3 niveles)",
+      "resultado": true,
+      "detalle": "Todos los semáforos Pre-Ingreso M1 tienen niveles poblados y monotonicidad estricta OOF."
+    },
+    {
+      "id": "TEST-12",
+      "nombre": "Aislamiento RBAC/LOPDP Estricto (Insensible a tildes/espacios): 0 Términos Financieros en 40/40 Vistas Docentes",
+      "resultado": true,
+      "detalle": "0 términos prohibidos en las 40 vistas docentes."
+    },
+    {
+      "id": "TEST-13",
+      "nombre": "Homologación Territorial DPA de 6 Dígitos con Cero Inicial (Censo 2022)",
+      "resultado": true,
+      "detalle": "100 % de códigos DPA con 6 dígitos (ej. 010150)."
+    },
+    {
+      "id": "TEST-14",
+      "nombre": "Escalabilidad Monótona de la Simulación Multi-Colegio MLOps (1 -> 25 Escuelas, Holdout 900 Alumnos)",
+      "resultado": true,
+      "detalle": "AUC 0.8404 -> 0.8622, ECE 11.39 -> 2.27 pp."
+    },
+    {
+      "id": "TEST-15",
+      "nombre": "Verificación Dinámica del Escudo contra Feedback Loop (Lee ECE real del JSON MLOps, sin True fijo)",
+      "resultado": true,
+      "detalle": "ECE MLOps real=2.22 pp (<5,0) vs ECE ingenuo=23.56 pp (>15,0)."
+    },
+    {
+      "id": "TEST-16",
+      "nombre": "Consistencia 100 % en la Cola Exportada a n8n (Color = Porcentaje = SHAP desde Un Único Modelo Pedagógico)",
+      "resultado": true,
+      "detalle": "Inconsistencias detectadas en las 40 alertas exportadas: 0/40."
+    },
+    {
+      "id": "TEST-17",
+      "nombre": "Validez Estructural de Contratos Exportados (OpenAPI 3.1 `paths` y Workflow n8n `connections`)",
+      "resultado": true,
+      "detalle": "OpenAPI paths=20, n8n nodes=13, n8n connections=12."
+    },
+    {
+      "id": "TEST-18",
+      "nombre": "4 Pruebas de Perturbación/Mutación (Corte inválido, Q2 faltante->NA, Pago post-corte->Vencido, Tabla vacía->False)",
+      "resultado": true,
+      "detalle": "corte_invalido=True, q2_na=True, pago_post_corte=True, tabla_vacia=True."
+    },
+    {
+      "id": "TEST-19",
+      "nombre": "4 Controles de Auditoría 25-Nov (Corte 31-Ago->0 vencidas, Q2 Parcial 1->NA sin crash, 010162=Ricaurte, Escala 0-10 pura)",
+      "resultado": true,
+      "detalle": "ago31_0venc=True, q2p1_na=True, tolera_na=True, 010162_ricaurte=True, escalas_ok=True."
+    },
+    {
+      "id": "TEST-20",
+      "nombre": "Proyección RBAC + Filtro IfV2 Colecturía en n8n y Estabilidad Operativa vs OOF (MAE < 2,0 pp)",
+      "resultado": true,
+      "detalle": "n8n_ifv2_colecturia=True, n8n_proyeccion_ped=True, MAE_op_vs_oof=1.25 pp."
+    },
+    {
+      "id": "TEST-21",
+      "nombre": "Controles Auditoría v2.3: Q2 Claves Únicas (20+1 dup -> NA) y Esquema Real n8n v2 (Webhook body + IfV2 + Bedrock ai_languageModel + jsonBody)",
+      "resultado": true,
+      "detalle": "q2_20claves_1dup_na=True, split_body=True, if_v2=True, llm_3agentes=True, wa_body=True."
+    },
+    {
+      "id": "TEST-22",
+      "nombre": "Compuerta Anti-Regresión Top-40 Permanencia (OOF >= 22/40 y Cola Exportada n8n >= 22/40 sin dilución Q2)",
+      "resultado": true,
+      "detalle": "OOF_TP40=22/40 (55.0%), Cola_Exportada_TP40=23/40 (57.5%)."
+    }
+  ]
+}
