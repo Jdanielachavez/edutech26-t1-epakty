@@ -449,7 +449,7 @@ def test_admin_manages_users_end_to_end(repo, engine):
     me = c.get('/api/v1/me', headers=session).json()
     assert me['role'] == 'tutor' and me['course'] == '8vo EGB'
     assert c.get('/api/v1/admin/users', headers=session).status_code == 403                    # un tutor no administra
-    assert c.post('/api/v1/auth/change-password', json={'clave_actual': 'mala', 'clave_nueva': 'NuevaClave-2026'}, headers=session).status_code == 401
+    assert c.post('/api/v1/auth/change-password', json={'clave_actual': 'mala', 'clave_nueva': 'NuevaClave-2026'}, headers=session).status_code == 400
     assert c.post('/api/v1/auth/change-password', json={'clave_actual': temp, 'clave_nueva': 'corta'}, headers=session).status_code == 422
     assert c.post('/api/v1/auth/change-password', json={'clave_actual': temp, 'clave_nueva': 'NuevaClave-2026'}, headers=session).json() == {'cambiada': True}
     assert c.post('/api/v1/auth/login', json={'usuario': 'tutor.x', 'clave': temp}).status_code == 401

@@ -1529,10 +1529,18 @@ function errorES(d){
  if(/valid email/i.test(msg))return 'Ese correo no parece válido.';
  return e.error||msg;
 }
+// Si el usuario abre otra pantalla mientras esta espera datos, la respuesta vieja no debe pintarse encima.
+let NAV=0;const STALE='stale-nav';
+// Una sesión vencida vuelve al inicio de sesión; sin esto, el portal caía al modo demo y cambiaba de pantalla solo.
+let GONE=false;
+function sessionGone(){sessionStorage.clear();conn.token='';conn.mock=false;ME=null;
+ if(GONE)return;GONE=true;show('plataforma').then(()=>{openLogin();toast('Tu sesión venció. Vuelve a entrar con tu usuario y contraseña.')}).finally(()=>{GONE=false})}
 async function api(method,path,body,headers={}){
   if(!live())return demoApi(method,path,body);
+  const nav=NAV;
   const r=await fetch(conn.url.replace(/\/$/,'')+path,{method,headers:{Authorization:'Bearer '+conn.token,...(body?{'Content-Type':'application/json'}:{}),...headers},body:body?JSON.stringify(body):undefined});
-  if(r.status===401){sessionStorage.removeItem('api_token');conn.token='';throw new Error('Tu sesión venció. Vuelve a entrar con tu usuario y contraseña.')}
+  if(method==='GET'&&nav!==NAV)throw new Error(STALE);
+  if(r.status===401){sessionGone();throw new Error(STALE)}
   if(r.status===403)throw new Error('Tu rol no tiene permiso para esta acción.');
   if(r.status===503)throw new Error('El motor no está disponible en este momento. Intenta en unos minutos.');
   if(!r.ok){let m='Error '+r.status;try{const j=await r.json();m=errorES(j.detail)||m}catch{}throw new Error(String(m))}
@@ -1540,7 +1548,7 @@ async function api(method,path,body,headers={}){
 }
 async function apiForm(path,form){
   const r=await fetch(conn.url.replace(/\/$/,'')+path,{method:'POST',headers:{Authorization:'Bearer '+conn.token},body:form});
-  if(r.status===401){sessionStorage.removeItem('api_token');conn.token='';throw new Error('Tu sesión venció. Vuelve a entrar con tu usuario y contraseña.')}
+  if(r.status===401){sessionGone();throw new Error(STALE)}
   if(r.status===403)throw new Error('Solo una persona con rol de administración puede cargar datos.');
   const j=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(errorES(j.detail)||('Error '+r.status));
@@ -1701,7 +1709,7 @@ const getVice=()=>api('GET','/api/v1/dashboard/vicerrectorado/docentes-horarios'
 
 // ================= UI =================
 const toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),4500)};
-const guard=f=>async(...a)=>{try{return await f(...a)}catch(e){toast(e.message==='Failed to fetch'?'No se pudo conectar con la API (¿URL, HTTPS o CORS?)':e.message)}};
+const guard=f=>async(...a)=>{try{return await f(...a)}catch(e){if(e.message===STALE)return;toast(e.message==='Failed to fetch'?'No se pudo conectar con la API (¿URL, HTTPS o CORS?)':e.message)}};
 function login(){show('plataforma').then(()=>{$('#acceso')?.scrollIntoView({behavior:'smooth'});setTimeout(()=>$('#u')?.focus(),500)})}
 
 async function resumen(){
@@ -2592,7 +2600,7 @@ async function engCardInit(){
  k.insertAdjacentHTML('afterend','<div class="card" id="engCard" style="margin-top:18px"><div class="eng-head"><div><h3 style="margin:0">Conexiones con el motor</h3><p class="mini2" id="engSub" style="margin:4px 0 0">Prueba cada ruta del motor de Wilo con el rol que la usa.</p></div><button class="btn sec" id="engGo">Probar conexiones</button></div><div id="engTab"></div></div>');
  const run=guard(async()=>{const b=$('#engGo');b.disabled=true;b.textContent='Probando…';$('#engTab').innerHTML='<p class="mini2">Consultando al motor…</p>';
   try{await runEngineCheck();$('#engSub').textContent=(ENG.motor.detalle||'')+(ENG.colegio_motor?' · colegio del motor '+ENG.colegio_motor:'')+' · '+ENG.ms+' ms';$('#engTab').innerHTML=engineTable()}
-  catch(e){$('#engTab').innerHTML=`<div class="errbox">${esc(e.message)}</div>`}finally{b.disabled=false;b.textContent='Probar de nuevo'}});
+  catch(e){if(e.message===STALE)throw e;$('#engTab').innerHTML=`<div class="errbox">${esc(e.message)}</div>`}finally{b.disabled=false;b.textContent='Probar de nuevo'}});
  $('#engGo').onclick=run;run()}
 function engineTable(){
  if(!ENG)return '<p class="mini2">Pulsa «Probar conexiones».</p>';
@@ -2641,7 +2649,7 @@ async function segInit(id,host){
   <ol class="segtl" id="segL"><li><span class="dt">…</span><div><p>Cargando seguimiento…</p></div></li></ol></section>`;
  host.querySelector('#segInf').onclick=()=>{$('#drawer').classList.remove('open');INF_ID=id;show('informe')};
  const draw=(ev,nuevaIdx)=>{const L=host.querySelector('#segL');L.innerHTML=ev.length?ev.map((e,i)=>segItem(e,i,i===nuevaIdx)).join(''):'<li style="display:block"><div class="seg-vacio">Aún no hay seguimiento de este estudiante. Escribe la primera nota arriba: cada acción que hagas quedará aquí.</div></li>'};
- let ev=[];try{ev=await getSeg(id)}catch(e){host.querySelector('#segL').innerHTML=`<li style="display:block"><div class="errbox">${esc(e.message)}</div></li>`}
+ let ev=[];try{ev=await getSeg(id)}catch(e){if(e.message===STALE)throw e;host.querySelector('#segL').innerHTML=`<li style="display:block"><div class="errbox">${esc(e.message)}</div></li>`}
  draw(ev);
  host.querySelector('#segF').onsubmit=guard(async e=>{e.preventDefault();const t=host.querySelector('#segT').value,n=host.querySelector('#segN').value.trim();
   if(n.length<3)throw new Error('Escribe al menos 3 caracteres.');
@@ -2653,7 +2661,7 @@ async function seguimiento(){
  let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){$('#app').innerHTML=`<span class="badge">Seguimiento</span><h1>Seguimiento de <em>estudiantes</em></h1>${typeof noData==='function'&&noData(e)?NEED_DATA:`<div class="errbox">${esc(e.message)}</div>`}`;return}
  const L=R2.estudiantes,back=['admin','dece','rectoria'].includes(ROLE);let D;
  const cargarEt=async()=>{D=await etapasData(L)};
- try{await cargarEt()}catch(e){$('#app').innerHTML=`<span class="badge">Seguimiento</span><h1>Seguimiento de <em>estudiantes</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
+ try{await cargarEt()}catch(e){if(e.message===STALE)throw e;$('#app').innerHTML=`<span class="badge">Seguimiento</span><h1>Seguimiento de <em>estudiantes</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
  const filasDe=()=>{const eM={};D.etapas.forEach(x=>eM[x.id_estudiante]=x);
   return L.filter(e=>e.semaforo!=='VERDE'||(eM[e.id]&&eM[e.id].etapa!=='IDENTIFICADO')).map(e=>{const et=eM[e.id]||{etapa:'IDENTIFICADO',identificado_at:D.fecha_carga};return {e,et,i:ETAPAS.findIndex(x=>x[0]===et.etapa)}})};
  const fechaEt=(et,i)=>[et.identificado_at,et.docente_avisado_at,et.reunion_familia_at,et.cerrado_at][i];
@@ -2709,7 +2717,7 @@ async function reducirFoto(file,max=1600){const bmp=await createImageBitmap(file
 const EV_CSV='codigo_estudiante,pregunta,correcta\nEST-001,1,1\nEST-001,2,0\nEST-002,1,1\nEST-002,2,1\n';
 
 async function aula(){
- let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){$('#app').innerHTML=`<span class="badge">Mi aula</span><h1>Mi <em>aula</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
+ let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){if(e.message===STALE)throw e;$('#app').innerHTML=`<span class="badge">Mi aula</span><h1>Mi <em>aula</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
  const L=R2.estudiantes,S=R2.resumen;
  // Reunir asistencia de todos los estudiantes del aula del tutor.
  const dias={};let totalDias=0;
@@ -2780,11 +2788,11 @@ async function evaluaciones(){
   $('#evTpl')?.addEventListener('click',()=>{const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(EV_CSV);a.download='plantilla_evaluacion.csv';a.click()});
   $('#evFiles')?.addEventListener('change',e=>{const fs=[...e.target.files].slice(0,4);$('#evPrev').innerHTML=fs.map(f=>`<img alt="Foto ${esc(f.name)}" src="${URL.createObjectURL(f)}">`).join('')})};
  document.querySelectorAll('.ev-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;pintaIn()});pintaIn();
- const pintaLista=async()=>{let l=[];try{l=await cargar()}catch(e){$('#evLista').innerHTML=`<div class="errbox">${esc(e.message)}</div>`;return}
+ const pintaLista=async()=>{let l=[];try{l=await cargar()}catch(e){if(e.message===STALE)throw e;$('#evLista').innerHTML=`<div class="errbox">${esc(e.message)}</div>`;return}
   $('#evLista').innerHTML=l.length?l.map(e=>{const [c,t]=EV_ST[e.estado]||['AMARILLO',e.estado];return `<div class="ev-item ${sel===e.id?'on':''}" data-ev="${esc(e.id)}" tabindex="0" role="button"><div><b>${esc(e.titulo)}</b><small>${esc(e.materia)} · ${esc(e.curso)} ${esc(e.paralelo)} · ${e.n_hojas||0} hojas</small></div>${sem(c,t)}</div>`}).join(''):'<p class="mini2">Aún no hay evaluaciones. Sube la primera con el formulario.</p>';
   document.querySelectorAll('[data-ev]').forEach(el=>{const go=()=>abrir(el.dataset.ev);el.onclick=go;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}})};
  const getDet=async id=>live()?api('GET','/api/v1/evaluaciones/'+id):{evaluacion:mockEv.evaluacion,preguntas:mockEv.preguntas,temas:temasDe(mockEv.preguntas)};
- const abrir=async id=>{sel=id;clearTimeout(poll);let d;try{d=await getDet(id)}catch(e){$('#evDet').innerHTML=`<div class="card"><div class="errbox">${esc(e.message)}</div></div>`;return}
+ const abrir=async id=>{sel=id;clearTimeout(poll);let d;try{d=await getDet(id)}catch(e){if(e.message===STALE)throw e;$('#evDet').innerHTML=`<div class="card"><div class="errbox">${esc(e.message)}</div></div>`;return}
   const ev=d.evaluacion,[c,t]=EV_ST[ev.estado]||['AMARILLO',ev.estado],ro=ev.estado==='CONFIRMADA';
   if(ev.estado==='PROCESANDO'){$('#evDet').innerHTML=`<div class="card ev-det"><h3>${esc(ev.titulo)}</h3><div class="ev-prog"><i></i>Leyendo las hojas con IA… suele tardar menos de un minuto.</div></div>`;poll=setTimeout(()=>{if(sel===id){abrir(id);pintaLista()}},3000);return}
   if(ev.estado==='ERROR'){$('#evDet').innerHTML=`<div class="card ev-det"><h3>${esc(ev.titulo)}</h3><div class="errbox"><b>No se pudo leer.</b> ${esc(ev.error||'')}<br>Prueba con fotos más nítidas o carga los resultados por CSV.</div></div>`;pintaLista();return}
@@ -2861,7 +2869,7 @@ async function informeDatos(id){
   como_leerlo:'El porcentaje es una señal de alerta, no un pronóstico de que el estudiante se va a retirar: compara a este estudiante con el promedio de su colegio. Los porcentajes de «Cómo mitigarlo» son escenarios, no promesas: solo el acompañamiento real dirá si funcionó. Este informe es pedagógico y no incluye datos económicos.'}}
 async function informe(){
  if(!INF_ID||!segCan()){$('#app').innerHTML='<h1>Informe</h1><div class="errbox">Abre el informe desde Seguimiento o desde la ficha de un estudiante.</div>';return}
- let d;try{d=await informeDatos(INF_ID)}catch(e){$('#app').innerHTML=`<div class="inf"><div class="inf-bar noprint"><button class="btn sec" id="infBack">← Volver</button></div><div class="errbox">${esc(e.message)}</div></div>`;$('#infBack').onclick=()=>show('seguimiento');return}
+ let d;try{d=await informeDatos(INF_ID)}catch(e){if(e.message===STALE)throw e;$('#app').innerHTML=`<div class="inf"><div class="inf-bar noprint"><button class="btn sec" id="infBack">← Volver</button></div><div class="errbox">${esc(e.message)}</div></div>`;$('#infBack').onclick=()=>show('seguimiento');return}
  const E=d.estudiante,S=d.seguimiento,etapaI=ETAPAS.findIndex(x=>x[0]===S.etapa),mk=v=>Math.max(2,Math.min(98,v));
  const dato=(b,t)=>`<div><b>${b}</b><small>${t}</small></div>`;
  const ev=(S.eventos||[]).slice(0,14);
@@ -2893,7 +2901,7 @@ async function informe(){
  $('#infCopy').onclick=guard(async()=>{await navigator.clipboard.writeText(resumen());toast('Resumen copiado')});
  $('#infPdf').onclick=()=>{const t=document.title;document.title='Informe '+E.id+' '+(E.nombre||'');window.print();setTimeout(()=>document.title=t,800)}}
 async function informecurso(){
- let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){$('#app').innerHTML=`<span class="badge">Informe</span><h1>Informe del <em>curso</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
+ let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){if(e.message===STALE)throw e;$('#app').innerHTML=`<span class="badge">Informe</span><h1>Informe del <em>curso</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
  const L=R2.estudiantes,D=await etapasData(L),eM={};D.etapas.forEach(x=>eM[x.id_estudiante]=x);
  const filas=L.filter(e=>e.semaforo!=='VERDE'||(eM[e.id]&&eM[e.id].etapa!=='IDENTIFICADO')).map(e=>{const et=eM[e.id]||{etapa:'IDENTIFICADO',identificado_at:D.fecha_carga};return {e,et,i:ETAPAS.findIndex(x=>x[0]===et.etapa),dias:Math.floor((Date.now()-new Date(et.identificado_at))/86400000)}});
  const cuentas=fs=>[0,1,2,3].map(i=>fs.filter(f=>f.i===i).length),barra=c=>{const t=c.reduce((a,b)=>a+b,0)||1;return `<div class="ic-bar" role="img" aria-label="${c.map((n,i)=>ETAPAS[i][1]+': '+n).join(', ')}">${c.map((n,i)=>`<i class="e${i}" style="width:${n/t*100}%"></i>`).join('')}</div>`};
@@ -3019,12 +3027,13 @@ function buildSide(){
  $('#rs')&&($('#rs').onchange=e=>{ROLE=e.target.value;dSel=0;show('demo')})}
 $('#icoBell').innerHTML=ico('bell',20);
 async function show(v){
+ const nav=++NAV;
  if(v!=='plataforma'&&!live()&&!conn.mock){conn.mock=true;sessionStorage.setItem('api_mock','1');await load()}
  if(APP.includes(v)){if(!ME)await getMe();if(!live()&&LIVE_ONLY.includes(v))v='demo';if(stubHidden()&&(STUB.includes(v)||v==='demo'))v=home();if(!can(v))v=live()?home():'demo';buildSide()}
  const app=APP.includes(v);document.body.classList.toggle('appmode',app);
  document.querySelectorAll('.nav button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
  document.querySelectorAll('.side button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
- const swap=async()=>{(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);await views[v]();if(app){injectIntro(v);injectBand(v)}};
+ const swap=async()=>{(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);await views[v]();if(nav!==NAV)return;if(app){injectIntro(v);injectBand(v)}};
  if(document.startViewTransition&&!app&&!document.hidden&&!matchMedia('(prefers-reduced-motion:reduce)').matches){   // solo páginas públicas: el portal espera datos de la red y no debe depender de animaciones
   // La animación es un adorno: si el navegador no la ejecuta (pestaña en segundo plano, por ejemplo),
   // igual se pinta la página. Sin esto, quien abre un enlace en otra pestaña ve la pantalla en blanco.
@@ -3066,7 +3075,7 @@ $('#out').onclick=()=>{if(document.body.classList.contains('appmode')){sessionSt
 // La portada se vuelve a pintar: re-enganchar los enlaces del menú a la pestaña de servicios
 
 $('#footContact').innerHTML=[CONTACT.whatsapp&&['https://wa.me/'+encodeURIComponent(CONTACT.whatsapp),'WhatsApp'],CONTACT.email&&['mailto:'+CONTACT.email,CONTACT.email]].filter(Boolean).map(c=>`<a href="${esc(c[0])}" target="_blank" rel="noopener">${esc(c[1])}</a>`).join('');
-(async()=>{const k0=(location.hash.match(/^#\/(\w+)/)||[])[1];if(!live()&&k0&&DET[k0]){DET_KEY=k0;return show('detalle')}if(!live())return show('plataforma');try{await load();show(home())}catch(e){toast(e.message);login()}})();   // la portada es la primera página; con sesión real se abre el portal
+(async()=>{const k0=(location.hash.match(/^#\/(\w+)/)||[])[1];if(!live()&&k0&&DET[k0]){DET_KEY=k0;return show('detalle')}if(!live())return show('plataforma');try{await load();show(home())}catch(e){if(e.message!==STALE){toast(e.message);login()}}})();   // la portada es la primera página; con sesión real se abre el portal
 </script>
 </body>
 </html>

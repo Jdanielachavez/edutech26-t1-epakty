@@ -162,7 +162,7 @@ def create_app(settings=None, repository=None, engine=None):
         name = identity.get('user')
         record = repo.get_user(name) if name else None
         if not record: raise HTTPException(409, 'Este usuario se administra en el servidor; pide el cambio a la administración')
-        if not accounts.verify_password(body.clave_actual, record['password_hash']): raise HTTPException(401, 'La contraseña actual no es correcta')
+        if not accounts.verify_password(body.clave_actual, record['password_hash']): raise HTTPException(400, 'La contraseña actual no es correcta')
         if body.clave_nueva == body.clave_actual: raise HTTPException(422, 'La contraseña nueva debe ser distinta')
         repo.update_user(name, password_hash=accounts.hash_password(body.clave_nueva), must_change=False, by=name)
         return {'cambiada': True}
