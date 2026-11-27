@@ -250,8 +250,8 @@ th{border-bottom:2px solid var(--sun)}.nav button.on:after{content:"";display:in
 
 .files div small{display:block;color:var(--muted);font:500 11px var(--sans);margin-top:4px}.files div.ok{border-color:var(--teal);background:var(--wash)}.files div.ok:after{content:" ✓";color:var(--teal)}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink2);margin-top:14px}.chk input{margin-top:3px}
-.okbox,.errbox{margin-top:18px;border-radius:14px;padding:16px 18px;font-size:14px}.cta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;align-items:start}.cta-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.cta-row span{color:var(--muted,#6b6478)}.cta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cta-chip{font-size:12.5px;padding:5px 10px;border-radius:99px;background:#efeaf7;color:#3d2a66}.cta-form{display:grid;gap:12px;margin-top:12px}.cta-form label{display:grid;gap:5px;font-size:13.5px;font-weight:600}.cta-form small{font-weight:400;color:var(--muted,#6b6478)}.cta-det summary{cursor:pointer;font-weight:600;padding:10px 0;color:#3d2a66}.cta-warn{background:#fff4d6;color:#6b4a00;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:10px}@media(max-width:760px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
-.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
+.okbox,.errbox{margin-top:18px;border-radius:14px;padding:16px 18px;font-size:14px}.cta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;align-items:start}.cta-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.cta-row span{color:var(--muted,#6b6478)}.cta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cta-chip{font:inherit;font-size:12.5px;padding:6px 11px;border-radius:99px;background:#efeaf7;color:#3d2a66;border:1px solid transparent;cursor:pointer;min-height:32px}.cta-chip:hover{border-color:#3d2a66}.cta-chip:focus-visible{outline:2px solid #3d2a66;outline-offset:2px}.cta-form{display:grid;gap:12px;margin-top:12px}.cta-form label{display:grid;gap:5px;font-size:13.5px;font-weight:600}.cta-form small{font-weight:400;color:var(--muted,#6b6478)}.cta-det summary{cursor:pointer;font-weight:600;padding:10px 0;color:#3d2a66}.cta-warn{background:#fff4d6;color:#6b4a00;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:10px}@media(max-width:760px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
+.vw-load{padding:48px 0;color:var(--muted,#6b6478);font-size:15px}.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
 textarea.dm{width:100%;min-height:130px;border:1.5px solid var(--line);border-radius:14px;padding:14px;font:500 15px/1.55 var(--sans);background:#fff;color:var(--ink);resize:vertical}textarea.dm:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 4px #5a3de622}
 .casebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
 
@@ -2997,7 +2997,7 @@ async function usuarios(){
 async function cuenta(){
  if(!ME)await getMe();
  const forced=MUST_CHANGE,editable=ME?.clave_editable!==false;
- const ve=SIDE.filter(s=>can(s[2])&&s[2]!=='cuenta'&&!(stubHidden()&&(STUB.includes(s[2])||s[2]==='demo'))).map(s=>`<span class="cta-chip">${esc(s[1])}</span>`).join('');
+ const ve=SIDE.filter(s=>can(s[2])&&s[2]!=='cuenta'&&!(stubHidden()&&(STUB.includes(s[2])||s[2]==='demo'))).map(s=>`<button type="button" class="cta-chip" data-ir="${s[2]}">${esc(s[1])} →</button>`).join('');
  const dato=(k,v)=>v?`<div class="cta-row"><span>${k}</span><b>${esc(v)}</b></div>`:'';
  const form=`<form id="pf" novalidate class="cta-form">
   <label>Contraseña actual<input name="actual" type="password" autocomplete="current-password" required></label>
@@ -3010,9 +3010,10 @@ async function cuenta(){
  $('#app').innerHTML=`<span class="badge">Mi cuenta</span><h1>Tu <em>cuenta</em></h1>
  <div class="cta-grid">
   <div class="card"><h3>Tus datos</h3>${dato('Nombre',ME?.name)}${dato('Usuario',ME?.usuario)}${dato('Rol',ROLE_NAME[ROLE]||ROLE)}${dato('Curso a cargo',ME?.course?ME.course+' '+(ME.parallel||''):'')}
-   <h3 style="margin-top:18px">Qué puedes ver</h3><div class="cta-chips">${ve||'<span class="mini2">—</span>'}</div></div>
+   <h3 style="margin-top:18px">Qué puedes ver</h3><p class="mini2">Toca una para abrirla.</p><div class="cta-chips">${ve||'<span class="mini2">—</span>'}</div></div>
   <div class="card" id="ctaClave"><h3>Contraseña</h3>${clave}</div>
  </div>`;
+ document.querySelectorAll('[data-ir]').forEach(x=>x.onclick=guard(()=>show(x.dataset.ir)));
  if(forced)$('#ctaClave').scrollIntoView({block:'nearest'});
  const f=$('#pf');if(!f)return;
  f.onsubmit=async e=>{e.preventDefault();const out=$('#pr');
@@ -3036,7 +3037,7 @@ async function openService(id){SVC=id;const t=SERV.find(x=>x[0]===id)[5],[v,extr
  if(extra==='ficha'){const r=document.querySelector('tr.go');if(r)await fichaReal(r.dataset.c)}}
 function injectIntro(v){const h=svcIntro(v);if(!h)return;$('#app').insertAdjacentHTML('afterbegin',h);$('#svx')?.addEventListener('click',()=>{SVC=null;document.querySelector('.svintro')?.remove()})}
 const APP=['informe','informecurso','evaluaciones','seguimiento','servicios','usuarios','cuenta','panel','resultados','modelos','territorio','territorios','estado','demo','resumen','estudiantes','dece','colecturia','vice','admisiones','casos','carga','mlops','tenants','datalake','n8nobs','ceodash'];
-const SIDE=[['grid','Servicios','servicios'],['home','Resumen','demo'],['users','Configuración · Usuarios','usuarios'],['grid','Mi cuenta','cuenta'],['home','Mi aula','aula'],['bell','A quién acompañar','resultados'],['grid','Integraciones','estado'],['bell','Resumen de Rectoría','resumen'],['users','Semáforo pedagógico','estudiantes'],['grid','DECE e inclusión','dece'],['chart','Colecturía','colecturia'],['chart','Docentes y horarios','vice'],['users','Admisiones','admisiones'],['chat','Casos e intervenciones','casos'],['users','Seguimiento','seguimiento'],['chart','Evaluaciones','evaluaciones'],['grid','Informe del curso','informecurso'],['upload','Carga de datos','carga'],['chart','Salud del modelo','mlops'],['grid','Colegios conectados','tenants'],['grid','Datos sin nombres','datalake'],['chat','Avisos enviados','n8nobs'],['home','Cómo va el negocio','ceodash'],['chart','Cómo se calcula','modelos'],['map','La zona del colegio','territorio'],['map','Comparar zonas','territorios']];
+const SIDE=[['grid','Servicios','servicios'],['home','CEO · Cómo va el negocio','ceodash'],['chart','MLOps · Salud del modelo','mlops'],['home','Resumen','demo'],['users','Configuración · Usuarios','usuarios'],['grid','Mi cuenta','cuenta'],['home','Mi aula','aula'],['bell','A quién acompañar','resultados'],['grid','Integraciones','estado'],['bell','Resumen de Rectoría','resumen'],['users','Semáforo pedagógico','estudiantes'],['grid','DECE e inclusión','dece'],['chart','Colecturía','colecturia'],['chart','Docentes y horarios','vice'],['users','Admisiones','admisiones'],['chat','Casos e intervenciones','casos'],['users','Seguimiento','seguimiento'],['chart','Evaluaciones','evaluaciones'],['grid','Informe del curso','informecurso'],['upload','Carga de datos','carga'],['grid','Colegios conectados','tenants'],['grid','Datos sin nombres','datalake'],['chat','Avisos enviados','n8nobs'],['chart','Cómo se calcula','modelos'],['map','La zona del colegio','territorio'],['map','Comparar zonas','territorios']];
 function buildSide(){
  $('#sideItems').innerHTML=SIDE.filter(s=>can(s[2])&&(live()?!(stubHidden()&&(STUB.includes(s[2])||s[2]==='demo')):!LIVE_ONLY.includes(s[2]))).map(s=>`<button data-v="${s[2]}">${ico(s[0])}<span>${s[1]}</span></button>`).join('')+`<button id="exitApp">${ico('out')}<span>Salir</span></button>`;
  document.querySelectorAll('.side button[data-v]').forEach(b=>b.onclick=guard(()=>show(b.dataset.v)));$('#exitApp').onclick=exitApp;
@@ -3050,7 +3051,13 @@ async function show(v){
  const app=APP.includes(v);document.body.classList.toggle('appmode',app);
  document.querySelectorAll('.nav button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
  document.querySelectorAll('.side button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
- const swap=async()=>{(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);await views[v]();if(nav!==NAV)return;if(app){injectIntro(v);injectBand(v)}};
+ const swap=async()=>{(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);if(app)$('#app').innerHTML=`<div class="vw-load" role="status">Cargando ${esc((SIDE.find(s=>s[2]===v)||[])[1]||'la pantalla')}…</div>`;
+  try{await views[v]()}catch(e){
+   if(e.message===STALE||nav!==NAV||!app)throw e;
+   const msg=e.message==='Failed to fetch'?'No se pudo conectar con el servidor.':e.message;
+   $('#app').innerHTML=`<span class="badge">${esc((SIDE.find(s=>s[2]===v)||[])[1]||'')}</span><h1>No se pudo abrir esta pantalla</h1><div class="errbox">${esc(msg)}</div><p style="margin-top:14px"><button class="btn" id="vwRetry">Reintentar</button></p>`;
+   $('#vwRetry').onclick=guard(()=>show(v));return}
+  if(nav!==NAV)return;if(app){injectIntro(v);injectBand(v)}};
  if(document.startViewTransition&&!app&&!document.hidden&&!matchMedia('(prefers-reduced-motion:reduce)').matches){   // solo páginas públicas: el portal espera datos de la red y no debe depender de animaciones
   // La animación es un adorno: si el navegador no la ejecuta (pestaña en segundo plano, por ejemplo),
   // igual se pinta la página. Sin esto, quien abre un enlace en otra pestaña ve la pantalla en blanco.
