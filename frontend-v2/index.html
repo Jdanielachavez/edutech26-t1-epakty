@@ -250,7 +250,8 @@ th{border-bottom:2px solid var(--sun)}.nav button.on:after{content:"";display:in
 
 .files div small{display:block;color:var(--muted);font:500 11px var(--sans);margin-top:4px}.files div.ok{border-color:var(--teal);background:var(--wash)}.files div.ok:after{content:" ✓";color:var(--teal)}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink2);margin-top:14px}.chk input{margin-top:3px}
-.okbox,.errbox{margin-top:18px;border-radius:14px;padding:16px 18px;font-size:14px}.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
+.okbox,.errbox{margin-top:18px;border-radius:14px;padding:16px 18px;font-size:14px}.cta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;align-items:start}.cta-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.cta-row span{color:var(--muted,#6b6478)}.cta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cta-chip{font-size:12.5px;padding:5px 10px;border-radius:99px;background:#efeaf7;color:#3d2a66}.cta-form{display:grid;gap:12px;margin-top:12px}.cta-form label{display:grid;gap:5px;font-size:13.5px;font-weight:600}.cta-form small{font-weight:400;color:var(--muted,#6b6478)}.cta-det summary{cursor:pointer;font-weight:600;padding:10px 0;color:#3d2a66}.cta-warn{background:#fff4d6;color:#6b4a00;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:10px}@media(max-width:760px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
+.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
 textarea.dm{width:100%;min-height:130px;border:1.5px solid var(--line);border-radius:14px;padding:14px;font:500 15px/1.55 var(--sans);background:#fff;color:var(--ink);resize:vertical}textarea.dm:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 4px #5a3de622}
 .casebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
 
@@ -1690,7 +1691,7 @@ const stubHidden=()=>live()&&!(ME&&ME.motor_vivo);   // con el motor de Wilo en 
 const home=()=>'servicios';
 const ACCESS={modelos:['admin','epakti_ceo','epakti_mlops','epakti_ds','epakti_cs'],territorio:['admin','epakti_ceo','epakti_mlops','epakti_ds','epakti_cs'],territorios:['admin','epakti_ceo','epakti_mlops','epakti_ds','epakti_cs'],aula:['tutor','admin','rectoria'],informe:['admin','rectoria','dece','tutor','inspeccion'],informecurso:['admin','rectoria','dece'],evaluaciones:['admin','rectoria','tutor','inspeccion'],seguimiento:['admin','rectoria','dece','tutor','inspeccion'],servicios:'*',usuarios:['admin'],cuenta:['admin','rectoria','dece','tutor','inspeccion','colecturia','admisiones','epakti_ceo','epakti_mlops','epakti_ds','epakti_cs'],panel:['admin'],resultados:VIEWERS,estado:OPERATORS,demo:'*',resumen:['admin','rectoria'],estudiantes:R.PED,dece:['dece','admin','rectoria'],colecturia:['colecturia','admin','rectoria'],
  vice:['admin','rectoria','inspeccion'],casos:['admin','dece','rectoria'],admisiones:['admisiones','dece','colecturia','admin','rectoria'],
- carga:['admin'],mlops:['epakti_ceo','epakti_mlops','epakti_ds'],tenants:['epakti_ceo','epakti_cs','epakti_mlops'],datalake:['epakti_ds','epakti_mlops','epakti_ceo'],n8nobs:['epakti_mlops','epakti_cs','epakti_ceo'],ceodash:['epakti_ceo']};
+ carga:['admin'],mlops:['admin','epakti_ceo','epakti_mlops','epakti_ds'],tenants:['admin','epakti_ceo','epakti_cs','epakti_mlops'],datalake:['admin','epakti_ds','epakti_mlops','epakti_ceo'],n8nobs:['admin','epakti_mlops','epakti_cs','epakti_ceo'],ceodash:['admin','epakti_ceo']};
 const can=v=>ACCESS[v]==='*'||(ACCESS[v]||[]).includes(ROLE);
 const SEMS=['ROJO','NARANJA','AMARILLO','VERDE'];
 const sem=(c,txt)=>`<span class="sem ${esc(c)}">${esc(txt??c)}</span>`;
@@ -1699,7 +1700,7 @@ const pct=n=>N(n)==null?'—':N(n).toLocaleString('es',{maximumFractionDigits:1}
 const frac=n=>N(n)==null?null:N(n)*100;
 const countBy=(l,k)=>Object.fromEntries(SEMS.map(c=>[c,l.filter(x=>x[k]===c).length]));
 const noNee=v=>['','ninguna','0',undefined,null].includes(v);
-async function getMe(){ME=await api('GET','/api/v1/me');if(live())ROLE=ME.role;return ME}
+async function getMe(){ME=await api('GET','/api/v1/me');if(live()){ROLE=ME.role;if('debe_cambiar_clave' in ME)MUST_CHANGE=!!ME.debe_cambiar_clave}return ME}
 const getKpis=()=>api('GET','/api/v1/dashboard/rectorado/kpis-roi');
 const getTriage=()=>api('GET','/api/v1/dashboard/docente-tutor/triage');
 const getFicha=code=>api('GET','/api/v1/students/'+encodeURIComponent(code)+'/ficha-360');
@@ -2994,19 +2995,35 @@ async function usuarios(){
   await api('PATCH','/api/v1/admin/users/'+encodeURIComponent(b.dataset.toggle),{activo:!on});toast(on?'Usuario desactivado':'Usuario activado');await usuarios()}))}
 
 async function cuenta(){
- const forced=MUST_CHANGE;
- $('#app').innerHTML=`<span class="badge">Mi cuenta</span><h1>${forced?'Cambia tu <em>contraseña</em>':'Tu <em>cuenta</em>'}</h1>
- <p class="sub">${forced?'Entraste con una contraseña temporal. Elige una propia para continuar.':`Entraste como <b>${esc(ME?.name||'')}</b> · ${esc(ROLE_NAME[ROLE]||ROLE)}${ME?.course?' · '+esc(ME.course)+' '+esc(ME.parallel||''):''}.`}</p>
- <div class="card" style="max-width:520px"><form id="pf" novalidate style="display:grid;gap:10px"><h3>Cambiar contraseña</h3>
-  <input name="actual" type="password" placeholder="Contraseña actual" autocomplete="current-password">
-  <input name="nueva" type="password" placeholder="Contraseña nueva (mínimo 10 caracteres)" autocomplete="new-password">
-  <input name="repite" type="password" placeholder="Repite la contraseña nueva" autocomplete="new-password">
-  <div><button class="btn" type="submit" id="pb">Guardar contraseña</button></div><div id="pr"></div></form></div>`;
- $('#pf').onsubmit=async e=>{e.preventDefault();const f=e.target,out=$('#pr');
+ if(!ME)await getMe();
+ const forced=MUST_CHANGE,editable=ME?.clave_editable!==false;
+ const ve=SIDE.filter(s=>can(s[2])&&s[2]!=='cuenta'&&!(stubHidden()&&(STUB.includes(s[2])||s[2]==='demo'))).map(s=>`<span class="cta-chip">${esc(s[1])}</span>`).join('');
+ const dato=(k,v)=>v?`<div class="cta-row"><span>${k}</span><b>${esc(v)}</b></div>`:'';
+ const form=`<form id="pf" novalidate class="cta-form">
+  <label>Contraseña actual<input name="actual" type="password" autocomplete="current-password" required></label>
+  <label>Contraseña nueva<input name="nueva" type="password" autocomplete="new-password" minlength="10" required><small>Mínimo 10 caracteres y distinta de la actual.</small></label>
+  <label>Repite la contraseña nueva<input name="repite" type="password" autocomplete="new-password" required></label>
+  <div><button class="btn" type="submit" id="pb">Guardar contraseña</button></div><div id="pr" role="status"></div></form>`;
+ const clave=!editable?`<p class="mini2">Tu contraseña la administra el equipo de E-Pakty. Si necesitas cambiarla, escríbenos y la cambiamos por ti.</p>`
+  :forced?`<div class="cta-warn"><b>Entraste con una contraseña temporal.</b> Elige una propia para seguir usando el portal.</div>${form}`
+  :`<details class="cta-det"><summary>Cambiar mi contraseña</summary>${form}</details>`;
+ $('#app').innerHTML=`<span class="badge">Mi cuenta</span><h1>Tu <em>cuenta</em></h1>
+ <div class="cta-grid">
+  <div class="card"><h3>Tus datos</h3>${dato('Nombre',ME?.name)}${dato('Usuario',ME?.usuario)}${dato('Rol',ROLE_NAME[ROLE]||ROLE)}${dato('Curso a cargo',ME?.course?ME.course+' '+(ME.parallel||''):'')}
+   <h3 style="margin-top:18px">Qué puedes ver</h3><div class="cta-chips">${ve||'<span class="mini2">—</span>'}</div></div>
+  <div class="card" id="ctaClave"><h3>Contraseña</h3>${clave}</div>
+ </div>`;
+ if(forced)$('#ctaClave').scrollIntoView({block:'nearest'});
+ const f=$('#pf');if(!f)return;
+ f.onsubmit=async e=>{e.preventDefault();const out=$('#pr');
+  if(!f.actual.value){out.innerHTML='<div class="errbox">Escribe tu contraseña actual.</div>';return}
   if(f.nueva.value.length<10){out.innerHTML='<div class="errbox">La contraseña nueva necesita al menos 10 caracteres.</div>';return}
   if(f.nueva.value!==f.repite.value){out.innerHTML='<div class="errbox">Las dos contraseñas nuevas no coinciden.</div>';return}
-  $('#pb').disabled=true;try{await api('POST','/api/v1/auth/change-password',{clave_actual:f.actual.value,clave_nueva:f.nueva.value});MUST_CHANGE=false;f.reset();out.innerHTML='<div class="okbox"><b>Listo.</b> Tu contraseña se cambió.</div>';if(forced)setTimeout(()=>show(home()),900)}
-  catch(err){out.innerHTML=`<div class="errbox">${esc(err.message)}</div>`}$('#pb').disabled=false}}
+  $('#pb').disabled=true;
+  try{await api('POST','/api/v1/auth/change-password',{clave_actual:f.actual.value,clave_nueva:f.nueva.value});
+   MUST_CHANGE=false;if(ME)ME.debe_cambiar_clave=false;f.reset();toast('Tu contraseña se cambió.');
+   if(forced)await show(home());else{out.innerHTML='<div class="okbox"><b>Listo.</b> Tu contraseña se cambió.</div>';$('#pb').disabled=false}}
+  catch(err){if(err.message===STALE)return;out.innerHTML=`<div class="errbox">${esc(err.message)}</div>`;$('#pb').disabled=false}}}
 
 // ================= Cada servicio abre su pantalla real, con su explicación al lado =================
 let SVC=null;

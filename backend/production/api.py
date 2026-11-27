@@ -54,11 +54,11 @@ ENGINE_ROUTES = [
     ('GET', '/api/v1/dashboard/vicerrectorado/docentes-horarios', ('admin', 'rectoria', 'inspeccion')),       # EP-09
     ('POST', '/api/v1/admissions/evaluate-applicant', ('admisiones', 'dece', 'colecturia', 'admin', 'rectoria')),  # EP-03
     ('POST', '/api/v1/tenants/onboard', ('rectoria', 'admin', 'epakti_ceo', 'epakti_cs')),                    # EP-01
-    ('GET', '/api/v1/admin/mlops/overview-and-drift', ('epakti_ceo', 'epakti_mlops', 'epakti_ds')),           # EP-12
-    ('GET', '/api/v1/admin/tenants', ('epakti_ceo', 'epakti_cs', 'epakti_mlops')),                            # EP-13
+    ('GET', '/api/v1/admin/mlops/overview-and-drift', ('admin', 'epakti_ceo', 'epakti_mlops', 'epakti_ds')),           # EP-12
+    ('GET', '/api/v1/admin/tenants', ('admin', 'epakti_ceo', 'epakti_cs', 'epakti_mlops')),                            # EP-13
     ('POST', '/api/v1/admin/mlops/retrain', ('epakti_mlops', 'epakti_ds', 'epakti_ceo')),                     # EP-14
     ('POST', '/api/v1/admin/mlops/models/{model_version}/promote', ('epakti_mlops', 'epakti_ceo')),          # EP-15
-    ('GET', '/api/v1/admin/data-lake/anonymized-explorer', ('epakti_ds', 'epakti_mlops', 'epakti_ceo')),      # EP-16
+    ('GET', '/api/v1/admin/data-lake/anonymized-explorer', ('admin', 'epakti_ds', 'epakti_mlops', 'epakti_ceo')),      # EP-16
     ('PATCH', '/api/v1/admin/tenants/{school_id}/feature-flags', ('epakti_ceo', 'epakti_cs', 'epakti_mlops')),  # EP-17
 ]
 # Qué prueba el chequeo de conexión: una sonda por ruta del motor, con el rol que la usa y el servicio al que alimenta.
@@ -206,7 +206,10 @@ def create_app(settings=None, repository=None, engine=None):
 
     @app.get('/api/v1/me')
     def me(identity=Depends(authenticate)):
-        return {'role': identity['role'], 'name': identity.get('name'), 'course': identity.get('course'),
+        record = repo.get_user(identity['user']) if identity.get('user') else None
+        return {'role': identity['role'], 'name': identity.get('name'), 'usuario': identity.get('user'),
+                'clave_editable': record is not None, 'debe_cambiar_clave': bool(record and record['must_change_password']),
+                'course': identity.get('course'),
                 'parallel': identity.get('parallel'), 'operador': identity['role'] in accounts.OPERATOR_ROLES,
                 'motor_configurado': engine is not None, 'motor_vivo': engine_is_live()}
 
@@ -715,8 +718,11 @@ def create_app(settings=None, repository=None, engine=None):
     async def call_engine(method, path, identity, *, json=None, params=None):
         if engine is None:
             raise HTTPException(503, 'Motor no configurado (EPAKTI_ENGINE_BASE_URL)')
+        role = identity['role']
+        # En el motor, admin equivale a rectorado; para leer los tableros internos va como CEO, solo lectura.
+        if role == 'admin' and method == 'GET' and path.startswith('/admin/'): role = 'epakti_ceo'
         try:
-            status, body = await run_in_threadpool(engine.request, method, path, identity['role'], json=json, params=params)
+            status, body = await run_in_threadpool(engine.request, method, path, role, json=json, params=params)
         except EngineUnavailable:
             raise HTTPException(503, 'El motor no está disponible en este momento') from None
         if status >= 400:
@@ -771,7 +777,7 @@ def create_app(settings=None, repository=None, engine=None):
         return for_role(identity['role'], result)
 
     @app.get('/api/v1/admin/n8n/observability')                                                         # EP-18
-    async def n8n_observability(identity=Depends(roles('epakti_mlops', 'epakti_cs', 'epakti_ceo'))):
+    async def n8n_observability(identity=Depends(roles('admin', 'epakti_mlops', 'epakti_cs', 'epakti_ceo'))):
         _, body = await call_engine('GET', '/admin/n8n/observability', identity)
         return {'motor': body, 'backend': await run_in_threadpool(repo.outbox_stats),
                 'n8n_configurado': bool(config.n8n_base_url)}

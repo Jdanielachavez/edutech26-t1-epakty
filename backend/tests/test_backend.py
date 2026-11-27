@@ -261,8 +261,9 @@ def test_engine_routes_rbac_matrix(client, populated):
               '/api/v1/dashboard/dece/inclusion-nee': {'d': 200, 'r': 200, 'c': 403, 't': 403, 'i': 403},
               '/api/v1/dashboard/colecturia/cartera-hogares': {'c': 200, 'r': 200, 'd': 403, 't': 403, 'i': 403},
               '/api/v1/dashboard/vicerrectorado/docentes-horarios': {'i': 200, 'r': 200, 'd': 403, 'c': 403},
-              '/api/v1/admin/mlops/overview-and-drift': {'e': 200, 'o': 200, 'r': 403, 'd': 403, 't': 403},
-              '/api/v1/admin/tenants': {'e': 200, 'r': 403}}
+              '/api/v1/admin/mlops/overview-and-drift': {'e': 200, 'o': 200, 'a': 200, 'r': 403, 'd': 403, 't': 403},
+              '/api/v1/admin/tenants': {'e': 200, 'a': 200, 'r': 403},
+              '/api/v1/admin/data-lake/anonymized-explorer': {'a': 200, 'r': 403, 'd': 403}}
     for path, expected in matrix.items():
         for who, code in expected.items():
             assert client.get(path, headers=H(who)).status_code == code, (path, who)
