@@ -9,8 +9,10 @@ import http.client
 import http.server
 import sys
 
-ALLOWED = {'/webhook/epakti-alerta-360'}            # rutas publicadas
-FORWARD_HEADERS = ('content-type', 'x-epakti-signature', 'x-epakti-timestamp', 'idempotency-key', 'x-school-id')
+# Rutas publicadas: la alerta del motor y los flujos que llama la API en producción. Nada más (ni editor ni otros flujos).
+ALLOWED = {'/webhook/' + p for p in ('epakti-alerta-360', 'epakti-redactar-informe', 'epakti-examen-ocr', 'epakti-aviso-docente',
+                                      'epakti-entrega-familia', 'epakti-errores', 'epakti-contacto-lead', 'paktai-alerta')}
+FORWARD_HEADERS = ('content-type', 'x-epakti-signature', 'x-epakti-timestamp', 'idempotency-key', 'x-school-id', 'x-epakti-webhook-token')
 MAX_BODY = 2 * 1024 * 1024
 UPSTREAM = ('127.0.0.1', 5678)
 LISTEN = ('127.0.0.1', int(sys.argv[1]) if len(sys.argv) > 1 else 5680)
