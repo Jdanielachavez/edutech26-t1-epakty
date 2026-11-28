@@ -1538,7 +1538,7 @@ function sessionGone(){VER_COMO='';MEMO.clear();sessionStorage.clear();conn.toke
  if(GONE)return;GONE=true;show('plataforma').then(()=>{openLogin();toast('Tu sesión venció. Vuelve a entrar con tu usuario y contraseña.')}).finally(()=>{GONE=false})}
 // La tabla de riesgo y las etapas tardan 2-3 s y casi todas las pantallas las piden: se guardan 60 s.
 // Cualquier cambio (POST/PATCH/PUT) o salir de la sesión las borra.
-const MEMO=new Map(),MEMO_MS=60000,MEMO_RE=/^\/api\/v1\/(models\/risk|seguimiento\/etapas)$/;
+const MEMO=new Map(),MEMO_MS=60000,MEMO_RE=/^\/api\/v1\/(models\/risk|seguimiento\/etapas|dashboard\/(rectorado\/kpis-roi|docente-tutor\/triage|colecturia\/cartera-hogares|dece\/inclusion-nee|vicerrectorado\/docentes-horarios))$/;
 async function api(method,path,body,headers={}){
   if(!live())return demoApi(method,path,body);
   if(method!=='GET')MEMO.clear();
@@ -1728,7 +1728,9 @@ const guard=f=>async(...a)=>{try{return await f(...a)}catch(e){if(e.message===ST
 function login(){show('plataforma').then(()=>{$('#acceso')?.scrollIntoView({behavior:'smooth'});setTimeout(()=>$('#u')?.focus(),500)})}
 
 async function resumen(){
- const [kr,tri,col,NOM]=await Promise.all([getKpis(),getTriage(),getCol(),nombresMap()]);const k0=kr.kpis_financieros_ilustrativos||{},k={...k0,   // el motor en vivo usa otros nombres que el stub: se aceptan ambos
+ // Los nombres solo se usan en un detalle: se piden en segundo plano para no demorar la pantalla.
+ let NOM={};nombresMap().then(m=>{NOM=m}).catch(()=>{});
+ const [kr,tri,col]=await Promise.all([getKpis(),getTriage(),getCol()]);const k0=kr.kpis_financieros_ilustrativos||{},k={...k0,   // el motor en vivo usa otros nombres que el stub: se aceptan ambos
   colegiatura_restante_8_meses_total_usd:k0.colegiatura_restante_8_meses_total_usd??k0.colegiatura_restante_8_meses_usd,
   pension_mensual_neta_promedio_usd:k0.pension_mensual_neta_promedio_usd??(k0.colegiatura_restante_8_meses_usd&&k0.n_estudiantes_activos?k0.colegiatura_restante_8_meses_usd/8/k0.n_estudiantes_activos:undefined),
   cartera_restante_expuesta_en_alertas_360_usd:k0.cartera_restante_expuesta_en_alertas_360_usd??k0.cartera_expuesta_en_alertas_rojo_naranja_usd,
@@ -3312,7 +3314,9 @@ function buildSide(){
  for(const s of SIDE){if(s.length===1){grp=s[0];continue}if(!sideOk(s[2]))continue;
   if(grp){items.push(`<div class="side-h">${esc(grp)}</div>`);grp=null}
   items.push(s[2]==='@mod'?`<button data-v="${modFirst()}" data-mod="1">${ico(s[0])}<span>${s[1]}</span></button>`:`<button data-v="${s[2]}">${ico(s[0])}<span>${s[1]}</span></button>`)}
- $('#sideItems').innerHTML=items.join('')+`<button id="exitApp">${ico('out')}<span>Salir</span></button>`;
+ const side=$('#sideItems'),html=items.join('')+`<button id="exitApp">${ico('out')}<span>Salir</span></button>`;
+ // Redibujar el menú en cada clic lo devolvía arriba y los botones se movían bajo el dedo: solo se rehace si cambió.
+ if(side.dataset.h!==html){const sc=side.parentElement?side.parentElement.scrollTop:0;side.innerHTML=html;side.dataset.h=html;if(side.parentElement)side.parentElement.scrollTop=sc}
  document.querySelectorAll('.side button[data-v]').forEach(b=>b.onclick=guard(()=>show(b.dataset.v)));$('#exitApp').onclick=exitApp;
  $('#roleBox').innerHTML=live()?(ME?.role==='admin'?`<select class="rolesel" id="vc" aria-label="Ver el portal como">${['',...VER_COMO_ROLES].map(r=>`<option value="${r}" ${r===VER_COMO?'selected':''}>${r?'Ver como: '+ROLE_NAME[r]:'Administración (tu vista)'}</option>`).join('')}</select>`:`<span class="chip2">${esc(ROLE_NAME[ROLE]||ROLE)}</span>`):`<select class="rolesel" id="rs" aria-label="Rol del demo">${DEMO_ROLES.map(r=>`<option value="${r}" ${r===ROLE?'selected':''}>Ver como: ${ROLE_NAME[r]}${r==='tutor'?' (8vo A)':''}</option>`).join('')}</select>`;
  $('#rs')&&($('#rs').onchange=e=>{ROLE=e.target.value;dSel=0;show('demo')});
