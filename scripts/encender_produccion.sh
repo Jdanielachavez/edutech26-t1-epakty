@@ -23,19 +23,25 @@ DB="$(val DATABASE_URL_LOCAL env/supabase.env)"
 [ ${#SECRET} -ge 32 ] && [ -n "$TOKEN" ] && [ -n "$DB" ] || { echo "Faltan N8N_WEBHOOK_HMAC_SECRET / N8N_WEBHOOK_TOKEN en .env.dev o DATABASE_URL_LOCAL en env/supabase.env"; exit 1; }
 
 echo "1/3 · Publicando n8n…"
-pkill -f 'scripts/webhook_proxy.py' 2>/dev/null || true
-pkill -f 'cloudflared tunnel --no-autoupdate --url http://127.0.0.1:5680' 2>/dev/null || true
-sleep 1
-nohup python3 scripts/webhook_proxy.py 5680 > logs/proxy.log 2>&1 &
-: > logs/tunel.log
-nohup cloudflared tunnel --no-autoupdate --url http://127.0.0.1:5680 > logs/tunel.log 2>&1 &
-U=""; for _ in $(seq 1 30); do U=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' logs/tunel.log | head -1 || true); [ -n "$U" ] && break; sleep 2; done
-[ -n "$U" ] || { echo "No se obtuvo la dirección del túnel; revisa logs/tunel.log"; exit 1; }
-for _ in $(seq 1 20); do
-  code=$(curl -s -o /dev/null -w '%{http_code}' -m 10 -X POST -H 'Content-Type: application/json' -d '{}' "$U/webhook/epakti-errores" || true)
-  [ "$code" = 401 ] || [ "$code" = 403 ] && break; sleep 3
-done
-[ "$code" = 401 ] || [ "$code" = 403 ] || { echo "El túnel no llega a n8n (respuesta $code). Revisa logs/tunel.log"; exit 1; }
+# n8n responde 401/403 sin token: eso confirma que el túnel llega hasta los flujos.
+llega(){ code=$(curl -s -o /dev/null -w '%{http_code}' -m 10 -X POST -H 'Content-Type: application/json' -d '{}' "$1/webhook/epakti-errores" || true); [ "$code" = 401 ] || [ "$code" = 403 ]; }
+U=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' logs/tunel.log 2>/dev/null | head -1 || true)
+if [ -n "$U" ] && pgrep -f 'cloudflared tunnel --no-autoupdate --url http://127.0.0.1:5680' >/dev/null && pgrep -f 'scripts/webhook_proxy.py' >/dev/null && llega "$U"; then
+  echo "    El túnel ya estaba funcionando; se reutiliza."
+else
+  pkill -f 'scripts/webhook_proxy.py' 2>/dev/null || true
+  pkill -f 'cloudflared tunnel --no-autoupdate --url http://127.0.0.1:5680' 2>/dev/null || true
+  sleep 1
+  nohup python3 scripts/webhook_proxy.py 5680 > logs/proxy.log 2>&1 &
+  : > logs/tunel.log
+  nohup cloudflared tunnel --no-autoupdate --url http://127.0.0.1:5680 > logs/tunel.log 2>&1 &
+  U=""; for _ in $(seq 1 30); do U=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' logs/tunel.log | head -1 || true); [ -n "$U" ] && break; sleep 2; done
+  [ -n "$U" ] || { echo "No se obtuvo la dirección del túnel; revisa logs/tunel.log"; exit 1; }
+  # Una dirección nueva de Cloudflare tarda uno o dos minutos en existir en internet.
+  echo "    Esperando a que la dirección nueva esté disponible (hasta 4 minutos)…"
+  ok=0; for _ in $(seq 1 48); do llega "$U" && { ok=1; break; }; sleep 5; done
+  [ "$ok" = 1 ] || { echo "El túnel no llega a n8n (respuesta $code). Vuelve a correr el script en un minuto; revisa logs/tunel.log"; exit 1; }
+fi
 echo "    n8n publicado en $U (solo los flujos)"
 
 echo "2/3 · Configurando producción y publicando…"
