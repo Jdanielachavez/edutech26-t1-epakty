@@ -1534,13 +1534,22 @@ function errorES(d){
 let NAV=0;const STALE='stale-nav';
 // Una sesión vencida vuelve al inicio de sesión; sin esto, el portal caía al modo demo y cambiaba de pantalla solo.
 let GONE=false;
-function sessionGone(){sessionStorage.clear();conn.token='';conn.mock=false;ME=null;
+function sessionGone(){MEMO.clear();sessionStorage.clear();conn.token='';conn.mock=false;ME=null;
  if(GONE)return;GONE=true;show('plataforma').then(()=>{openLogin();toast('Tu sesión venció. Vuelve a entrar con tu usuario y contraseña.')}).finally(()=>{GONE=false})}
+// La tabla de riesgo y las etapas tardan 2-3 s y casi todas las pantallas las piden: se guardan 60 s.
+// Cualquier cambio (POST/PATCH/PUT) o salir de la sesión las borra.
+const MEMO=new Map(),MEMO_MS=60000,MEMO_RE=/^\/api\/v1\/(models\/risk|seguimiento\/etapas)$/;
 async function api(method,path,body,headers={}){
   if(!live())return demoApi(method,path,body);
-  const nav=NAV;
+  if(method!=='GET')MEMO.clear();
+  else if(MEMO_RE.test(path)){const k=conn.token+' '+path,nav=NAV;let hit=MEMO.get(k);
+   if(!hit||Date.now()-hit.t>=MEMO_MS){hit={t:Date.now(),p:apiFetch(method,path,body,headers,false)};MEMO.set(k,hit);hit.p.catch(()=>MEMO.delete(k))}
+   const v=await hit.p;if(nav!==NAV)throw new Error(STALE);return structuredClone(v)}
+  return apiFetch(method,path,body,headers)}
+async function apiFetch(method,path,body,headers={},checkNav=true){
+  const nav=checkNav?NAV:null;
   const r=await fetch(conn.url.replace(/\/$/,'')+path,{method,headers:{Authorization:'Bearer '+conn.token,...(body?{'Content-Type':'application/json'}:{}),...headers},body:body?JSON.stringify(body):undefined});
-  if(method==='GET'&&nav!==NAV)throw new Error(STALE);
+  if(method==='GET'&&nav!==null&&nav!==NAV)throw new Error(STALE);
   if(r.status===401){sessionGone();throw new Error(STALE)}
   if(r.status===403)throw new Error('Tu rol no tiene permiso para esta acción.');
   if(r.status===503)throw new Error('El motor no está disponible en este momento. Intenta en unos minutos.');
@@ -3091,7 +3100,7 @@ document.querySelectorAll('.mega [data-det],#foot [data-det]').forEach(a=>a.oncl
  const save=x=>{try{localStorage.setItem(K,x)}catch(e){}ck.classList.remove('on');toast(x==='todas'?'Preferencias guardadas.':'Solo usaremos lo necesario.')};
  $('#ckOk').onclick=()=>save('todas');$('#ckNo').onclick=()=>save('necesarias');$('#ckCfg').onclick=()=>ck.classList.toggle('cfg-on');$('#ckSave').onclick=()=>save($('#ckAn').checked?'todas':'necesarias')})();
 
-const exitApp=()=>{sessionStorage.clear();conn.token='';conn.mock=false;ME=null;ROLE='rectoria';show('plataforma')};
+const exitApp=()=>{MEMO.clear();sessionStorage.clear();conn.token='';conn.mock=false;ME=null;ROLE='rectoria';show('plataforma')};
 $('#backSite').onclick=()=>show('plataforma');
 $('#out').onclick=()=>{if(document.body.classList.contains('appmode')){sessionStorage.clear();conn.token='';conn.mock=false;ME=null;ROLE='rectoria'}goTo('acceso')};   // goTo vuelve a la portada y luego abre la ventana
 // La portada se vuelve a pintar: re-enganchar los enlaces del menú a la pestaña de servicios
