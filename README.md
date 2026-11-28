@@ -14,10 +14,11 @@
 
 ## Resumen en 30 segundos (para cualquier lector)
 
-- **El problema:** cada año más de **72 mil estudiantes** dejan el sistema educativo en Ecuador. Casi nunca se van de un día para otro: antes faltan, les bajan las notas, decae su bienestar o la familia se atrasa con la pensión. Esas señales existen, pero **están repartidas entre varias personas** y nadie las ve juntas a tiempo.
+- **El problema:** en 2023-2024, **72 644 estudiantes** dejaron el sistema educativo en Ecuador, y en 2024-2025 fueron **66 852** (datos oficiales AMIE). Casi nunca se van de un día para otro: antes faltan, les bajan las notas, decae su bienestar o la familia se atrasa con la pensión. Esas señales existen, pero **están repartidas entre varias personas** y nadie las ve juntas a tiempo.
 - **Lo que hace E-Pakty:** **junta los datos que la institución ya tiene** (asistencia, notas, bienestar, pagos), calcula **quién necesita acompañamiento, por qué y qué hacer**, y ayuda a actuar a tiempo. La inteligencia artificial escribe el borrador del mensaje y **una persona siempre lo aprueba** antes de enviarlo.
 - **Nuestra mayor fortaleza son los datos:** no pedimos información nueva. Convertimos lo que la institución ya registra todos los días en decisiones concretas.
-- **Para quién:** cualquier institución educativa: colegios fiscales, fiscomisionales y particulares, academias, institutos y negocios educativos.
+- **Para quién:** cualquier institución educativa: colegios fiscales, fiscomisionales y particulares, academias, institutos y negocios educativos. **Empezamos por los colegios particulares**, que pierden estudiantes y pensiones (sección 1.6).
+- **Qué funciona hoy en vivo:** subir los datos, calcular el riesgo con el motor en AWS, ver la pantalla de cada rol, escribir el borrador con IA, aprobarlo y enviarlo por correo con n8n. Todo con datos ficticios (sección 5.1).
 
 ---
 
@@ -38,6 +39,7 @@
 13. [Cómo ejecutarlo](#13-cómo-ejecutarlo)
 14. [Estructura del repositorio](#14-estructura-del-repositorio)
 15. [Limitaciones conocidas](#15-limitaciones-conocidas)
+16. [Equipo](#16-equipo)
 
 ---
 
@@ -65,10 +67,11 @@ Datos oficiales del **Ministerio de Educación (AMIE, datos abiertos)**, calcula
 | 2019-2020 | 75 295 | 1,73 % |
 | 2021-2022 (rebote después de la pandemia) | 90 016 | 2,11 % |
 | 2023-2024 | 72 644 | 1,75 % |
+| 2024-2025 | 66 852 | 1,62 % |
 
 - Entre 2009 y 2024 se registraron **1 929 569 abandonos**.
 - La tasa bajó mucho desde 2012, pero **se estancó cerca del 1,8 %** y **volvió a subir después de la pandemia**.
-- Cada año siguen siendo **más de 70 mil** estudiantes.
+- En **2024-2025** fueron **66 852** (1,62 %), según el registro AMIE de fin de año del Ministerio de Educación (cálculo del equipo). La cifra baja, pero muy despacio: siguen siendo decenas de miles de estudiantes cada año.
 
 ### 1.3 El contexto también pesa
 
@@ -101,7 +104,26 @@ Nadie las ve **juntas**, nadie sabe **a quién atender primero**, y cuando la in
 - **Simulación con 10 agentes de IA distintos.** Con esa investigación armamos una simulación de varios agentes. Cada uno representaba a una persona de la institución: docente tutor, DECE, inspección, vicerrectorado, rectorado, colecturía, admisiones, familia y otros. Así identificamos qué necesita ver y decidir cada uno. De ahí salen las pantallas por rol de la sección 3.
 - **Lo declaramos con honestidad:** esa simulación **no reemplaza** a las entrevistas reales. Se usó IA, y está declarado en [`AI_USAGE.md`](AI_USAGE.md).
 
-### 1.6 Lo que todavía no tenemos
+### 1.6 El usuario concreto y por qué empezamos por los colegios particulares
+
+**La usuaria principal es la tutora de un paralelo.** Por ejemplo, la tutora de 9.º EGB B en un colegio particular de 240 estudiantes como el de la demostración. Tiene a cargo unos 30 a 40 estudiantes. Ve las notas de su materia, pero no las faltas en las otras clases, ni lo que sabe el DECE, ni si la familia está atrasada. Cada lunes necesita saber **a quién llamar esta semana y qué decirle**.
+
+**Quien decide la compra es el rectorado.** En un colegio particular, el rectorado cuida dos cosas a la vez: que el estudiante aprenda y se quede, y que la institución no pierda las pensiones del resto del año.
+
+**Por qué empezamos por los particulares:**
+
+- **Pierden estudiantes, no solo por abandono.** En los particulares el abandono es bajo (0,84 %), pero muchos estudiantes se cambian a otro colegio: **121 300 estudiantes migraron del sistema privado al público en el ciclo Costa 2025** ([El Diario, julio de 2025](https://www.eldiario.ec/lamarea/el-10-de-padres-en-ecuador-no-pagan-pensiones-a-tiempo-revela-informe-20250731/)).
+- **Tienen mora.** Según el informe «Educación en Cifras» de la fintech Mattilda, el **10 % de las familias** de colegios privados se atrasa hasta 4 meses con la pensión (misma fuente).
+- **Son un mercado medible.** Hay **791 colegios particulares** con 150 o más estudiantes de 8.º EGB a 3.º BGU: 203 en Guayaquil, 177 en Quito y 37 en Cuenca (registro AMIE de inicio 2025-2026, cálculo del equipo).
+- **Pueden pagar una suscripción** y decidir rápido. Los colegios fiscales, donde el abandono es mayor (1,97 %), son la siguiente etapa, por convenio con el Ministerio o con fundaciones.
+
+### 1.7 Evidencia de que actuar a tiempo funciona
+
+Un ensayo aleatorio del Instituto de Ciencias de la Educación de EE. UU. (IES, 2017), en **73 colegios y más de 35 000 estudiantes**, probó un sistema de alerta temprana con seguimiento. En un año, el **ausentismo crónico bajó de 14 % a 10 %** y los estudiantes que reprobaban al menos una materia **bajaron de 26 % a 21 %**. No cambió el promedio de notas ([informe REL 2017-272](https://ies.ed.gov/use-work/resource-library/report/impact-study/getting-students-track-graduation-impacts-early-warning-intervention-and-monitoring-system-after-one)).
+
+E-Pakty sigue esa misma lógica: **alerta, acción de una persona y seguimiento registrado**. No es evidencia de nuestro impacto. Esa la medimos en el piloto.
+
+### 1.8 Lo que todavía no tenemos
 
 - **Entrevistas de campo documentadas** con docentes tutores, DECE y rectores. Por ahora es una demostración; las entrevistas van con el piloto.
 - **Validación con retiros reales.** Los modelos se midieron con una institución ficticia de 240 estudiantes. El siguiente paso es un piloto.
@@ -145,7 +167,7 @@ Nadie las ve **juntas**, nadie sabe **a quién atender primero**, y cuando la in
 
 ## 3. Para quién es: todo el ecosistema educativo
 
-E-Pakty sirve para **cualquier entorno educativo que registre asistencia, notas y pagos**:
+E-Pakty sirve para **cualquier entorno educativo que registre asistencia, notas y pagos**. Como el sistema es modular (cada rol y cada flujo se activan por separado), se adapta a cada tipo de institución. **El primer cliente es el colegio particular** (sección 1.6).
 
 | Tipo de institución | Para qué le sirve |
 |---|---|
@@ -185,6 +207,8 @@ Desde administración se puede **ver el portal como cada rol**, para mostrar có
 - **No reemplaza** al DECE ni al docente: les da información, no un veredicto.
 - **No le muestra a la familia** un porcentaje de riesgo.
 - **No envía nada** sin que una persona lo apruebe.
+- **No resuelve las causas de fondo** del abandono (pobreza, inseguridad, migración de la familia). Ayuda a la institución a darse cuenta a tiempo y a acompañar.
+- **No reemplaza el sistema académico** de la institución: lee lo que ese sistema ya exporta.
 
 ---
 
@@ -209,6 +233,21 @@ Desde administración se puede **ver el portal como cada rol**, para mostrar có
 
 ---
 
+### 5.1 La demostración en vivo: qué se ejecuta de verdad
+
+Este es el recorrido de la demostración (3 minutos). Todo corre en vivo, con el colegio ficticio de 240 estudiantes:
+
+| Paso | Qué se ve | ¿En vivo? |
+|---|---|---|
+| 1 | Rectorado sube los 6 archivos del colegio desde el portal | Sí: la API, el worker y el motor en AWS recalculan todo (unos 31 s) |
+| 2 | Panel de Rectorado: prioridades, pensiones en riesgo y plan de acción | Sí, con lo que calculó el motor |
+| 3 | La tutora entra a *Mi aula*: un estudiante **Urgente**, sus razones y qué pasaría con cada acción | Sí |
+| 4 | Se pide el borrador del mensaje a la familia | Sí: Amazon Nova Lite lo escribe en unos 3 s |
+| 5 | Una persona lo revisa, lo edita y lo aprueba | Sí |
+| 6 | n8n envía el correo y el caso queda en *Seguimiento* | Sí. En modo de prueba, el correo llega a una dirección del equipo, nunca a una familia |
+
+**Lo que declaramos:** los datos son ficticios. n8n y el worker corren en una computadora del equipo y se publican con un túnel (sección 15). El motor corre en AWS las 24 horas.
+
 ## 6. Cómo funciona por dentro (explicación técnica)
 
 ### 6.1 Arquitectura
@@ -226,7 +265,7 @@ Desde administración se puede **ver el portal como cada rol**, para mostrar có
              │
              ▼
    Worker ──────────────► Motor E-Pakti · TabM mini‑FiLM v2.4 (AWS, 24 h)
-   procesa la cola          PyTorch, 8 modelos, devuelve riesgo + razones
+   procesa la cola          PyTorch, 7 modelos, devuelve riesgo + razones
              │
              ▼
    n8n (automatización) ──► Amazon Nova Lite (AWS Bedrock) ──► correo
@@ -268,7 +307,7 @@ Desde administración se puede **ver el portal como cada rol**, para mostrar có
 
 ### 7.1 Motor E-Pakti · TabM mini‑FiLM v2.4
 
-Red neuronal tabular (PyTorch) desarrollada por el equipo antes del hackathon (ver [`PRIOR_WORK.md`](PRIOR_WORK.md)). Corre en la nube las 24 horas. Tiene **8 modelos**, cada uno para anticipar un problema distinto. Su validación **fuera de muestra** (OOF) sobre la cohorte ficticia de 240 estudiantes:
+Red neuronal tabular (PyTorch) desarrollada por el equipo antes del hackathon (ver [`PRIOR_WORK.md`](PRIOR_WORK.md)). Corre en la nube las 24 horas. Tiene **7 modelos**, cada uno para anticipar un problema distinto. Con el modelo explicativo de la sección 7.2, E-Pakty usa **8 modelos en total**. Su validación **fuera de muestra** (OOF) sobre la cohorte ficticia de 240 estudiantes:
 
 | Qué anticipa | AUC-ROC | Lectura |
 |---|---|---|
@@ -280,7 +319,7 @@ Red neuronal tabular (PyTorch) desarrollada por el equipo antes del hackathon (v
 | Que la familia pague tarde 2 veces o más | 0,601 | Débil |
 | Admisión: que la familia pague tarde | 0,566 | Débil |
 
-*AUC-ROC: 0,5 es adivinar al azar y 1 es acertar siempre.* El octavo modelo (que deje la institución) da el riesgo de permanencia de cada estudiante.
+*AUC-ROC: 0,5 es adivinar al azar y 1 es acertar siempre.* El riesgo de **permanencia** de cada estudiante sale del modelo de faltas repetidas, porque faltar seguido es la señal más temprana de que un estudiante se puede ir.
 
 **El motor pasa 22 de 22 pruebas automáticas**, entre ellas:
 - más faltas nunca bajan el riesgo;
@@ -288,6 +327,15 @@ Red neuronal tabular (PyTorch) desarrollada por el equipo antes del hackathon (v
 - **ningún docente ve datos de pagos** (0 términos financieros en 40 vistas docentes).
 
 En la pantalla de MLOps también se ven la AP, el Brier, la calibración, la precisión y la exhaustividad en los primeros 20, 40 y 60 estudiantes, y una curva de captura por modelo.
+
+**Cómo funciona el motor por dentro:**
+
+- **Mira tres niveles a la vez:** el estudiante (asistencia, notas, NEE y pagos), su institución y su territorio (parroquia del Censo 2022, cantón del registro AMIE y provincia de la ENEMDU). Las parroquias están homologadas con el Censo 2022 en un 99,96 %.
+- **Respeta el sentido común:** la red tiene restricción de signo, así que más faltas o peores notas **nunca bajan el riesgo**.
+- **Da porcentajes calibrados:** la calibración se hace fuera de muestra, para que un 40 % se parezca a lo que pasa en 4 de cada 10 casos.
+- **No hace trampa al medir:** la validación separa por familia, así que dos hermanos nunca quedan uno para entrenar y otro para medir.
+- **Explica cada caso:** cada riesgo se descompone en la suma exacta del aporte de cada factor (valores de Shapley). De ahí salen las razones en puntos que ve la tutora.
+- **Corre aislado y seguro:** en AWS (Docker con HTTPS), con llave de servidor, separación por institución y permisos por rol. Arranca vacío y no recibe nombres.
 
 ### 7.2 Modelo explicativo propio
 
@@ -341,6 +389,20 @@ preparar alerta ─► correo interno de prueba ─► registrar el resultado en
 - n8n solo publica las rutas de los flujos: **el editor no queda expuesto**.
 - En modo de prueba, **todos los correos se desvían a una sola dirección del equipo**, para que nunca le llegue nada a una familia por error.
 
+### Qué verifica cada flujo, sus límites y qué pasa si falla
+
+| Flujo | Qué verifica | Límite conocido | Si falla |
+|---|---|---|---|
+| Sincronización nocturna | Que lleguen los 6 archivos. Repetirla no duplica nada | Depende de que el sistema de la institución entregue sus archivos | La carga queda marcada con un mensaje claro y el portal sigue mostrando la última carga buena |
+| Borrador con Nova Lite | Reserva cada caso para no escribir dos borradores | La IA puede equivocarse en el tono o en el detalle | Queda pendiente de revisión: nada se envía sin aprobación |
+| Alerta 360 del motor | La firma HMAC de cada alerta y la separación por rol | Los modelos de pagos aciertan menos (sección 15) | Una firma inválida recibe 401 y no se procesa |
+| Entrega a familia | Que el mensaje esté aprobado | WhatsApp todavía no está configurado | Los mensajes pendientes se reintentan solos (patrón *outbox*) |
+| Redactar informe | Que no aparezcan cifras que no estaban en el informe | Solo reescribe, no calcula | Si inventa una cifra, el texto se descarta |
+| Lector de exámenes | Devuelve las notas para revisar | Puede leer mal una hoja | Nada se guarda sin revisión humana |
+| Registro de errores | Captura las fallas de los demás flujos | — | Registra el error y avisa al administrador |
+
+Los 12 archivos de los flujos están exportados en [`n8n/`](n8n/), listos para importar con `./scripts/n8n_import_all.sh`.
+
 ---
 
 ## 9. Inteligencia artificial: dónde se usa y cómo se controla
@@ -358,6 +420,11 @@ preparar alerta ─► correo interno de prueba ─► registrar el resultado en
 - **La IA nunca ve nombres** ni datos de pagos.
 - **Si la IA inventa una cifra** que no estaba en el informe, el texto se descarta.
 - Todo el uso de IA, incluida la que usamos para construir, está declarado en [`AI_USAGE.md`](AI_USAGE.md).
+
+**Límites que conocemos:**
+- Un riesgo alto es una **señal para revisar**, no un diagnóstico. Que un factor pese mucho indica asociación, no causa.
+- Los modelos se validaron con una **institución ficticia**. Con datos reales hay que volver a medirlos en el piloto.
+- La IA generativa puede escribir un tono inadecuado o leer mal un examen: por eso siempre revisa una persona.
 
 ---
 
@@ -407,6 +474,12 @@ Son estimaciones sobre datos ficticios: sirven para mostrar cómo razona el sist
 **Para el negocio:** con estos supuestos, E-Pakty cubre sus costos con unas 17 instituciones activas.
 
 - **Por qué le conviene:** cada estudiante que se queda es una pensión que no se pierde, y un estudiante que termina sus estudios.
+**Ruta de adopción en una institución real:**
+
+1. **Semana 1:** acuerdo con el rectorado y carga inicial de sus datos seudonimizados, desde la exportación de su sistema académico (implementación).
+2. **Semanas 2 a 12:** piloto con tutores, DECE, Inspección y Colecturía. Cada semana, el equipo revisa la lista priorizada y registra qué hizo con cada caso.
+3. **Al cerrar el piloto:** comparar con el período anterior los casos atendidos a tiempo, las faltas, las notas y la mora. Con eso, la institución decide si mantiene la suscripción.
+
 - **Siguiente paso concreto:** un **piloto con una institución real**, con sus datos seudonimizados, para validar los modelos con retiros reales y conectar la sincronización nocturna con su sistema académico.
 
 ---
@@ -465,6 +538,17 @@ Las variables necesarias están en [`.env.example`](.env.example) y en [`env/`](
 - Que un factor pese mucho indica **asociación, no causa**.
 - El motor corre en la nube (AWS) las 24 horas. En la demostración, **n8n y el worker** todavía corren en una computadora del equipo y n8n se publica con un túnel temporal: **esa computadora debe estar encendida**. En una institución real correrían en un servidor.
 - WhatsApp todavía no está configurado; hoy los mensajes salen por correo.
+
+---
+
+## 16. Equipo
+
+Los fundadores somos economistas.
+
+| Integrante | Qué construyó |
+|---|---|
+| **Dani** (Daniela Chávez) | Producto y plataforma: portal web por rol, API, base de datos con seguridad por fila, flujos de n8n e integración con el motor |
+| **Wilo** | Datos y modelos: motor E-Pakti (modelos, datos públicos AMIE, Censo y ENEMDU), despliegue en AWS y viabilidad |
 
 ---
 
