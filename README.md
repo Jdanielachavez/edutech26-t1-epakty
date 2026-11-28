@@ -392,7 +392,20 @@ Son estimaciones sobre datos ficticios: sirven para mostrar cómo razona el sist
 ## 12. Viabilidad
 
 - **Quién lo usa:** la institución (rectorado, DECE, tutores, inspección, colecturía y admisiones).
-- **Quién paga:** la institución, con una **suscripción**. El precio se definirá con el primer piloto.
+- **Quién paga:** la institución, con una **suscripción mensual**.
+
+**Costo aproximado** (estimación del equipo, se ajusta con el piloto):
+
+| Concepto | Costo aproximado |
+|---|---|
+| Suscripción por institución | US$ 290 al mes (unos US$ 1,20 por estudiante al mes en una institución de 240 estudiantes, como la de la demostración) |
+| Implementación inicial (conectar sus datos, capacitar al equipo) | US$ 250, una sola vez |
+| Costo de operar por institución (motor en AWS, base de datos, n8n, IA) | unos US$ 85 al mes (supuesto del plan financiero) |
+
+**Por qué se paga solo:** la institución de la demostración tiene $41 109 recuperables si interviene a tiempo (estimación del modelo). Con una suscripción de US$ 290 al mes, eso equivale a unos 142 meses de servicio. Dicho de otra forma: con una pensión de bachillerato de US$ 206 al mes (la media de Quito según datos del Ministerio de Educación), basta con que se queden unos 2 estudiantes más al año para cubrir la suscripción.
+
+**Para el negocio:** con estos supuestos, E-Pakty cubre sus costos con unas 17 instituciones activas.
+
 - **Por qué le conviene:** cada estudiante que se queda es una pensión que no se pierde, y un estudiante que termina sus estudios.
 - **Siguiente paso concreto:** un **piloto con una institución real**, con sus datos seudonimizados, para validar los modelos con retiros reales y conectar la sincronización nocturna con su sistema académico.
 
