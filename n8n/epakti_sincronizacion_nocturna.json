@@ -1,0 +1,214 @@
+{
+  "id": "epSincroNocturna",
+  "name": "E-Pakty · Sincronización nocturna de datos del colegio",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all",
+    "executionTimeout": 600,
+    "timezone": "America/Guayaquil"
+  },
+  "nodes": [
+    {
+      "id": "cada-noche",
+      "name": "Cada noche a las 2:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 2 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ahora",
+      "name": "Ejecutar ahora",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        480
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    },
+    {
+      "id": "config",
+      "name": "Dónde están los archivos del colegio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// FUENTE: dirección donde el sistema académico del colegio deja sus 6 exportes en CSV.\n// En la demostración, la Mac la sirve desde data/bronze/dataset-ficticio-colegio (scripts/encender_produccion.sh).\nconst FUENTE = 'http://host.docker.internal:8790';\n// Columnas del contrato de E-Pakty (backend/production/validation.py). Lo demás se descarta.\nconst TABLAS = {\n  estudiantes: 'codigo nombre_ficticio curso paralelo anio_nacimiento genero necesidad_educativa beca_porcentaje representante_codigo fecha_ingreso',\n  docentes: 'codigo nombre_ficticio materia_principal',\n  asistencia: 'codigo_estudiante fecha estado',\n  notas: 'codigo_estudiante anio_lectivo quimestre parcial materia nota',\n  pensiones: 'codigo_estudiante mes valor estado fecha_pago',\n  horarios: 'curso paralelo dia hora_inicio hora_fin materia docente_codigo'\n};\nreturn Object.entries(TABLAS).map(([tabla, columnas]) => ({ json: { tabla, columnas: columnas.split(' '), url: `${FUENTE}/${tabla}.csv` } }));"
+      }
+    },
+    {
+      "id": "descargar",
+      "name": "Descargar cada CSV",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        300
+      ],
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "timeout": 60000,
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "csv"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "armar",
+      "name": "Armar las 6 tablas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst conf = $('Dónde están los archivos del colegio').all();\nconst csvs = $input.all();\n// Lector de CSV con comillas (\"a, b\" y \"\" dentro de un campo).\nfunction leer(texto) {\n  const filas = []; let fila = [], campo = '', comillas = false;\n  texto = String(texto || '').replace(/^\\uFEFF/, '');\n  for (let i = 0; i < texto.length; i++) {\n    const c = texto[i];\n    if (comillas) {\n      if (c === '\"' && texto[i + 1] === '\"') { campo += '\"'; i++; }\n      else if (c === '\"') comillas = false;\n      else campo += c;\n    } else if (c === '\"') comillas = true;\n    else if (c === ',') { fila.push(campo); campo = ''; }\n    else if (c === '\\n' || c === '\\r') {\n      if (c === '\\r' && texto[i + 1] === '\\n') i++;\n      fila.push(campo); campo = '';\n      if (fila.some(x => x !== '')) filas.push(fila);\n      fila = [];\n    } else campo += c;\n  }\n  fila.push(campo); if (fila.some(x => x !== '')) filas.push(fila);\n  return filas;\n}\nconst tablas = {};\nconf.forEach((c, i) => {\n  const { tabla, columnas } = c.json;\n  const filas = leer(csvs[i] && csvs[i].json.csv);\n  if (filas.length < 2) throw new Error(`${tabla}.csv llegó vacío o no se pudo leer`);\n  const cab = filas[0].map(x => x.trim());\n  const faltan = columnas.filter(x => !cab.includes(x));\n  if (faltan.length) throw new Error(`${tabla}.csv: faltan columnas ${faltan.join(', ')}`);\n  tablas[tabla] = filas.slice(1).map(f => Object.fromEntries(columnas.map(col => [col, (f[cab.indexOf(col)] ?? '').trim()])));\n});\n// La clave cambia si cambia el contenido: dos corridas con los mismos datos no duplican la carga.\nconst huella = crypto.createHash('sha256').update(JSON.stringify(tablas)).digest('hex').slice(0, 16);\nconst hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Guayaquil' }).replace(/-/g, '');\nconst filasPorTabla = Object.fromEntries(Object.entries(tablas).map(([k, v]) => [k, v.length]));\nreturn [{ json: { clave: `nocturna-${hoy}-${huella}`, filas: filasPorTabla, cuerpo: { synthetic_declaration: true, tablas } } }];"
+      }
+    },
+    {
+      "id": "enviar",
+      "name": "Enviar a E-Pakty",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "epApiWorker",
+          "name": "E-Pakty API worker"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/api/v1/ingestion/batch-sync",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Idempotency-Key",
+              "value": "={{ $json.clave }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.cuerpo) }}",
+        "options": {
+          "timeout": 120000
+        }
+      }
+    },
+    {
+      "id": "resumen",
+      "name": "Resumen de la carga",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst a = $('Armar las 6 tablas').first().json;\nreturn [{ json: { trabajo: r.job_id || r.trabajo || null, nuevo: r.nuevo ?? r.created ?? null, estado: r.status || r.estado || 'en cola', clave: a.clave, filas: a.filas } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Cada noche a las 2:00": {
+      "main": [
+        [
+          {
+            "node": "Dónde están los archivos del colegio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dónde están los archivos del colegio": {
+      "main": [
+        [
+          {
+            "node": "Descargar cada CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descargar cada CSV": {
+      "main": [
+        [
+          {
+            "node": "Armar las 6 tablas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar las 6 tablas": {
+      "main": [
+        [
+          {
+            "node": "Enviar a E-Pakty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar a E-Pakty": {
+      "main": [
+        [
+          {
+            "node": "Resumen de la carga",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar ahora": {
+      "main": [
+        [
+          {
+            "node": "Dónde están los archivos del colegio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
