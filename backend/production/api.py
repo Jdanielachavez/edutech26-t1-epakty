@@ -600,7 +600,7 @@ def create_app(settings=None, repository=None, engine=None):
             raise HTTPException(428, 'Falta la cabecera Idempotency-Key (8 a 100 caracteres: letras, números, _ . : -)')
         if set(body.tablas) != set(TABLES): raise HTTPException(422, 'Se requieren las seis tablas oficiales')
         if any(not rows for rows in body.tablas.values()): raise HTTPException(422, 'Hay tablas vacías')
-        job_id, created = repo.create_job('sync:' + idempotency_key, 'json', {'formato': 'json', 'tablas': body.tablas}, {})
+        job_id, created = repo.create_job('sync:' + config.engine_school_id + ':' + idempotency_key, 'json', {'formato': 'json', 'tablas': body.tablas}, {})
         return accepted(job_id, created)
 
     @app.post('/api/v1/pipeline/batch', status_code=202)
@@ -619,7 +619,8 @@ def create_app(settings=None, repository=None, engine=None):
             try: archivos[upload.filename] = data.decode('utf-8-sig')
             except UnicodeDecodeError: raise HTTPException(422, f'{upload.filename}: el archivo debe estar en UTF-8') from None
             hashes[upload.filename] = hashlib.sha256(data).hexdigest()
-        key = 'csv:' + hashlib.sha256(''.join(hashes[k] for k in sorted(hashes)).encode()).hexdigest()
+        # La huella incluye el colegio del motor: los mismos archivos en un colegio nuevo se procesan de verdad.
+        key = 'csv:' + hashlib.sha256((config.engine_school_id + '|' + ''.join(hashes[k] for k in sorted(hashes))).encode()).hexdigest()
         job_id, created = await run_in_threadpool(repo.create_job, key, 'csv', {'formato': 'csv', 'archivos': archivos}, hashes)
         return accepted(job_id, created)
 
