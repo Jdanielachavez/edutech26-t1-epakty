@@ -392,7 +392,9 @@
         "toEmail": "={{ $env.EPAKTI_TEST_RECIPIENT_EMAIL }}",
         "subject": "={{ $json.asunto }}",
         "emailFormat": "html",
-        "options": {},
+        "options": {
+          "appendAttribution": false
+        },
         "html": "={{ $json.html }}"
       },
       "credentials": {

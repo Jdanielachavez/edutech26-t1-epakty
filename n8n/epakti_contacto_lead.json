@@ -48,7 +48,9 @@
         "subject": "={{'Nuevo contacto: ' + $json.body.institucion}}",
         "emailFormat": "text",
         "text": "={{'Nombre: ' + $json.body.nombre_contacto + '\\nColegio: ' + $json.body.institucion + '\\nCorreo: ' + $json.body.correo + '\\nWhatsApp: ' + ($json.body.whatsapp_e164||'—') + '\\nCiudad: ' + ($json.body.ciudad||'—') + '\\nEstudiantes: ' + ($json.body.n_estudiantes_aprox||'—') + '\\nSistema actual: ' + ($json.body.erp_actual||'—') + '\\nMensaje: ' + ($json.body.mensaje||'—')}}",
-        "options": {}
+        "options": {
+          "appendAttribution": false
+        }
       },
       "credentials": {
         "smtp": {

@@ -46,7 +46,9 @@
         "subject": "={{$json.asunto}}",
         "emailFormat": "html",
         "html": "={{$json.html}}",
-        "options": {}
+        "options": {
+          "appendAttribution": false
+        }
       },
       "id": "m",
       "name": "Enviar aviso al docente",

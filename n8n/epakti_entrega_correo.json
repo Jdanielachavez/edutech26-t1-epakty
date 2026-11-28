@@ -79,7 +79,9 @@
         "subject": "Mensaje de tu unidad educativa",
         "emailFormat": "text",
         "text": "={{$json.body.message}}",
-        "options": {}
+        "options": {
+          "appendAttribution": false
+        }
       },
       "credentials": {
         "smtp": {

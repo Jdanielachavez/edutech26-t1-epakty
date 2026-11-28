@@ -48,7 +48,9 @@
         "subject": "={{'Error en flujo ' + $json.body.workflow_id}}",
         "emailFormat": "text",
         "text": "={{'Ejecución: ' + $json.body.execution_id + '\\nNodo: ' + $json.body.node + '\\nCódigo: ' + $json.body.code}}",
-        "options": {}
+        "options": {
+          "appendAttribution": false
+        }
       },
       "credentials": {
         "smtp": {
