@@ -2807,12 +2807,17 @@ async function reducirFoto(file,max=1600){const bmp=await createImageBitmap(file
  return new Promise(res=>c.toBlob(b=>res(new File([b],file.name.replace(/\.\w+$/,'')+'.jpg',{type:'image/jpeg'})),'image/jpeg',.85))}
 const EV_CSV='codigo_estudiante,pregunta,correcta\nEST-001,1,1\nEST-001,2,0\nEST-002,1,1\nEST-002,2,1\n';
 
+let AULA_SEL='';
 async function aula(){
  let R2;try{R2=await api('GET','/api/v1/models/risk')}catch(e){if(e.message===STALE)throw e;$('#app').innerHTML=`<span class="badge">Mi aula</span><h1>Mi <em>aula</em></h1><div class="errbox">${esc(e.message)}</div>`;return}
- const L=R2.estudiantes,S=R2.resumen;
- // Reunir asistencia de todos los estudiantes del aula del tutor.
+ // El tutor ve su paralelo; administración y rectorado eligen uno (pedir los 241 de golpe tardaba minutos).
+ const PAR=[...new Set(R2.estudiantes.map(e=>`${e.curso} ${e.paralelo}`))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));
+ if(ROLE!=='tutor'&&!PAR.includes(AULA_SEL))AULA_SEL=PAR[0];
+ const L=ROLE==='tutor'?R2.estudiantes:R2.estudiantes.filter(e=>`${e.curso} ${e.paralelo}`===AULA_SEL);
+ const S={...R2.resumen,total:L.length,por_semaforo:L.reduce((a,e)=>(a[e.semaforo]=(a[e.semaforo]||0)+1,a),{})};
  const dias={};let totalDias=0;
- for(const e of L){try{const ds=await asistenciaDias(e.id);ds.forEach(d=>{const t=dias[d.fecha]=dias[d.fecha]||{P:0,I:0,J:0,A:0,tot:0};t.tot++;if(d.estado==='presente')t.P++;else if(d.estado==='falta_injustificada')t.I++;else if(d.estado==='falta_justificada')t.J++;else if(d.estado==='atraso')t.A++;});if(ds.length)totalDias=Math.max(totalDias,ds.length)}catch(e){}}
+ const sumar=ds=>{ds.forEach(d=>{const t=dias[d.fecha]=dias[d.fecha]||{P:0,I:0,J:0,A:0,tot:0};t.tot++;if(d.estado==='presente')t.P++;else if(d.estado==='falta_injustificada')t.I++;else if(d.estado==='falta_justificada')t.J++;else if(d.estado==='atraso')t.A++;});if(ds.length)totalDias=Math.max(totalDias,ds.length)};
+ const cola=L.slice();await Promise.all(Array.from({length:8},async()=>{while(cola.length){const e=cola.shift();try{sumar(await asistenciaDias(e.id))}catch(err){if(err.message===STALE)throw err}}}));
  const fechas=Object.keys(dias).sort();
  const faltasHoy=L.filter(e=>N(e.asistencia)!=null&&N(e.asistencia)<80).length;
  const motivos={};L.forEach(e=>{const k=e.factor_principal||'Otro';motivos[k]=(motivos[k]||0)+1});
@@ -2829,6 +2834,7 @@ async function aula(){
  const prioridad=L.filter(e=>e.semaforo==='ROJO'||e.semaforo==='NARANJA').sort((a,b)=>b.probabilidad-a.probabilidad).slice(0,6);
  $('#app').innerHTML=`<span class="badge">Docente tutor · ${esc(ROLE_NAME[ROLE]||ROLE)}</span><h1>Mi <em>aula</em> hoy</h1>
   <p class="sub">Un resumen pensado para ti: qué pasa con tu paralelo, cuándo faltan más y a quién acompañar antes.</p>
+  ${ROLE!=='tutor'&&PAR.length?`<div class="filt"><label class="mini2" for="aulaSel">Paralelo</label><select id="aulaSel">${PAR.map(x=>`<option ${x===AULA_SEL?'selected':''}>${esc(x)}</option>`).join('')}</select></div>`:''}
   <div class="k4b"><div class="kc"><span>Mi paralelo</span><b>${S.total}</b><small>estudiantes</small></div>
    <div class="kc"><span>En rojo</span><b style="color:var(--ROJO)">${S.por_semaforo.ROJO||0}</b><small>acompañar hoy</small></div>
    <div class="kc"><span>En naranja</span><b style="color:var(--NARANJA)">${S.por_semaforo.NARANJA||0}</b><small>atención esta semana</small></div>
@@ -2855,7 +2861,8 @@ async function aula(){
    ${faltasHoy>0?`<li>Revisar las faltas de ${faltasHoy} estudiantes con asistencia bajo 80 %.</li>`:''}
    <li>Abrir caso con el DECE si alguno repite motivo semana a semana.</li>
    <li>Al cierre de cada semana, revisar la columna más oscura del calendario de arriba.</li></ul></div>`;
- document.querySelectorAll('tr.go').forEach(r=>r.onclick=guard(()=>fichaReal(r.dataset.c)))}
+ document.querySelectorAll('tr.go').forEach(r=>r.onclick=guard(()=>fichaReal(r.dataset.c)));
+ $('#aulaSel')&&($('#aulaSel').onchange=guard(e=>{AULA_SEL=e.target.value;return show('aula')}))}
 async function evaluaciones(){
  if(!EV_ROLES.includes(ROLE)){$('#app').innerHTML='<h1>Evaluaciones</h1><div class="errbox">Tu rol no tiene acceso a esta pantalla.</div>';return}
  let sel=null,tab='fotos',poll=null;const tutor=ROLE==='tutor';
