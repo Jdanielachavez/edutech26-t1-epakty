@@ -116,6 +116,7 @@ GRANT USAGE ON SCHEMA paktai_edu TO paktai_service,rectoria_read,dece_write,tuto
 GRANT SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA paktai_edu TO paktai_service;
 -- Solo las cuentas de acceso se pueden borrar; el resto de tablas guarda historial.
 GRANT DELETE ON paktai_edu.app_users TO paktai_service;
+GRANT DELETE ON paktai_edu.pipeline_runs, paktai_edu.bronze_rows, paktai_edu.silver_estudiantes, paktai_edu.ingestion_jobs TO paktai_service;
 REVOKE UPDATE ON paktai_edu.audit_events FROM paktai_service;
 REVOKE UPDATE ON paktai_edu.intervention_outcomes FROM paktai_service;
 -- Solo la purga LOPDP borra, y solo leads vencidos.

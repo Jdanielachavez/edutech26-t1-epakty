@@ -629,6 +629,16 @@ def create_app(settings=None, repository=None, engine=None):
     def cargas_historial(identity=Depends(roles('admin', 'rectoria'))):
         return repo.runs_history()
 
+    @app.delete('/api/v1/admin/cargas/{run_id}')
+    def cargas_eliminar(run_id: str, identity=Depends(roles('admin'))):
+        borrada = repo.delete_run(run_id, by=identity.get('user') or 'admin')
+        if borrada is None:
+            raise HTTPException(409, 'La base todavía no permite eliminar cargas: falta ejecutar sql/09_eliminar_cargas.sql en Supabase')
+        if borrada == 'en_uso':
+            raise HTTPException(409, 'Es la carga que se está mostrando en las pantallas. Sube una carga nueva y luego podrás eliminar esta.')
+        if not borrada: raise HTTPException(404, 'Esa carga no existe')
+        return {'run_id': run_id, 'eliminada': True}
+
     @app.get('/api/v1/admin/cargas/{run_id}/{tabla}')
     def cargas_tabla(run_id: str, tabla: str, q: str = '', pagina: int = 1, identity=Depends(roles('admin', 'rectoria'))):
         if tabla not in TABLES: raise HTTPException(404, 'Ese archivo no existe')

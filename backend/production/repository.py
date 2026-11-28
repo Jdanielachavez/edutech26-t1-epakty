@@ -167,6 +167,29 @@ class Repository:
                              (self.settings.institution, run_id, table, patron, patron, limit, offset)).fetchall()
         return {'total': total, 'filas': [r['payload'] for r in rows]}
 
+    def delete_run(self, run_id, *, by=None):
+        """Borra una carga del historial (archivos, datos limpios y resumen).
+        Devuelve True, False si no existe, 'en_uso' si es la carga que alimenta las pantallas,
+        o None si la base aún no da permiso de borrar (falta sql/09_eliminar_cargas.sql)."""
+        tenant = self.settings.institution
+        try:
+            with self.transaction() as c:
+                if not c.execute('SELECT 1 FROM paktai_edu.pipeline_runs WHERE institution_id=%s AND run_id=%s',
+                                 (tenant, run_id)).fetchone():
+                    return False
+                if c.execute('SELECT 1 FROM paktai_edu.gold_estudiantes WHERE institution_id=%s AND run_id=%s LIMIT 1',
+                             (tenant, run_id)).fetchone():
+                    return 'en_uso'
+                c.execute('DELETE FROM paktai_edu.bronze_rows WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
+                c.execute('DELETE FROM paktai_edu.silver_estudiantes WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
+                # Sin su trabajo de ingesta, volver a subir los mismos archivos crea una carga nueva en vez de repetir la borrada.
+                c.execute("DELETE FROM paktai_edu.ingestion_jobs WHERE institution_id=%s AND result->>'run_id'=%s", (tenant, run_id))
+                c.execute('DELETE FROM paktai_edu.pipeline_runs WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
+                self.audit(c, 'run_deleted', {'run_id': run_id, 'por': by})
+                return True
+        except pg_errors.InsufficientPrivilege:
+            return None
+
     def recent_jobs(self, limit=8):
         with self.transaction() as c:
             return c.execute('''SELECT job_id,source,status,attempts,duration_ms,error_message,result,created_at,updated_at
