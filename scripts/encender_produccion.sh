@@ -45,10 +45,17 @@ fi
 echo "    n8n publicado en $U (solo los flujos)"
 
 echo "2/4 · Configurando producción y publicando…"
-for v in N8N_WEBHOOK_BASE_URL N8N_WEBHOOK_HMAC_SECRET N8N_WEBHOOK_TOKEN; do vercel env rm "$v" production --yes >/dev/null 2>&1 || true; done
+# En modo de prueba todo correo se desvía a STAGING_EMAIL (debe estar también en STAGING_ALLOWLIST).
+MAIL="$(val STAGING_EMAIL .env.dev)"; ALLOW="$(val STAGING_ALLOWLIST .env.dev)"
+for v in N8N_WEBHOOK_BASE_URL N8N_WEBHOOK_HMAC_SECRET N8N_WEBHOOK_TOKEN STAGING_EMAIL STAGING_ALLOWLIST; do vercel env rm "$v" production --yes >/dev/null 2>&1 || true; done
 printf '%s' "$U/webhook" | vercel env add N8N_WEBHOOK_BASE_URL production --sensitive >/dev/null
 printf '%s' "$SECRET" | vercel env add N8N_WEBHOOK_HMAC_SECRET production --sensitive >/dev/null
 printf '%s' "$TOKEN" | vercel env add N8N_WEBHOOK_TOKEN production --sensitive >/dev/null
+if [ -n "$MAIL" ]; then
+  printf '%s' "$MAIL" | vercel env add STAGING_EMAIL production --sensitive >/dev/null
+  printf '%s' "${ALLOW:-$MAIL}" | vercel env add STAGING_ALLOWLIST production --sensitive >/dev/null
+  echo "    Los correos de prueba llegan a: $MAIL"
+fi
 DEP=$(vercel --prod --yes 2>&1 | grep -oE 'https://epakti-[a-z0-9]+-[a-z0-9-]+\.vercel\.app' | head -1)
 [ -n "$DEP" ] || { echo "No se pudo publicar en Vercel"; exit 1; }
 vercel alias set "$DEP" "$DOMINIO" >/dev/null
