@@ -252,6 +252,10 @@ Este es el recorrido de la demostración (3 minutos). Todo corre en vivo, con el
 
 ### 6.1 Arquitectura
 
+![Arquitectura de E-Pakty](docs/arquitectura.png)
+
+El mismo recorrido en texto:
+
 ```
  ┌─────────────── Fuentes de datos ───────────────┐
  │ Portal: subir 6 CSV  │  n8n: sincronización 2:00 │
@@ -526,7 +530,7 @@ Las variables necesarias están en [`.env.example`](.env.example) y en [`env/`](
 | [`n8n/`](n8n/) | Los flujos de n8n exportados |
 | [`data/`](data/) | Datos públicos (AMIE, ENEMDU, INEVAL) y la institución ficticia (ver [`data/README.md`](data/README.md)) |
 | [`scripts/`](scripts/) | Encender producción, migraciones, túneles y utilidades |
-| [`docs/`](docs/) | Desarrollo local, despliegue y webhooks |
+| [`docs/`](docs/) | Diagrama de arquitectura, desarrollo local, despliegue y webhooks |
 | [`env/`](env/), [`infra/`](infra/) | Plantillas de variables e infraestructura |
 
 ---
