@@ -95,7 +95,7 @@ def create_app(settings=None, repository=None, engine=None):
         finally: repo.close()
     app = FastAPI(title='E-Pakti API', version='2.1.0', lifespan=lifespan, docs_url=None, redoc_url=None)
     origins = [x.strip() for x in os.getenv('CORS_ORIGINS', '').split(',') if x.strip()]
-    app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=['GET', 'POST', 'PATCH', 'PUT'],
+    app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                        allow_headers=['Authorization', 'Content-Type', 'Idempotency-Key'])
 
     def authenticate(authorization: str = Header(default='')):
@@ -188,6 +188,15 @@ def create_app(settings=None, repository=None, engine=None):
                               identity.get('user') or 'admin', must_change=body.clave is None)
         if not ok: raise HTTPException(409, 'Ese usuario ya existe')
         return {'usuario': body.usuario, 'clave_temporal': password if body.clave is None else None}
+
+    @app.delete('/api/v1/admin/users/{username}')
+    def delete_user(username: str, identity=Depends(roles('admin'))):
+        if username == identity.get('user'): raise HTTPException(409, 'No puedes eliminar tu propio usuario')
+        deleted = repo.delete_user(username, by=identity.get('user') or 'admin')
+        if deleted is None:
+            raise HTTPException(409, 'La base todavía no permite eliminar cuentas: falta ejecutar sql/08_eliminar_usuarios.sql en Supabase')
+        if not deleted: raise HTTPException(404, 'Usuario no encontrado en la base (los del servidor se cambian en su configuración)')
+        return {'usuario': username, 'eliminado': True}
 
     @app.patch('/api/v1/admin/users/{username}')
     def patch_user(username: str, body: UserPatch, identity=Depends(roles('admin'))):

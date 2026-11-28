@@ -511,6 +511,17 @@ class Repository:
             if row: self.audit(c, 'user_updated', {'usuario': username, 'activo': active, 'clave_cambiada': password_hash is not None, 'por': by})
             return bool(row)
 
+    def delete_user(self, username, *, by=None):
+        """None si la base aún no da permiso de borrar (falta sql/08_eliminar_usuarios.sql)."""
+        try:
+            with self.transaction() as c:
+                row = c.execute('DELETE FROM paktai_edu.app_users WHERE institution_id=%s AND username=%s RETURNING username',
+                                (self.settings.institution, username)).fetchone()
+                if row: self.audit(c, 'user_deleted', {'usuario': username, 'por': by})
+                return bool(row)
+        except pg_errors.InsufficientPrivilege:
+            return None
+
     def touch_login(self, username):
         try:
             with self.transaction() as c:

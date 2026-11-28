@@ -681,3 +681,14 @@ def test_asistencia_es_la_del_archivo_cargado(client, repo, populated):
     inf = client.get(f'/api/v1/students/{sid}/informe', headers=H('a')).json()
     assert inf['asistencia']['resumen'] == d['resumen']
     assert client.get(f'/api/v1/students/{sid}/asistencia', headers=H('c')).status_code == 403
+
+
+def test_admin_deletes_user_but_not_itself(client):
+    c = client
+    assert c.post('/api/v1/admin/users', json={'usuario': 'borrar.me', 'nombre': 'Borrar', 'rol': 'dece'}, headers=H('a')).status_code == 201
+    r = c.delete('/api/v1/admin/users/borrar.me', headers=H('a'))
+    assert r.status_code in (200, 409)
+    if r.status_code == 200:
+        assert r.json() == {'usuario': 'borrar.me', 'eliminado': True}
+        assert c.delete('/api/v1/admin/users/borrar.me', headers=H('a')).status_code == 404
+    assert c.delete('/api/v1/admin/users/borrar.me', headers=H('r')).status_code == 403

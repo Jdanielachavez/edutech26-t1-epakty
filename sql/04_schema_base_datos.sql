@@ -114,6 +114,8 @@ DO $$ DECLARE t text; BEGIN
 END $$;
 GRANT USAGE ON SCHEMA paktai_edu TO paktai_service,rectoria_read,dece_write,tutor_read;
 GRANT SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA paktai_edu TO paktai_service;
+-- Solo las cuentas de acceso se pueden borrar; el resto de tablas guarda historial.
+GRANT DELETE ON paktai_edu.app_users TO paktai_service;
 REVOKE UPDATE ON paktai_edu.audit_events FROM paktai_service;
 REVOKE UPDATE ON paktai_edu.intervention_outcomes FROM paktai_service;
 -- Solo la purga LOPDP borra, y solo leads vencidos.

@@ -251,7 +251,7 @@ th{border-bottom:2px solid var(--sun)}.nav button.on:after{content:"";display:in
 .files div small{display:block;color:var(--muted);font:500 11px var(--sans);margin-top:4px}.files div.ok{border-color:var(--teal);background:var(--wash)}.files div.ok:after{content:" ✓";color:var(--teal)}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink2);margin-top:14px}.chk input{margin-top:3px}
 .okbox,.errbox{margin-top:18px;border-radius:14px;padding:16px 18px;font-size:14px}.cta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;align-items:start}.cta-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.cta-row span{color:var(--muted,#6b6478)}.cta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cta-chip{font:inherit;font-size:12.5px;padding:6px 11px;border-radius:99px;background:#efeaf7;color:#3d2a66;border:1px solid transparent;cursor:pointer;min-height:32px}.cta-chip:hover{border-color:#3d2a66}.cta-chip:focus-visible{outline:2px solid #3d2a66;outline-offset:2px}.cta-form{display:grid;gap:12px;margin-top:12px}.cta-form label{display:grid;gap:5px;font-size:13.5px;font-weight:600}.cta-form small{font-weight:400;color:var(--muted,#6b6478)}.cta-det summary{cursor:pointer;font-weight:600;padding:10px 0;color:#3d2a66}.cta-warn{background:#fff4d6;color:#6b4a00;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:10px}@media(max-width:760px){.cta-grid{grid-template-columns:minmax(0,1fr)}}
-.vw-load{padding:48px 0;color:var(--muted,#6b6478);font-size:15px}.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
+.vw-load{padding:48px 0;color:var(--muted,#6b6478);font-size:15px}.btn-del{color:#a3261c!important;border-color:#f0c4bf!important}.btn-del:hover{background:#fdecea!important}.dcard .tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:6px}.dcard .tile{padding:12px 8px 10px;gap:8px;font-size:12.5px}.dcard .tile .ic{width:36px;height:36px;border-radius:10px}@media(max-width:760px){.dcard .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}.okbox{background:#e3f6ec;color:#115c3b}.errbox{background:#fdd9d6;color:#8a1d14}.okbox b{font-size:18px}
 textarea.dm{width:100%;min-height:130px;border:1.5px solid var(--line);border-radius:14px;padding:14px;font:500 15px/1.55 var(--sans);background:#fff;color:var(--ink);resize:vertical}textarea.dm:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 4px #5a3de622}
 .casebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
 
@@ -312,9 +312,9 @@ table.tt tr.go{cursor:pointer}table.tt tr.go:hover td{background:var(--wash)}.mi
  .files div{padding:14px 8px;font-size:13px}
 }
 
-.planeb{background:#0F172A;color:#E2E8F0;border-radius:24px;padding:28px;margin:-6px -6px 0}.planeb h1,.planeb h3{color:#F8FAFC}.planeb h1 em{color:#a898ff}.planeb .sub,.planeb .note,.planeb .mini2{color:#94A3B8}
-.planeb .kc,.planeb .card{background:#1E293B;border-color:#334155;color:#E2E8F0;box-shadow:none}.planeb .kc span{color:#94A3B8}.planeb table.tt td{border-color:#334155}.planeb .dl span{color:#E2E8F0}
-.planeb .tabs button{color:#CBD5E1}.planeb .tabs button.on{background:#5a3de6;color:#fff}.planeb .ticks li{color:#E2E8F0}
+.planeb{}
+
+
 .adm label{display:block;font:500 13px var(--sans);color:var(--ink2)}.adm label input,.adm label select{display:block;width:100%;margin-top:6px}.adm .grid2{gap:12px 18px}
 .vh{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
 .how{margin:14px 0 4px;font-size:14px;line-height:1.55}.how summary{cursor:pointer;font-weight:700;color:var(--teal)}.how p{margin:8px 0 0}
@@ -741,10 +741,10 @@ input,textarea,select{caret-color:var(--teal)}
 .ft table{width:100%;border-collapse:separate;border-spacing:0 8px}
 .ft th{font:600 11.5px var(--font-text);color:var(--muted);text-align:center;padding:0}.ft th:first-child{text-align:left}
 .ft td{padding:0}.ft td:first-child b{display:block;font:700 16px var(--font-ui);color:var(--night)}.ft td:first-child small{font-size:12.5px;color:var(--teal);font-weight:600}
-.tile{width:46px;height:40px;margin:0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;vertical-align:middle;font:700 14px var(--font-ui);color:#14382A;transform:scale(.3);opacity:0;transition:transform .55s var(--spring) var(--d),opacity .3s var(--ease-out) var(--d)}
+.ft .tile{width:46px;height:40px;margin:0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;vertical-align:middle;font:700 14px var(--font-ui);color:#14382A;transform:scale(.3);opacity:0;transition:transform .55s var(--spring) var(--d),opacity .3s var(--ease-out) var(--d)}
 .ficha-stage.is-in .tile{transform:none;opacity:1}
-.tile.g{background:#5FD08A}.tile.l{background:#A7E7BD}.tile.y{background:#F5C84C;color:#4A3300}.tile.o{background:#FF9F43;color:#4A2300}.tile.e{background:#EFE8DD}
-.tile.now{background:#EFE8DD;animation:nowp 2.4s ease-in-out infinite 2.2s}
+.ft .tile.g{background:#5FD08A}.ft .tile.l{background:#A7E7BD}.ft .tile.y{background:#F5C84C;color:#4A3300}.ft .tile.o{background:#FF9F43;color:#4A2300}.ft .tile.e{background:#EFE8DD}
+.ft .tile.now{background:#EFE8DD;animation:nowp 2.4s ease-in-out infinite 2.2s}
 @keyframes nowp{50%{background:#FFE9A8}}
 /* Qué incluye: lista + vista previa */
 .inc{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:stretch}
@@ -792,9 +792,9 @@ input,textarea,select{caret-color:var(--teal)}
 .contact .req{color:#B9384A}
 .contact .cbox{display:flex;align-items:center;gap:12px;margin-top:14px;color:#fff;text-decoration:none;font-weight:600}
 .contact .cbox i{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#ffffff22}
-@media(max-width:980px){.ficha-stage{padding:36px 14px 0}.ficha{grid-template-columns:1fr;padding:18px 14px 0}.inc{grid-template-columns:1fr}.inc-view{min-height:340px;padding:18px}.steps3.s4{grid-template-columns:1fr 1fr}.contact form .two{grid-template-columns:1fr}.tile{width:36px;height:34px;font-size:13px}}
+@media(max-width:980px){.ficha-stage{padding:36px 14px 0}.ficha{grid-template-columns:1fr;padding:18px 14px 0}.inc{grid-template-columns:1fr}.inc-view{min-height:340px;padding:18px}.steps3.s4{grid-template-columns:1fr 1fr}.contact form .two{grid-template-columns:1fr}.ft .tile{width:36px;height:34px;font-size:13px}}
 @media(max-width:560px){.steps3.s4{grid-template-columns:1fr}.hb{grid-template-columns:90px 1fr auto}}
-@media(prefers-reduced-motion:reduce){.ficha,.tile,.fn .note{transition:none!important;opacity:1!important;transform:none!important}.tile.now,.inc-list .bar i,.inc-view::before,.pv,.hb i,.vb div i,.bub2,.chips3 span,.tl div{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.ficha,.ft .tile,.fn .note{transition:none!important;opacity:1!important;transform:none!important}.ft .tile.now,.inc-list .bar i,.inc-view::before,.pv,.hb i,.vb div i,.bub2,.chips3 span,.tl div{animation:none!important}}
 
 /* ===== Capa 6 · Menú desplegable y aviso de cookies ===== */
 .top{position:sticky}
@@ -1065,7 +1065,7 @@ body{background:#fff;color:var(--a-ink)}
 .ficha{background:#fff;border:1px solid rgba(0,0,0,.05);box-shadow:0 -10px 40px -30px rgba(0,0,0,.2)}
 .fp .av{background:linear-gradient(135deg,#8E6CF0,#5B36B4)}
 .fq{background:var(--a-gray);border-color:transparent}
-.tile.g{background:#7FCB9A}.tile.l{background:#C3E6CF}.tile.y{background:#EBCB74}.tile.o{background:#F0A86A}
+.ft .tile.g{background:#7FCB9A}.ft .tile.l{background:#C3E6CF}.ft .tile.y{background:#EBCB74}.ft .tile.o{background:#F0A86A}
 /* Sistemas */
 .sys{background:#fff;border-color:rgba(0,0,0,.06)}
 .sys .src div,.sys .res div{border-color:rgba(0,0,0,.06);box-shadow:0 1px 2px rgba(0,0,0,.03)}
@@ -2383,60 +2383,77 @@ async function admisiones(){
   $('#ar').innerHTML=`${E?`<div class="kc" style="margin-top:16px"><span>Educativo · día 1</span><div style="margin:10px 0">${sem(E.semaforo_ingreso_educativo,E.etiqueta)}</div><small>Riesgo académico ${pct(E.prob_riesgo_academico_pct)} · estabilidad ${N(E.indice_estabilidad_educativa_0_100)??'—'}/100<br>${esc(E.protocolo_dia_1||'')}</small></div>`:''}
   ${Fn?`<div class="kc" style="margin-top:10px"><span>Financiero · matrícula</span><div style="margin:10px 0">${sem(Fn.semaforo_ingreso_financiero,Fn.etiqueta)}</div><small>Riesgo de atrasarse ${pct(Fn.prob_incumplimiento_pago_pct)} · de que se repita dos meses ${pct(Fn.prob_morosidad_cronica_2m_pct)}<br>${esc(Fn.protocolo_matricula||'')}</small></div>`:''}`})}
 
+
+
+
+
+
+// Nombres en palabras de cada modelo del motor y lectura del acierto (AUC).
+const MODELO_TXT={permanencia:'Permanencia',ausentismo:'Faltas a clase',academico_q2:'Notas del 2.º quimestre',morosidad_incumplimiento:'Pagos atrasados',morosidad_cronica:'Atraso crónico de pagos',preingreso_educativo_m1:'Admisión · notas',preingreso_financiero_m1:'Admisión · pagos',preingreso_fin_cronica_m1:'Admisión · atraso crónico'};
+const aucTxt=a=>a==null?sem('AMARILLO','Sin medir'):a>=0.8?sem('VERDE','Bueno'):a>=0.7?sem('AMARILLO','Aceptable'):sem('ROJO','Débil');
+const n3=v=>N(v)==null?'—':N(v).toFixed(2).replace('.',',');
+function opsModelos(m){const M=m.metricas_validacion_oof_modelos||{};
+ return Object.entries(M).map(([k,x])=>({k,nombre:MODELO_TXT[k]||claro(k),auc:N(x.auc),cal:N(x.calibracion_pp),tp40:N(x.tp_40_global)})).sort((a,b)=>(b.auc??0)-(a.auc??0))}
+function opsTablaModelos(R){if(!R.length)return '';
+ return `<div class="card" style="margin-top:18px"><h3>Qué tan bien acierta cada modelo</h3><p class="mini2">Acierto (AUC): 0,5 es adivinar al azar y 1 es perfecto. «De los 40 con más riesgo» dice cuántos de los 40 que el modelo marcó primero de verdad tenían el problema.</p>
+  <table class="tt"><tr><th>Modelo</th><th>Acierto</th><th></th><th>De los 40 con más riesgo</th></tr>${R.map(r=>`<tr><td><b>${esc(r.nombre)}</b></td><td>${n3(r.auc)}</td><td>${aucTxt(r.auc)}</td><td>${r.tp40==null?'—':r.tp40+' de 40'}</td></tr>`).join('')}</table></div>`}
 async function mlops(){
  let body='';
- try{const m=await api('GET','/api/v1/admin/mlops/overview-and-drift'),S=m.suite_integridad||{},C=m.curva_flywheel_simulada||[],L=m.mlops_manifiesto?.candados_promocion_champion_challenger||[];
-  body=`<div class="k4b"><div class="kc"><span>Pruebas del motor</span><b>${S.pruebas_aprobadas??'—'}/${S.total_pruebas_ejecutadas??'—'}</b><small>${esc(claro(S.estado_global_motor_saas))}</small></div>
-   <div class="kc"><span>Acierto con 1 colegio</span><b>${N(C[0]?.auc_colegios_nuevos_zero_shot)?.toFixed(3)??'—'}</b><small>en un colegio nuevo, sin datos previos suyos (AUC: 0,5 es azar, 1 es perfecto)</small></div>
-   <div class="kc"><span>Acierto con ${C.at(-1)?.colegios_conectados_saas??'—'} colegios</span><b>${N(C.at(-1)?.auc_colegios_nuevos_zero_shot)?.toFixed(3)??'—'}</b><small>proyección, todavía no medido</small></div>
-   <div class="kc"><span>Qué tan afinado está</span><b>${N(C.at(-1)?.ece_tras_calibracion_bayesiana_pp)?.toFixed(1)??'—'}</b><small>cuánto se aleja el porcentaje que dice del que ocurre de verdad; mientras más cerca de 0, mejor</small></div></div>
+ try{const m=await api('GET','/api/v1/admin/mlops/overview-and-drift'),S=m.suite_integridad||{},C=m.curva_flywheel_simulada||[],L=m.mlops_manifiesto?.candados_promocion_champion_challenger||[],V=m.estado_produccion_en_vivo||{},R=opsModelos(m);
+  const mejor=R[0],estado=claro(S.estado_global_motor_saas);
+  body=`<div class="k4b"><div class="kc"><span>Pruebas del motor</span><b>${S.pruebas_aprobadas??'—'}/${S.total_pruebas_ejecutadas??'—'}</b><small>${esc(estado)}</small></div>
+   <div class="kc"><span>Mejor modelo</span><b>${n3(mejor?.auc)}</b><small>${esc(mejor?.nombre||'—')} · acierto (AUC)</small></div>
+   <div class="kc"><span>Estudiantes evaluados</span><b>${N(V.total_estudiantes_evaluados)?.toLocaleString('es')??'—'}</b><small>en ${N(V.colegios_con_scoring)??'—'} colegios</small></div>
+   <div class="kc"><span>Versión del motor</span><b style="font-size:16px">${esc(m.version_motor_activo||'—')}</b><small>${m.generado_artefactos_utc?'entrenado el '+esc(new Date(m.generado_artefactos_utc).toLocaleDateString('es')):''}</small></div></div>
    ${S.nota_alcance_cientifico?`<p class="note">${esc(S.nota_alcance_cientifico)}</p>`:''}
-   <div class="grid2"><div class="card"><h3>Pruebas que debe pasar el motor</h3><table class="tt">${(S.pruebas||[]).map(p=>`<tr><td>${p.resultado?sem('VERDE','OK'):sem('ROJO','Falla')}</td><td><b>${esc(p.id)}</b> ${esc(p.nombre)}<div class="mini2">${esc(p.detalle||'')}</div></td></tr>`).join('')}</table></div>
-   <div class="card"><h3>Requisitos para cambiar el modelo por uno nuevo</h3><ul class="ticks">${L.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
-   <h3 style="margin-top:18px">Cómo mejoraría con más colegios</h3><p class="mini2">Proyección, no medición: mientras más colegios, más datos para aprender. Acierto: más alto es mejor. Error: más bajo es mejor.</p><table class="tt"><tr><th>Colegios</th><th>Estudiantes</th><th>Acierto</th><th>Error</th></tr>${C.map(r=>`<tr><td>${esc(r.colegios_conectados_saas)}</td><td>${N(r.estudiantes_anonimizados_pool)?.toLocaleString('es')}</td><td>${N(r.auc_colegios_nuevos_zero_shot)?.toFixed(3)}</td><td>${N(r.brier_colegios_nuevos_zero_shot)?.toFixed(3)}</td></tr>`).join('')}</table></div></div>`}
- catch(e){body=`<div class="errbox">${esc(e.message)}</div>`}
- $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Calidad del modelo</span><h1>¿El modelo sigue <em>sano</em>?</h1><p class="sub">Las pruebas que debe pasar el motor, los requisitos para reemplazarlo por uno nuevo y cómo mejora a medida que se conectan más colegios.</p>${body}</div>`}
+   ${opsTablaModelos(R)}
+   <div class="card" style="margin-top:18px"><h3>Pruebas que debe pasar el motor</h3><table class="tt">${(S.pruebas||[]).map(p=>`<tr><td>${p.resultado?sem('VERDE','OK'):sem('ROJO','Falla')}</td><td><b>${esc(p.id)}</b> ${esc(p.nombre)}<div class="mini2">${esc(p.detalle||'')}</div></td></tr>`).join('')}</table></div>
+   ${L.length?`<div class="card" style="margin-top:18px"><h3>Requisitos para cambiar el modelo por uno nuevo</h3><ul class="ticks">${L.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+   ${C.length?`<div class="card" style="margin-top:18px"><h3>Cómo mejoraría con más colegios</h3><p class="mini2">Proyección, no medición.</p><table class="tt"><tr><th>Colegios</th><th>Estudiantes</th><th>Acierto</th></tr>${C.map(r=>`<tr><td>${esc(r.colegios_conectados_saas)}</td><td>${N(r.estudiantes_anonimizados_pool)?.toLocaleString('es')??'—'}</td><td>${n3(r.auc_colegios_nuevos_zero_shot)}</td></tr>`).join('')}</table></div>`:''}`}
+ catch(e){if(e.message===STALE)throw e;body=`<div class="errbox">${esc(e.message)}</div>`}
+ $('#app').innerHTML=`<div class="planeb"><span class="badge">MLOps · Calidad del modelo</span><h1>¿El modelo sigue <em>sano</em>?</h1><p class="sub">Las pruebas que pasa el motor y qué tan bien acierta cada modelo.</p>${body}</div>`}
 
 async function tenants(){
  let body='';
- try{const t=await api('GET','/api/v1/admin/tenants'),e=t.colegio_ejemplo||{};
-  body=`<div class="k4b"><div class="kc"><span>Colegios activos</span><b>${N(t.total_colegios_activos)??'—'}</b></div><div class="kc"><span>Ingreso al mes</span><b>${usd(t.mrr_total_usd)}</b></div><div class="kc"><span>Colegios con datos con problemas</span><b>${N(t.colegios_con_alerta_calidad_datos)??'—'}</b></div><div class="kc"><span>Envío de avisos</span><b style="font-size:20px">${esc(claro(e.estado_sync_n8n))}</b></div></div>
-   <div class="card" style="margin-top:18px"><h3>${esc(e.nombre||'Colegio')}</h3><div class="dl">${Object.entries(e).map(([k,v])=>`<div><b>${esc(claro(k))}</b><span>${esc(claro(v))}</span></div>`).join('')}</div></div>`}
- catch(e){body=`<div class="errbox">${esc(e.message)}</div>`}
- $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Colegios</span><h1>Los colegios <em>conectados</em></h1><p class="sub">Cuántos colegios usan E-Pakty, cuánto facturan al mes y cuáles están subiendo datos con problemas.</p>${body}</div>`}
+ try{const t=await api('GET','/api/v1/admin/tenants'),T=t.tenants||(t.colegio_ejemplo?[t.colegio_ejemplo]:[]);
+  const conProblema=T.filter(x=>x.estado_scoring&&x.estado_scoring!=='ACTIVO_CON_DATOS').length;
+  body=`<div class="k4b"><div class="kc"><span>Colegios registrados</span><b>${N(t.total_colegios??t.total_colegios_activos)??T.length}</b></div><div class="kc"><span>Con datos activos</span><b>${N(t.colegios_activos_con_datos)??'—'}</b></div><div class="kc"><span>Estudiantes en vivo</span><b>${N(t.total_estudiantes_en_vivo)?.toLocaleString('es')??'—'}</b></div><div class="kc"><span>Sin datos o con problemas</span><b>${N(t.colegios_con_alerta_calidad_datos)??conProblema}</b></div></div>
+   <div class="card" style="margin-top:18px"><h3>Colegios</h3><table class="tt"><tr><th>Colegio</th><th>Provincia</th><th>Plan</th><th>Estudiantes</th><th>Último corte</th><th>Estado</th></tr>${T.map(x=>`<tr><td><b>${esc(x.nombre||x.school_id)}</b><div class="mini2">${esc(x.school_id||'')}</div></td><td>${esc(claro(x.provincia))}</td><td>${esc(claro(x.plan_comercial))}</td><td>${N(x.estudiantes_activos)?.toLocaleString('es')??'—'}</td><td>${esc(x.ultimo_corte_evaluado||'—')}</td><td>${x.estado_scoring==='ACTIVO_CON_DATOS'?sem('VERDE','Con datos'):sem('AMARILLO',claro(x.estado_scoring))}</td></tr>`).join('')}</table></div>`}
+ catch(e){if(e.message===STALE)throw e;body=`<div class="errbox">${esc(e.message)}</div>`}
+ $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Colegios</span><h1>Los colegios <em>conectados</em></h1><p class="sub">Qué colegios usan E-Pakty, cuántos estudiantes tienen y si sus datos están al día.</p>${body}</div>`}
 
 async function datalake(){
  let body='';
- try{const d=await api('GET','/api/v1/admin/data-lake/anonymized-explorer'),V=d.variables_auditadas_sin_pii||[],A=d.auditoria_variables_globales||{};
-  body=`<div class="k4b"><div class="kc"><span>Privacidad</span><b style="font-size:18px">${esc(claro(d.cumplimiento_lopdp))}</b></div><div class="kc"><span>Datos revisados</span><b>${A.total_variables??V.length}</b></div><div class="kc"><span>Se comportan como se espera</span><b>${pct(A.coherencia_signos_pct)}</b><small>p. ej. más faltas nunca baja el riesgo</small></div><div class="kc"><span>Datos que se repiten entre sí</span><b>${A.vif_max??'—'}</b><small>sobre 5 habría que revisarlos (VIF)</small></div></div>
-   <div class="card" style="margin-top:18px"><h3>De dónde salen los datos del país</h3><div class="dl">${Object.entries(d.fuentes_nacionales_vigentes||{}).map(([k,v])=>`<div><b>${esc(claro(k))}</b><span>${esc(v)}</span></div>`).join('')}</div>
-   <h3 style="margin-top:18px">Qué se guarda (nada personal)</h3><p class="mini2">«Cuánto mueve» es cuánto cambia el riesgo cuando ese dato se aleja de lo normal.</p><table class="tt"><tr><th>Para qué cálculo</th><th>Dato</th><th>Cuánto mueve</th><th>Hacia dónde</th></tr>${V.slice(0,40).map(x=>`<tr><td class="mini2">${esc(x.modelo)}</td><td>${esc(x.descripcion||x.variable)}</td><td>${N(x.efecto_marginal_1sd_pp)?.toFixed(2)??'—'} pp</td><td>${esc(x.signo_estimado||'')}</td></tr>`).join('')}</table></div>`}
- catch(e){body=`<div class="errbox">${esc(e.message)}</div>`}
- $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Datos sin nombres</span><h1>Los datos que <em>aprenden</em>, sin nombres</h1><p class="sub">Lo que se guarda para mejorar el modelo nunca identifica a un estudiante: se agrupa de forma que ninguna fila pueda señalar a una persona. Cumple la ley ecuatoriana de datos personales (LOPDP).</p>${body}</div>`}
+ try{const d=await api('GET','/api/v1/admin/data-lake/anonymized-explorer'),E=d.estratos_territoriales_k_anonimos||[],V=d.variables_auditadas_sin_pii||[];
+  body=`<div class="k4b"><div class="kc"><span>Privacidad</span><b style="font-size:16px">${esc(d.politica_privacidad?'Sin datos personales (k ≥ 5)':claro(d.cumplimiento_lopdp))}</b><small>ningún grupo tiene menos de 5 personas</small></div><div class="kc"><span>Colegios con datos</span><b>${N(d.total_colegios_con_datos)??'—'}</b></div><div class="kc"><span>Estudiantes</span><b>${E.reduce((s,x)=>s+(N(x.estudiantes)||0),0).toLocaleString('es')||'—'}</b></div><div class="kc"><span>Hogares</span><b>${E.reduce((s,x)=>s+(N(x.hogares)||0),0).toLocaleString('es')||'—'}</b></div></div>
+   ${E.length?`<div class="card" style="margin-top:18px"><h3>Datos agrupados por provincia</h3><table class="tt"><tr><th>Provincia</th><th>Colegios</th><th>Estudiantes</th><th>Hogares</th></tr>${E.map(x=>`<tr><td><b>${esc(claro(x.provincia))}</b></td><td>${x.colegios??'—'}</td><td>${N(x.estudiantes)?.toLocaleString('es')??'—'}</td><td>${N(x.hogares)?.toLocaleString('es')??'—'}</td></tr>`).join('')}</table></div>`:''}
+   ${V.length?`<div class="card" style="margin-top:18px"><h3>Qué se guarda (nada personal)</h3><table class="tt"><tr><th>Para qué cálculo</th><th>Dato</th><th>Cuánto mueve</th></tr>${V.slice(0,40).map(x=>`<tr><td class="mini2">${esc(x.modelo)}</td><td>${esc(x.descripcion||x.variable)}</td><td>${N(x.efecto_marginal_1sd_pp)?.toFixed(2)??'—'} pp</td></tr>`).join('')}</table></div>`:''}`}
+ catch(e){if(e.message===STALE)throw e;body=`<div class="errbox">${esc(e.message)}</div>`}
+ $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Datos sin nombres</span><h1>Los datos que <em>aprenden</em>, sin nombres</h1><p class="sub">Lo que se guarda para mejorar el modelo nunca identifica a un estudiante: se agrupa de forma que ninguna fila pueda señalar a una persona (LOPDP).</p>${body}</div>`}
 
 async function n8nobs(){
  let body='';
- try{const o=await api('GET','/api/v1/admin/n8n/observability'),m=o.motor||{},b=o.backend;
-  body=`<div class="k4b"><div class="kc"><span>Avisos enviados (30 días)</span><b>${N(m.alertas_despachadas_30d)?.toLocaleString('es')??'—'}</b></div><div class="kc"><span>Llegaron por WhatsApp</span><b>${pct(m.tasa_entrega_whatsapp_pct)}</b></div><div class="kc"><span>Quedaron registrados</span><b>${pct(m.tasa_callback_bitacora_mlops_pct)}</b></div><div class="kc"><span>Envío automático</span><b style="font-size:20px">${o.n8n_configurado?'Configurado':'Sin configurar'}</b></div></div>
-   ${b?`<div class="card" style="margin-top:18px"><h3>Mensajes esperando salir</h3><table class="tt"><tr><th>Tipo</th><th>Estado</th><th>Cuántos</th></tr>${(b.por_tipo_y_estado||[]).map(r=>`<tr><td>${esc(r.kind)}</td><td>${esc(r.state)}</td><td>${r.n}</td></tr>`).join('')}</table>
-   <h3 style="margin-top:18px">Cargas de datos</h3><table class="tt">${(b.trabajos_ingesta||[]).map(r=>`<tr><td>${esc(r.status)}</td><td>${r.n}</td></tr>`).join('')}</table></div>`:'<p class="note">En la demostración solo se ven las cifras del motor.</p>'}`}
- catch(e){body=`<div class="errbox">${esc(e.message)}</div>`}
- $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Avisos enviados</span><h1>¿Llegaron <em>los avisos</em>?</h1><p class="sub">Cuántos mensajes salieron hacia las familias y los docentes, cuántos llegaron y cuántos volvieron confirmados al sistema.</p>${body}</div>`}
+ try{const o=await api('GET','/api/v1/admin/n8n/observability'),m=o.motor||{},b=o.backend,I=m.ultimas_intervenciones||[];
+  body=`<div class="k4b"><div class="kc"><span>Acciones registradas</span><b>${N(m.intervenciones_registradas_total??m.alertas_despachadas_30d)?.toLocaleString('es')??'—'}</b><small>avisos que volvieron confirmados al motor</small></div><div class="kc"><span>Envío automático (n8n)</span><b style="font-size:18px">${o.n8n_configurado||m.n8n_webhook_configurado?sem('VERDE','Configurado'):sem('ROJO','Sin configurar')}</b></div><div class="kc"><span>Firma de seguridad</span><b style="font-size:18px">${m.hmac_firma_activa?sem('VERDE','Activa'):sem('AMARILLO','Sin activar')}</b><small>cada aviso va firmado</small></div><div class="kc"><span>Contactos comerciales</span><b>${N(m.leads_recibidos_total)??'—'}</b></div></div>
+   ${I.length?`<div class="card" style="margin-top:18px"><h3>Últimas acciones</h3><table class="tt"><tr><th>Fecha</th><th>Colegio</th><th>Estudiante</th><th>Acción</th></tr>${I.map(x=>`<tr><td class="mini2">${x.created_at?esc(new Date(x.created_at).toLocaleString('es')):'—'}</td><td>${esc(x.school_id||'')}</td><td>${esc(x.codigo_estudiante||'')}</td><td>${esc(claro(x.accion))}</td></tr>`).join('')}</table></div>`:''}
+   ${b?`<div class="card" style="margin-top:18px"><h3>Mensajes esperando salir</h3><table class="tt"><tr><th>Tipo</th><th>Estado</th><th>Cuántos</th></tr>${(b.por_tipo_y_estado||[]).map(r=>`<tr><td>${esc(r.kind)}</td><td>${esc(claro(r.state))}</td><td>${r.n}</td></tr>`).join('')||'<tr><td colspan="3" class="mini2">Ninguno.</td></tr>'}</table>
+   <h3 style="margin-top:18px">Cargas de datos</h3><table class="tt">${(b.trabajos_ingesta||[]).map(r=>`<tr><td>${esc(claro(r.status))}</td><td>${r.n}</td></tr>`).join('')}</table></div>`:''}`}
+ catch(e){if(e.message===STALE)throw e;body=`<div class="errbox">${esc(e.message)}</div>`}
+ $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Avisos enviados</span><h1>¿Llegaron <em>los avisos</em>?</h1><p class="sub">Qué acciones volvieron confirmadas al motor y si el envío automático está activo.</p>${body}</div>`}
 
 async function ceodash(){
  let body='';
  try{const[m,t,o]=await Promise.all([api('GET','/api/v1/admin/mlops/overview-and-drift'),api('GET','/api/v1/admin/tenants'),api('GET','/api/v1/admin/n8n/observability')]);
-  const S=m.suite_integridad||{},C=m.curva_flywheel_simulada||[],mo=o.motor||{};
-  body=`<div class="k4b"><div class="kc"><span>Motor</span><b>${sem(S.estado_global_motor_saas==='VERDE'?'VERDE':'NARANJA',claro(S.estado_global_motor_saas))}</b></div>
-   <div class="kc"><span>Colegios activos</span><b>${N(t.total_colegios_activos)??'—'}</b></div>
-   <div class="kc"><span>Ingreso al mes</span><b>${usd(t.mrr_total_usd)}</b></div>
-   <div class="kc"><span>Avisos en 30 días</span><b>${N(mo.alertas_despachadas_30d)?.toLocaleString('es')??'—'}</b></div></div>
-   <div class="grid2"><div class="card"><h3>Salud del modelo</h3><p>Pruebas pasadas: <b>${S.pruebas_aprobadas??'—'}/${S.total_pruebas_ejecutadas??'—'}</b> · acierto en un colegio nuevo: <b>${N(C[0]?.auc_colegios_nuevos_zero_shot)?.toFixed(3)??'—'}</b></p>
-   <p>Acierto proyectado con ${C.at(-1)?.colegios_conectados_saas??'—'} colegios: <b>${N(C.at(-1)?.auc_colegios_nuevos_zero_shot)?.toFixed(3)??'—'}</b></p></div>
-   <div class="card"><h3>Cómo va la operación</h3><p>Colegios subiendo datos con problemas: <b>${N(t.colegios_con_alerta_calidad_datos)??'0'}</b></p>
-   <p>Avisos que llegaron por WhatsApp: <b>${pct(mo.tasa_entrega_whatsapp_pct)}</b> · que quedaron registrados: <b>${pct(mo.tasa_callback_bitacora_mlops_pct)}</b></p></div></div>`}
- catch(e){body=`<div class="errbox">${esc(e.message)}</div>`}
- $('#app').innerHTML=`<div class="planeb"><span class="badge">E-Pakty · Dirección</span><h1>Cómo va <em>el negocio</em></h1><p class="sub">Lo esencial en una pantalla: si el motor está sano, cuántos colegios hay, cuánto se factura al mes y si los avisos están llegando.</p>${body}</div>`}
+  const S=m.suite_integridad||{},V=m.estado_produccion_en_vivo||{},mo=o.motor||{},R=opsModelos(m),T=t.tenants||[];
+  const planes=T.reduce((a,x)=>(a[claro(x.plan_comercial)]=(a[claro(x.plan_comercial)]||0)+1,a),{});
+  body=`<div class="k4b"><div class="kc"><span>Motor</span><b style="font-size:18px">${S.pruebas_aprobadas!=null&&S.pruebas_aprobadas===S.total_pruebas_ejecutadas?sem('VERDE','Sano'):sem('NARANJA','Revisar')}</b><small>${S.pruebas_aprobadas??'—'}/${S.total_pruebas_ejecutadas??'—'} pruebas</small></div>
+   <div class="kc"><span>Colegios</span><b>${N(t.total_colegios??t.total_colegios_activos)??'—'}</b><small>${N(t.colegios_activos_con_datos)??'—'} con datos</small></div>
+   <div class="kc"><span>Estudiantes acompañados</span><b>${N(t.total_estudiantes_en_vivo??V.total_estudiantes_evaluados)?.toLocaleString('es')??'—'}</b></div>
+   ${t.mrr_total_usd!=null?`<div class="kc"><span>Ingreso al mes</span><b>${usd(t.mrr_total_usd)}</b></div>`:`<div class="kc"><span>Acciones registradas</span><b>${N(mo.intervenciones_registradas_total)??'—'}</b><small>avisos confirmados</small></div>`}</div>
+   <div class="grid2" style="margin-top:18px"><div class="card"><h3>Calidad del modelo</h3>${R.slice(0,4).map(r=>`<p style="display:flex;justify-content:space-between;gap:10px"><span>${esc(r.nombre)}</span><span>${n3(r.auc)} ${aucTxt(r.auc)}</span></p>`).join('')||'<p class="mini2">Sin métricas.</p>'}</div>
+   <div class="card"><h3>Operación</h3><p>Planes: ${Object.entries(planes).map(([k,v])=>`<b>${esc(k)}</b> (${v})`).join(' · ')||'—'}</p><p>Envío automático: ${o.n8n_configurado||mo.n8n_webhook_configurado?sem('VERDE','Configurado'):sem('ROJO','Sin configurar')} · firma ${mo.hmac_firma_activa?sem('VERDE','Activa'):sem('AMARILLO','Sin activar')}</p><p>Contactos comerciales: <b>${N(mo.leads_recibidos_total)??'—'}</b></p></div></div>`}
+ catch(e){if(e.message===STALE)throw e;body=`<div class="errbox">${esc(e.message)}</div>`}
+ $('#app').innerHTML=`<div class="planeb"><span class="badge">CEO · Dirección</span><h1>Cómo va <em>el negocio</em></h1><p class="sub">Lo esencial en una pantalla: si el motor está sano, cuántos colegios y estudiantes hay, y si los avisos están funcionando.</p>${body}</div>`}
 
 const views={informe,informecurso,evaluaciones,aula,seguimiento,servicios,detalle:detalle_pg,plataforma,usuarios,cuenta,panel,resultados,territorio,modelos,estado,demo,resumen,estudiantes,dece,colecturia,vice,territorios,admisiones,casos,carga,mlops,tenants,datalake,n8nobs,ceodash};
 
@@ -2978,7 +2995,7 @@ async function usuarios(){
  <p class="sub">Administración crea las cuentas del colegio. Cada persona entra con su usuario y su contraseña, y solo ve lo que su rol permite.</p>
  <div class="grid2"><div class="card" style="grid-column:1/-1"><h3>Cuentas</h3><table class="tt"><tr><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Último ingreso</th><th></th></tr>
  ${L.map(u=>`<tr><td><b>${esc(u.username)}</b></td><td>${esc(u.display_name||'')}${u.role==='tutor'?`<div class="mini2">${esc(u.course||'')} ${esc(u.parallel||'')}</div>`:''}</td><td>${esc(ROLE_NAME[u.role]||u.role)}</td><td>${u.active?sem('VERDE','Activo'):sem('ROJO','Desactivado')}${u.must_change_password?' <span class="mini2">cambiará su clave</span>':''}</td><td class="mini2">${u.last_login_at?date(u.last_login_at):'Nunca'}</td>
- <td style="white-space:nowrap"><button class="btn sec" data-reset="${esc(u.username)}" style="padding:6px 12px;font-size:12px">Restablecer clave</button> <button class="btn sec" data-toggle="${esc(u.username)}" data-active="${u.active}" style="padding:6px 12px;font-size:12px">${u.active?'Desactivar':'Activar'}</button></td></tr>`).join('')||'<tr><td colspan="6" class="mini2">Aún no hay cuentas creadas desde aquí.</td></tr>'}</table>
+ <td style="white-space:nowrap"><button class="btn sec" data-reset="${esc(u.username)}" style="padding:6px 12px;font-size:12px">Restablecer clave</button> <button class="btn sec" data-toggle="${esc(u.username)}" data-active="${u.active}" style="padding:6px 12px;font-size:12px">${u.active?'Desactivar':'Activar'}</button>${u.username===ME?.usuario?'':` <button class="btn sec btn-del" data-del="${esc(u.username)}" style="padding:6px 12px;font-size:12px">Eliminar</button>`}</td></tr>`).join('')||'<tr><td colspan="6" class="mini2">Aún no hay cuentas creadas desde aquí.</td></tr>'}</table>
  ${d.del_servidor.length?`<p class="note">Cuentas definidas en la configuración del servidor (no se editan aquí): ${d.del_servidor.map(esc).join(', ')}.</p>`:''}<div id="tmp"></div></div></div>
  <div class="card" style="margin-top:18px;max-width:760px"><h3>Crear una cuenta</h3><form id="uf" novalidate style="display:grid;gap:10px">
   <label class="ulab">Usuario<input name="usuario" placeholder="rector.garcia" autocomplete="off" autocapitalize="none"><small>Minúsculas y sin espacios. Es lo que esa persona escribirá para entrar.</small></label>
@@ -3000,6 +3017,8 @@ async function usuarios(){
   catch(err){$('#ur').innerHTML=`<div class="errbox">${esc(err.message)}</div>`;$('#ub').disabled=false}};
  document.querySelectorAll('[data-reset]').forEach(b=>b.onclick=guard(async()=>{if(!confirm('¿Restablecer la contraseña de '+b.dataset.reset+'? Se genera una temporal y su contraseña actual deja de servir.'))return;
   const r=await api('PATCH','/api/v1/admin/users/'+encodeURIComponent(b.dataset.reset),{restablecer_clave:true});$('#tmp').innerHTML=tempBox(r.clave_temporal,b.dataset.reset)}));
+ document.querySelectorAll('[data-del]').forEach(b=>b.onclick=guard(async()=>{if(!confirm('¿Eliminar la cuenta '+b.dataset.del+'? Se borra para siempre y no se puede deshacer. Si solo quieres que no entre, usa Desactivar.'))return;
+  await api('DELETE','/api/v1/admin/users/'+encodeURIComponent(b.dataset.del));toast('Cuenta eliminada');await usuarios()}));
  document.querySelectorAll('[data-toggle]').forEach(b=>b.onclick=guard(async()=>{const on=b.dataset.active==='true';if(on&&!confirm('¿Desactivar a '+b.dataset.toggle+'? Dejará de poder entrar de inmediato.'))return;
   await api('PATCH','/api/v1/admin/users/'+encodeURIComponent(b.dataset.toggle),{activo:!on});toast(on?'Usuario desactivado':'Usuario activado');await usuarios()}))}
 
@@ -3058,7 +3077,7 @@ async function show(v){
  const app=APP.includes(v);document.body.classList.toggle('appmode',app);
  document.querySelectorAll('.nav button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
  document.querySelectorAll('.side button[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
- const swap=async()=>{(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);if(app)$('#app').innerHTML=`<div class="vw-load" role="status">Cargando ${esc((SIDE.find(s=>s[2]===v)||[])[1]||'la pantalla')}…</div>`;
+ const swap=async()=>{if(nav!==NAV)return;(app?$('#shellmain'):$('#landinghost')).appendChild($('#app'));$('#drawer').classList.remove('open');window.scrollTo(0,0);if(app)$('#app').innerHTML=`<div class="vw-load" role="status">Cargando ${esc((SIDE.find(s=>s[2]===v)||[])[1]||'la pantalla')}…</div>`;
   try{await views[v]()}catch(e){
    if(e.message===STALE||nav!==NAV||!app)throw e;
    const msg=e.message==='Failed to fetch'?'No se pudo conectar con el servidor.':e.message;
