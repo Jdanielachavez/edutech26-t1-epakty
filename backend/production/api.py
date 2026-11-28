@@ -552,13 +552,15 @@ def create_app(settings=None, repository=None, engine=None):
         if engine is None:
             return {'motor': {'estado': 'sin_configurar', 'detalle': 'Falta EPAKTI_ENGINE_BASE_URL'}, 'rutas': [], 'ms': 0}
         def health():
-            try:
-                r = engine.http.get(engine.base.rsplit('/api/', 1)[0] + '/health', timeout=4)
-                j = r.json() if r.status_code == 200 else {}
-                return {'estado': 'ok' if r.status_code == 200 else 'error', 'detalle': j.get('mode') or f'HTTP {r.status_code}',
-                        'modelos': j.get('models') or j.get('modelos')}
-            except (httpx.HTTPError, ValueError):
-                return {'estado': 'no_disponible', 'detalle': 'No responde (¿túnel apagado?)'}
+            # El motor corre detrás de un túnel desde Ecuador: desde Vercel a veces tarda más de 4 s. Se reintenta una vez.
+            for intento in range(2):
+                try:
+                    r = engine.http.get(engine.base.rsplit('/api/', 1)[0] + '/health', timeout=10)
+                    j = r.json() if r.status_code == 200 else {}
+                    return {'estado': 'ok' if r.status_code == 200 else 'error', 'detalle': j.get('mode') or f'HTTP {r.status_code}',
+                            'modelos': j.get('models') or j.get('modelos')}
+                except (httpx.HTTPError, ValueError):
+                    if intento: return {'estado': 'no_disponible', 'detalle': 'No responde (¿túnel apagado?)'}
         motor = await run_in_threadpool(health)
         codigo = next(iter(await run_in_threadpool(repo.student_ids)), None) if motor['estado'] == 'ok' else None
         def probe(item):
