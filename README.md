@@ -92,7 +92,7 @@ Cada rol ve **solo lo suyo**: un docente nunca ve datos de pagos, y Colecturía 
         │                                     · guarda cada carga y su historial
         │                                     · nombres separados del resto (seudonimización)
         ▼
- 3. Worker ──► Motor E-Pakti · TabM mini‑FiLM v2.4 (red neuronal PyTorch, 8 modelos)
+ 3. Worker ──► Motor E-Pakti · TabM mini‑FiLM v2.4 (PyTorch, 8 modelos, en AWS las 24 horas)
         │        └─ devuelve riesgo, prioridad y las razones de cada estudiante
         ▼
  4. Pantallas por rol: semáforo, Mi aula, DECE, Colecturía, Rectoría, informes
@@ -255,7 +255,7 @@ Las variables necesarias están en [`.env.example`](.env.example) y en [`env/`](
 - Los modelos **no están validados con retiros reales**; las cifras son de una cohorte ficticia.
 - Los modelos de **pagos aciertan menos** (AUC entre 0,57 y 0,77): hay que usarlos con cuidado.
 - Que un factor pese mucho indica **asociación, no causa**.
-- En la demostración, n8n y el worker corren en una computadora del equipo y se publican con un túnel temporal: **esa computadora debe estar encendida**. En un colegio real correrían en un servidor.
+- El motor ya corre en la nube (AWS) las 24 horas, con dirección fija. En la demostración, **n8n y el worker** todavía corren en una computadora del equipo y n8n se publica con un túnel temporal: **esa computadora debe estar encendida**. En un colegio real correrían en un servidor.
 - WhatsApp todavía no está configurado; hoy los mensajes salen por correo.
 
 ---
