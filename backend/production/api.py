@@ -43,6 +43,7 @@ from urllib.parse import urlparse
 log = logging.getLogger('paktai')
 IDEMPOTENCY = re.compile(r'^[A-Za-z0-9_.:-]{8,100}$')
 MAX_ENGINE_BODY = 256 * 1024
+SIN_DATOS = 'Aún no hay datos cargados: el administrador debe subir los seis CSV'
 
 # Rutas del contrato v2.1 que responde el motor: (método, ruta, roles del backend que pueden usarla).
 ENGINE_ROUTES = [
@@ -242,7 +243,7 @@ def create_app(settings=None, repository=None, engine=None):
 
     def cohort_and_model():
         model = repo.latest_model()
-        if not model: raise HTTPException(409, 'Aún no hay datos cargados: el administrador debe subir los seis CSV')
+        if not model: raise HTTPException(409, SIN_DATOS)
         return model, repo.students()
 
     def in_scope(identity, row):
@@ -353,7 +354,7 @@ def create_app(settings=None, repository=None, engine=None):
 
     async def _informe(identity, student_id):
         model, cohort = await run_in_threadpool(lambda: (repo.latest_model(), repo.students()))
-        if not model: raise HTTPException(409, 'Aún no hay datos cargados: el administrador debe subir los seis CSV')
+        if not model: raise HTTPException(409, SIN_DATOS)
         row = next((r for r in cohort if r['id'] == student_id.upper() and in_scope(identity, r)), None)
         if not row: raise HTTPException(404, 'Estudiante no encontrado')
         etapa = next((e for e in (await run_in_threadpool(repo.etapas))['etapas'] if e['id_estudiante'] == row['id']), None)
@@ -757,6 +758,8 @@ def create_app(settings=None, repository=None, engine=None):
         except EngineUnavailable:
             raise HTTPException(503, 'El motor no está disponible en este momento') from None
         if status >= 400:
+            if isinstance(body, dict) and body.get('code') == 'SCHOOL_NOT_INGESTED_YET':
+                raise HTTPException(409, SIN_DATOS)   # el portal lo muestra como "todavía no hay datos", no como error
             detail = body.get('detail') if isinstance(body, dict) else None
             raise HTTPException(status, detail or 'El motor rechazó la solicitud')
         return status, body
