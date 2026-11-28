@@ -130,3 +130,27 @@ def test_risk_levels_are_relative_so_alerts_exist():
     # Cohortes muy pequeñas: los percentiles no son estables, se usa el umbral absoluto.
     assert cohort_thresholds([.1,.2,.3])['method']=='absolute_fallback'
     assert cohort_thresholds([.5]*50)['method']=='absolute_fallback'
+
+
+def test_engine_fails_fast_after_connection_error():
+    import httpx
+    from backend.production.engine import EngineClient, EngineUnavailable
+    calls = []
+
+    def handler(request):
+        calls.append(request.url.path)
+        raise httpx.ConnectError('túnel caído')
+
+    client = EngineClient('https://motor.example.org/api/v1', 'k' * 20, transport=httpx.MockTransport(handler))
+    for _ in range(3):
+        try:
+            client.request('GET', '/dashboard/docente-tutor/triage', 'tutor')
+        except EngineUnavailable:
+            pass
+    assert len(calls) == 1
+    client._down_until = 0.0
+    try:
+        client.request('GET', '/dashboard/docente-tutor/triage', 'tutor')
+    except EngineUnavailable:
+        pass
+    assert len(calls) == 2

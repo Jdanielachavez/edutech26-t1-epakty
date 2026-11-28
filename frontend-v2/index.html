@@ -2997,7 +2997,7 @@ async function usuarios(){
 async function cuenta(){
  if(!ME)await getMe();
  const forced=MUST_CHANGE,editable=ME?.clave_editable!==false;
- const ve=SIDE.filter(s=>can(s[2])&&s[2]!=='cuenta'&&!(stubHidden()&&(STUB.includes(s[2])||s[2]==='demo'))).map(s=>`<button type="button" class="cta-chip" data-ir="${s[2]}">${esc(s[1])} →</button>`).join('');
+
  const dato=(k,v)=>v?`<div class="cta-row"><span>${k}</span><b>${esc(v)}</b></div>`:'';
  const form=`<form id="pf" novalidate class="cta-form">
   <label>Contraseña actual<input name="actual" type="password" autocomplete="current-password" required></label>
@@ -3009,11 +3009,9 @@ async function cuenta(){
   :`<details class="cta-det"><summary>Cambiar mi contraseña</summary>${form}</details>`;
  $('#app').innerHTML=`<span class="badge">Mi cuenta</span><h1>Tu <em>cuenta</em></h1>
  <div class="cta-grid">
-  <div class="card"><h3>Tus datos</h3>${dato('Nombre',ME?.name)}${dato('Usuario',ME?.usuario)}${dato('Rol',ROLE_NAME[ROLE]||ROLE)}${dato('Curso a cargo',ME?.course?ME.course+' '+(ME.parallel||''):'')}
-   <h3 style="margin-top:18px">Qué puedes ver</h3><p class="mini2">Toca una para abrirla.</p><div class="cta-chips">${ve||'<span class="mini2">—</span>'}</div></div>
+  <div class="card"><h3>Tus datos</h3>${dato('Nombre',ME?.name)}${dato('Usuario',ME?.usuario)}${dato('Rol',ROLE_NAME[ROLE]||ROLE)}${dato('Curso a cargo',ME?.course?ME.course+' '+(ME.parallel||''):'')}</div>
   <div class="card" id="ctaClave"><h3>Contraseña</h3>${clave}</div>
  </div>`;
- document.querySelectorAll('[data-ir]').forEach(x=>x.onclick=guard(()=>show(x.dataset.ir)));
  if(forced)$('#ctaClave').scrollIntoView({block:'nearest'});
  const f=$('#pf');if(!f)return;
  f.onsubmit=async e=>{e.preventDefault();const out=$('#pr');

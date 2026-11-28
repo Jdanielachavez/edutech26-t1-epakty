@@ -79,8 +79,21 @@ class EngineClient:
         self.api_key = api_key
         verify = ssl.create_default_context() if url.scheme == 'https' else True
         self.http = httpx.Client(timeout=timeout, follow_redirects=False, verify=verify, transport=transport)
+        self._down_until = 0.0
+
+    # Con el túnel del motor caído, cada llamada esperaba el timeout completo y el portal se trababa.
+    # Tras un fallo de conexión se responde al instante durante DOWN_S segundos.
+    DOWN_S = 60
+
+    def _check_down(self):
+        if time.monotonic() < self._down_until:
+            raise EngineUnavailable('El motor no respondió hace poco')
+
+    def _mark_down(self):
+        self._down_until = time.monotonic() + self.DOWN_S
 
     def request(self, method: str, path: str, role: str, *, json=None, params=None, headers=None):
+        self._check_down()
         contract_role = CONTRACT_ROLE[role]
         h = {'X-Epakti-Engine-Key': self.api_key, 'X-Epakti-Role': contract_role,
              # El stub de Wilo lee el rol de esta cabecera; el motor productivo usa la clave + X-Epakti-Role.
@@ -88,7 +101,10 @@ class EngineClient:
         try:
             response = self.http.request(method, self.base + path, json=json, params=params, headers=h)
         except httpx.HTTPError as error:
+            self._mark_down()
             raise EngineUnavailable(type(error).__name__) from None
+        if response.status_code in (502, 503, 504, 530):   # túnel o motor apagado
+            self._mark_down()
         if 300 <= response.status_code < 400 or response.status_code >= 500:
             raise EngineUnavailable(f'HTTP {response.status_code}')
         try:
@@ -105,10 +121,12 @@ class EngineClient:
     def is_live(self) -> bool:
         """¿Es el motor PyTorch de Wilo (sube CSV) o el stub del contrato (recibe JSON)? Se pregunta una vez a /health."""
         if getattr(self, '_live', None) is None:
+            self._check_down()
             try:
                 r = self.http.get(self.base.rsplit('/api/', 1)[0] + '/health', timeout=5)
                 self._live = 'LIVE' in str(r.json().get('mode', '')).upper()
             except (httpx.HTTPError, ValueError):
+                self._mark_down()
                 raise EngineUnavailable('No se pudo consultar /health del motor') from None
         return self._live
 
