@@ -9,7 +9,7 @@
 | Dominio `paktai-ec.com` (marca PAKTAI) | julio de 2026 | Vercel |
 | Backend FastAPI, roles y permisos, worker de cargas | 23 al 26 de noviembre de 2026 | `backend/`, `api/` |
 | Esquema de base de datos con Row Level Security | 24 al 26 de noviembre de 2026 | `sql/` |
-| Workflows n8n (alertas, correo, informes, OCR, errores) | desde el 23 de noviembre de 2026 | `n8n/workflows/` |
+| Workflows n8n (alertas, correo, informes, OCR, errores) | desde el 23 de noviembre de 2026 | `n8n/` |
 | Portal web por rol (landing, semáforo, DECE, Colecturía, Mi aula, informes) | 24 al 27 de noviembre de 2026 | `frontend-v2/` |
 | Contrato y stub del motor de predicción | 24 y 25 de noviembre de 2026 | `engine_stub/`, `KIT_INTEGRACION_EPAKTI/` |
 | Despliegue público | antes del 27 de noviembre de 2026 | `https://ed.paktai-ec.com` |

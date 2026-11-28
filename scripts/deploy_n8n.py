@@ -27,7 +27,7 @@ def main():
             all_workflows+=page['data'];cursor=page.get('nextCursor')
             if not cursor:break
         def publish(filename,error_id=None,activate=False):
-            w=json.loads((ROOT/'n8n/workflows'/filename).read_text())
+            w=json.loads((ROOT/'n8n'/filename).read_text())
             for node in w['nodes']:
                 for cred in node.get('credentials',{}).values():cred['id']=ids.get(cred['id'],cred['id'])
                 # Concrete deployment URL, no n8n Variables paid-plan dependency.

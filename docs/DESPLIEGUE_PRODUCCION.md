@@ -49,7 +49,7 @@ El flujo de «Entrega SANDBOX» y el de «correo SMTP real» usan la misma ruta:
 
 ## 4. Conectar con Wilo
 Dale a Wilo, por un canal privado: `N8N_WEBHOOK_URL=https://<N8N_DOMAIN>/webhook/epakti-alerta-360`, el `N8N_WEBHOOK_HMAC_SECRET` y el `EPAKTI_CALLBACK_TOKEN`.
-El flujo del motor es `n8n/workflows/epakti_alerta_360_firmado.json` (el script de importación lo incluye). **No uses los flujos de `_archivo/n8n_obsoletos/`** (p. ej. `epakti_alerta_360_nova_lite.json`):
+El flujo del motor es `n8n/epakti_alerta_360_firmado.json` (el script de importación lo incluye). **No uses los flujos de `_archivo/n8n_obsoletos/`** (p. ej. `epakti_alerta_360_nova_lite.json`):
 no verifica firmas y, además, su ruta no queda en `/webhook/epakti-alerta-360` porque le falta `webhookId`.
 La versión firmada rechaza con **401** todo envío sin `X-Epakti-Signature: sha256=<hex>` válida (HMAC-SHA256 de los bytes originales con
 `N8N_WEBHOOK_HMAC_SECRET`), cuerpo alterado, cuerpo vacío o no-JSON, y envíos con `X-Epakti-Timestamp` de más de 5 minutos; con firma válida responde **202**

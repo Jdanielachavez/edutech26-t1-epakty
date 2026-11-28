@@ -11,7 +11,7 @@ else C="$(docker compose ps -q n8n)"; RUN=(docker exec "$C"); CP=(docker cp); fi
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 # Flujo -> id estable en n8n (para actualizar sin duplicar)
 for f in paktai_borrador_bedrock_local epakti_entrega_correo epakti_contacto_lead epakti_errores epakti_alerta_360_firmado; do
-  sed "s#http://host.docker.internal:8000#${API_URL}#g" "n8n/workflows/${f}.json" > "$TMP/${f}.json"
+  sed "s#http://host.docker.internal:8000#${API_URL}#g" "n8n/${f}.json" > "$TMP/${f}.json"
   "${CP[@]}" "$TMP/${f}.json" "$C:/tmp/${f}.json"
   "${RUN[@]}" n8n import:workflow --input="/tmp/${f}.json" 2>&1 | grep -v "license" | tail -1 || true
   # En un n8n recién creado la primera importación puede perderse: se repite (es idempotente, cada flujo tiene id fijo).

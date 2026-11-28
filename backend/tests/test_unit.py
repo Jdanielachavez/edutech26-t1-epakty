@@ -77,7 +77,7 @@ def test_reject_insecure_config():
     with pytest.raises(ValueError,match='verify-full'):Settings(database_url='postgresql://localhost/postgres').validate()
 
 def test_workflow_security():
-    w=json.loads((ROOT/'n8n/workflows/paktai_alerta_temprana.json').read_text())
+    w=json.loads((ROOT/'n8n/paktai_alerta_temprana.json').read_text())
     nodes={n['name']:n for n in w['nodes']}
     assert nodes['Webhook Gold']['parameters']['authentication']=='headerAuth'
     assert nodes['Procesar uno']['parameters']['batchSize']==1

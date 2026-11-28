@@ -16,9 +16,9 @@ Las decisiones de producto las tomó el equipo: qué ve cada rol, qué textos us
 |---|---|---|---|
 | Predicción del riesgo | Motor de Wilo (red neuronal tabular TabM-mini, `v2.4.0`) | Estima el riesgo de abandono de cada estudiante con notas, asistencia, bienestar y pagos. | Servidor externo; contrato en `engine_stub/` |
 | Modelo de referencia | Regresión logística con 11 factores | Explica qué factores pesan y sirve de respaldo transparente. | `backend/reference_model.py` |
-| Borradores de mensajes y alertas | Amazon Nova Lite (`amazon.nova-lite-v1:0`, AWS Bedrock) | Redacta en lenguaje simple el aviso para docentes y familias. | `n8n/workflows/paktai_borrador_bedrock_local.json`, `epakti_alerta_360_firmado.json` |
-| Informe en palabras simples | Amazon Nova Lite | Convierte el informe técnico en texto entendible. | `n8n/workflows/epakti_redactar_informe.json` |
-| Lector de exámenes | Amazon Nova Lite | Extrae notas de un examen escaneado. | `n8n/workflows/epakti_examen_ocr.json` |
+| Borradores de mensajes y alertas | Amazon Nova Lite (`amazon.nova-lite-v1:0`, AWS Bedrock) | Redacta en lenguaje simple el aviso para docentes y familias. | `n8n/paktai_borrador_bedrock_local.json`, `epakti_alerta_360_firmado.json` |
+| Informe en palabras simples | Amazon Nova Lite | Convierte el informe técnico en texto entendible. | `n8n/epakti_redactar_informe.json` |
+| Lector de exámenes | Amazon Nova Lite | Extrae notas de un examen escaneado. | `n8n/epakti_examen_ocr.json` |
 
 ## Qué verificamos y qué pasa si falla
 

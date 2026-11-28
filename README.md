@@ -9,7 +9,22 @@ Demo en vivo: **https://ed.paktai-ec.com** · Documentación completa: **https:/
 
 En Ecuador, un estudiante que deja el colegio casi nunca lo hace de un día para otro. Antes aparecen señales: le bajan las notas, falta sin justificar, su bienestar empeora o la familia se atrasa con la pensión. Esas señales están repartidas entre el docente, el DECE, inspección y colecturía, y nadie las ve juntas a tiempo. Cuando el colegio se entera, el estudiante ya se fue.
 
-Datos públicos que usamos como contexto: tasas de abandono por provincia de AMIE (Ministerio de Educación) y pobreza y desempleo de ENEMDU (INEC).
+## Evidencia
+
+Datos oficiales de AMIE (Ministerio de Educación, datos abiertos), período **2023-2024 fin**, calculados con `data/bronze/public/amie_abandono.csv`:
+
+| Indicador | Dato |
+|---|---|
+| Estudiantes que abandonaron el sistema en un año | **72 644** de 4 144 414 matriculados (**1,75 %**) |
+| Abandono en colegios fiscales | 60 630 estudiantes (1,97 %) |
+| Abandono en colegios fiscomisionales | 5 048 estudiantes (1,99 %) |
+| Abandono en colegios particulares | 6 619 estudiantes (0,84 %) |
+| Abandono rural / urbano | 1,83 % / 1,73 % |
+| Provincias con más abandono | Morona Santiago 5,21 %, Esmeraldas 3,06 %, Orellana 3,02 % (Pichincha: 1,44 %) |
+
+Esto muestra que el abandono no es un caso aislado: son más de 72 mil estudiantes en un solo año. También muestra que el riesgo cambia mucho según la zona, y por eso E-Pakty ajusta el riesgo con los datos de la provincia del colegio. Usamos además pobreza y desempleo por provincia de ENEMDU (INEC).
+
+**Lo que todavía no tenemos:** entrevistas documentadas con docentes tutores, DECE y rectores. El modelo tampoco está validado con retiros reales de un colegio: hasta ahora se probó con un colegio ficticio de 240 estudiantes (`data/bronze/dataset-ficticio-colegio/`).
 
 ## Usuario
 
@@ -54,7 +69,7 @@ Portal web (frontend-v2, Vercel) ──► API FastAPI (backend, Vercel) ──�
 | `backend/` | API FastAPI (`production/`), modelo de referencia, `server.py` (arranque), `tests/` |
 | `engine_stub/` | Motor de Wilo (stub en el puerto 8090) |
 | `sql/` | Esquema `paktai_edu` con RLS (Supabase/Postgres) |
-| `n8n/workflows/` | Flujos n8n vigentes: borrador con Nova Lite, entrega por correo, contacto, errores y `epakti_alerta_360_firmado.json` (alertas del motor con firma HMAC). |
+| `n8n/` | Flujos n8n vigentes: borrador con Nova Lite, entrega por correo, contacto, errores y `epakti_alerta_360_firmado.json` (alertas del motor con firma HMAC). |
 | `env/` | Plantillas de variables por servicio (`*.env.example`) |
 | `infra/` | Caddy, scripts de desarrollo local, políticas AWS |
 | `scripts/` | Migración, construcción de datos y de la demo |

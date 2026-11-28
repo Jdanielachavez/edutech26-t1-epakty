@@ -1,6 +1,6 @@
 # Contrato del flujo n8n
 
-Flujo importable: `n8n/workflows/paktai_alerta_temprana.json`. Permanece
+Flujo importable: `n8n/paktai_alerta_temprana.json`. Permanece
 inactivo hasta importarlo en una instancia n8n y configurar las credenciales
 AWS, API y canal. La exportación permite revisar el contrato, pero no prueba una
 ejecución real en n8n.

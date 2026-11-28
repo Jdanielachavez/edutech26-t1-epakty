@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-p=ROOT/'n8n/workflows/paktai_alerta_temprana.json'
+p=ROOT/'n8n/paktai_alerta_temprana.json'
 w=json.loads(p.read_text());nodes={n['name']:n for n in w['nodes']}
 web=nodes['Webhook Gold'];web['parameters']['authentication']='headerAuth';web['parameters']['path']='paktai-alerta'
 web['credentials']={'httpHeaderAuth':{'id':'CONFIGURE_WEBHOOK_CREDENTIAL','name':'PAKTAI Webhook Header Auth'}}
@@ -57,10 +57,10 @@ error={'name':'PAKTAI EDU · Errores','active':False,'nodes':[
   'credentials':{'httpHeaderAuth':{'id':'CONFIGURE_API_CREDENTIAL','name':'PAKTAI API Worker Bearer'}},'retryOnFail':True,'maxTries':4,'waitBetweenTries':2000}],
  'connections':{'Error Trigger':{'main':[[edge('Reducir error')]]},'Reducir error':{'main':[[edge('Registrar error y avisar administrador')]]}},
  'settings':{'executionOrder':'v1','saveExecutionProgress':False,'saveManualExecutions':False,'saveDataSuccessExecution':'none','saveDataErrorExecution':'none'}}
-(ROOT/'n8n/workflows/paktai_error_handler.json').write_text(json.dumps(error,ensure_ascii=False,indent=2)+'\n')
+(ROOT/'n8n/paktai_error_handler.json').write_text(json.dumps(error,ensure_ascii=False,indent=2)+'\n')
 
 for name,id in [('paktai_alerta_temprana','paktaiEduAlerts'),('paktai_error_handler','paktaiEduErrors')]:
- path=ROOT/'n8n/workflows'/(name+'.json')
+ path=ROOT/'n8n'/(name+'.json')
  value=json.loads(path.read_text());value['id']=id
  if name=='paktai_alerta_temprana':value['settings']['errorWorkflow']='paktaiEduErrors'
  path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
