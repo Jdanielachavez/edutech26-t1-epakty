@@ -94,9 +94,16 @@ Un estudiante casi nunca se va de un día para otro. Antes aparecen señales:
 
 Nadie las ve **juntas**, nadie sabe **a quién atender primero**, y cuando la institución se entera, el estudiante ya se fue. Con él se pierden también sus pensiones del resto del año.
 
-### 1.5 Lo que todavía no tenemos (con honestidad)
+### 1.5 Cómo entendimos qué necesita cada persona
 
-- **Entrevistas documentadas** con docentes tutores, DECE y rectores.
+- **Quiénes somos.** Los fundadores, **Dani y Wilo, somos economistas**. Leemos los datos oficiales (AMIE, ENEMDU, INEVAL) con criterio, y sabemos que el abandono también pesa en los ingresos de la institución.
+- **Investigación profunda.** Revisamos fuentes oficiales y estudios sobre abandono escolar, el rol del DECE, la inclusión de estudiantes con NEE y la morosidad en instituciones particulares.
+- **Simulación con 10 agentes de IA distintos.** Con esa investigación armamos una simulación de varios agentes. Cada uno representaba a una persona de la institución: docente tutor, DECE, inspección, vicerrectorado, rectorado, colecturía, admisiones, familia y otros. Así identificamos qué necesita ver y decidir cada uno. De ahí salen las pantallas por rol de la sección 3.
+- **Lo declaramos con honestidad:** esa simulación **no reemplaza** a las entrevistas reales. Se usó IA, y está declarado en [`AI_USAGE.md`](AI_USAGE.md).
+
+### 1.6 Lo que todavía no tenemos
+
+- **Entrevistas de campo documentadas** con docentes tutores, DECE y rectores. Por ahora es una demostración; las entrevistas van con el piloto.
 - **Validación con retiros reales.** Los modelos se midieron con una institución ficticia de 240 estudiantes. El siguiente paso es un piloto.
 
 ---

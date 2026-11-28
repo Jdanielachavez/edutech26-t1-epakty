@@ -8,6 +8,8 @@ Usamos inteligencia artificial de dos formas: **para construir** el producto y *
 |---|---|
 | Claude Code (Anthropic) | Escribir y revisar código del portal, el backend y los scripts; redactar documentación (README, `docs.html`, este archivo); desplegar en Vercel; revisar el proyecto contra la rúbrica. |
 
+| Agentes de IA (simulación con 10 agentes) | Investigar en profundidad el problema y simular a las personas de la institución (tutor, DECE, inspección, rectorado, colecturía, admisiones, familia…) para entender qué necesita ver y decidir cada una. **No reemplaza entrevistas reales**; ver README, sección 1.5. |
+
 Las decisiones de producto las tomó el equipo: qué ve cada rol, qué textos usar y qué mostrar a las familias. Revisamos lo que generó la IA en el portal en vivo antes de publicarlo.
 
 ## 2. IA dentro del producto
