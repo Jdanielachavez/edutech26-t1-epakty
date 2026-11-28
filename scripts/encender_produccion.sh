@@ -47,7 +47,14 @@ echo "    n8n publicado en $U (solo los flujos)"
 echo "2/5 · Configurando producción y publicando…"
 # En modo de prueba todo correo se desvía a STAGING_EMAIL (debe estar también en STAGING_ALLOWLIST).
 MAIL="$(val STAGING_EMAIL .env.dev)"; ALLOW="$(val STAGING_ALLOWLIST .env.dev)"
-for v in N8N_WEBHOOK_BASE_URL N8N_WEBHOOK_HMAC_SECRET N8N_WEBHOOK_TOKEN STAGING_EMAIL STAGING_ALLOWLIST; do vercel env rm "$v" production --yes >/dev/null 2>&1 || true; done
+# El motor (TabM mini-FiLM en AWS, dirección fija) también se toma de .env.dev, comprobando antes que responda.
+EURL="$(val EPAKTI_ENGINE_BASE_URL .env.dev)"; EKEY="$(val EPAKTI_ENGINE_API_KEY .env.dev)"; ESCH="$(val EPAKTI_SCHOOL_ID .env.dev)"
+curl -fsS -m 15 "${EURL%/api/v1}/health" >/dev/null 2>&1 || { echo "El motor no responde en $EURL; no se cambió nada en producción."; exit 1; }
+for v in N8N_WEBHOOK_BASE_URL N8N_WEBHOOK_HMAC_SECRET N8N_WEBHOOK_TOKEN STAGING_EMAIL STAGING_ALLOWLIST EPAKTI_ENGINE_BASE_URL EPAKTI_ENGINE_API_KEY EPAKTI_SCHOOL_ID; do vercel env rm "$v" production --yes >/dev/null 2>&1 || true; done
+printf '%s' "$EURL" | vercel env add EPAKTI_ENGINE_BASE_URL production --sensitive >/dev/null
+printf '%s' "$EKEY" | vercel env add EPAKTI_ENGINE_API_KEY production --sensitive >/dev/null
+printf '%s' "$ESCH" | vercel env add EPAKTI_SCHOOL_ID production --sensitive >/dev/null
+echo "    Motor: $EURL (colegio $ESCH)"
 printf '%s' "$U/webhook" | vercel env add N8N_WEBHOOK_BASE_URL production --sensitive >/dev/null
 printf '%s' "$SECRET" | vercel env add N8N_WEBHOOK_HMAC_SECRET production --sensitive >/dev/null
 printf '%s' "$TOKEN" | vercel env add N8N_WEBHOOK_TOKEN production --sensitive >/dev/null
