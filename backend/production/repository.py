@@ -143,6 +143,30 @@ class Repository:
             return c.execute('''SELECT run_id,created_at,data_mode,summary,source_hashes FROM paktai_edu.pipeline_runs
                 WHERE institution_id=%s ORDER BY created_at DESC LIMIT 1''', (self.settings.institution,)).fetchone()
 
+    def runs_history(self, limit=52):
+        """Cada carga procesada, de la más nueva a la más vieja, con sus cifras y cuántas filas trajo cada archivo."""
+        with self.transaction() as c:
+            runs = c.execute('''SELECT run_id, created_at, summary->'students' AS estudiantes, summary->'critical' AS criticos,
+                summary->'moderate' AS moderados, summary->'low' AS bajos, summary->'averageRisk' AS riesgo_promedio
+                FROM paktai_edu.pipeline_runs WHERE institution_id=%s ORDER BY created_at DESC LIMIT %s''',
+                             (self.settings.institution, limit)).fetchall()
+            filas = c.execute('''SELECT run_id, source_table, count(*) AS n FROM paktai_edu.bronze_rows
+                WHERE institution_id=%s GROUP BY run_id, source_table''', (self.settings.institution,)).fetchall()
+        por_run = {}
+        for f in filas: por_run.setdefault(f['run_id'], {})[f['source_table']] = f['n']
+        return [{**r, 'filas': por_run.get(r['run_id'], {})} for r in runs]
+
+    def run_table(self, run_id, table, limit=50, offset=0, q=''):
+        """Filas originales (ya seudonimizadas) de un archivo de una carga, con búsqueda de texto."""
+        patron = f'%{q}%' if q else None
+        with self.transaction() as c:
+            total = c.execute('''SELECT count(*) AS n FROM paktai_edu.bronze_rows WHERE institution_id=%s AND run_id=%s AND source_table=%s
+                AND (%s::text IS NULL OR payload::text ILIKE %s)''', (self.settings.institution, run_id, table, patron, patron)).fetchone()['n']
+            rows = c.execute('''SELECT payload FROM paktai_edu.bronze_rows WHERE institution_id=%s AND run_id=%s AND source_table=%s
+                AND (%s::text IS NULL OR payload::text ILIKE %s) ORDER BY row_number LIMIT %s OFFSET %s''',
+                             (self.settings.institution, run_id, table, patron, patron, limit, offset)).fetchall()
+        return {'total': total, 'filas': [r['payload'] for r in rows]}
+
     def recent_jobs(self, limit=8):
         with self.transaction() as c:
             return c.execute('''SELECT job_id,source,status,attempts,duration_ms,error_message,result,created_at,updated_at

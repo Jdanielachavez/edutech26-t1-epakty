@@ -692,3 +692,15 @@ def test_admin_deletes_user_but_not_itself(client):
         assert r.json() == {'usuario': 'borrar.me', 'eliminado': True}
         assert c.delete('/api/v1/admin/users/borrar.me', headers=H('a')).status_code == 404
     assert c.delete('/api/v1/admin/users/borrar.me', headers=H('r')).status_code == 403
+
+
+def test_historial_de_cargas_y_visor(client, populated):
+    runs = client.get('/api/v1/admin/cargas', headers=H('a')).json()
+    assert runs and runs[0]['estudiantes'] and runs[0]['filas'].get('estudiantes')
+    run = runs[0]['run_id']
+    r = client.get(f'/api/v1/admin/cargas/{run}/estudiantes', headers=H('a')).json()
+    assert r['total'] == runs[0]['filas']['estudiantes'] and len(r['filas']) <= 50
+    assert 'nombre_ficticio' not in r['filas'][0]
+    assert client.get(f'/api/v1/admin/cargas/{run}/estudiantes?q=EST-001', headers=H('a')).json()['total'] >= 1
+    assert client.get(f'/api/v1/admin/cargas/{run}/inventada', headers=H('a')).status_code == 404
+    assert client.get('/api/v1/admin/cargas', headers=H('t')).status_code == 403

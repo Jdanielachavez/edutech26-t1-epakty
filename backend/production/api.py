@@ -624,6 +624,17 @@ def create_app(settings=None, repository=None, engine=None):
         job_id, created = await run_in_threadpool(repo.create_job, key, 'csv', {'formato': 'csv', 'archivos': archivos}, hashes)
         return accepted(job_id, created)
 
+    # Historial de cargas y visor de los archivos originales (seudonimizados). Solo lectura.
+    @app.get('/api/v1/admin/cargas')
+    def cargas_historial(identity=Depends(roles('admin', 'rectoria'))):
+        return repo.runs_history()
+
+    @app.get('/api/v1/admin/cargas/{run_id}/{tabla}')
+    def cargas_tabla(run_id: str, tabla: str, q: str = '', pagina: int = 1, identity=Depends(roles('admin', 'rectoria'))):
+        if tabla not in TABLES: raise HTTPException(404, 'Ese archivo no existe')
+        pagina = max(1, min(pagina, 10_000))
+        return repo.run_table(run_id, tabla, limit=50, offset=(pagina - 1) * 50, q=q.strip()[:60])
+
     @app.get('/api/v1/ingestion/jobs/{job_id}')                                                         # EP-02B
     def job_status(job_id: str, identity=Depends(roles('rectoria', 'admin', 'worker', 'epakti_mlops'))):
         job = repo.job(job_id)
