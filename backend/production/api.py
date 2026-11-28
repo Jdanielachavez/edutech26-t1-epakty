@@ -299,7 +299,7 @@ def create_app(settings=None, repository=None, engine=None):
             if not config.n8n_base_url: return {'estado': 'sin_configurar', 'detalle': 'Falta N8N_WEBHOOK_BASE_URL'}
             u = urlparse(config.n8n_base_url)
             try:
-                r = httpx.get(f'{u.scheme}://{u.netloc}/healthz', timeout=3, follow_redirects=False)
+                r = httpx.get(f'{u.scheme}://{u.netloc}/healthz', timeout=10, follow_redirects=False)
                 return {'estado': 'ok' if r.status_code == 200 else 'error', 'detalle': f'HTTP {r.status_code}'}
             except httpx.HTTPError as error:
                 return {'estado': 'error', 'detalle': type(error).__name__}
@@ -307,7 +307,7 @@ def create_app(settings=None, repository=None, engine=None):
         def engine_health():
             if engine is None: return {'estado': 'sin_configurar', 'detalle': 'Falta EPAKTI_ENGINE_BASE_URL'}
             try:
-                r = engine.http.get(engine.base + '/health', timeout=3)
+                r = engine.http.get(engine.base.rsplit('/api/', 1)[0] + '/health', timeout=10)
                 mode = r.json().get('mode') if r.status_code == 200 else None
                 return {'estado': 'ok' if r.status_code == 200 else 'error', 'detalle': mode or f'HTTP {r.status_code}',
                         'es_simulado': bool(mode and 'STUB' in mode.upper())}

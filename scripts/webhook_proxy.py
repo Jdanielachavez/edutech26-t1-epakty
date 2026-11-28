@@ -52,9 +52,26 @@ class Proxy(http.server.BaseHTTPRequestHandler):
             self._reply(502, b'{"detalle":"n8n no disponible"}')
 
     def do_GET(self):
+        # Solo /healthz: deja que el panel de Integraciones vea si n8n está encendido. Nada más se publica por GET.
+        if self.path.split('?', 1)[0] != '/healthz':
+            return self._reply(404)
+        try:
+            conn = http.client.HTTPConnection(*UPSTREAM, timeout=10)
+            conn.request('GET', '/healthz')
+            resp = conn.getresponse()
+            data = resp.read()
+            self.send_response(resp.status)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        except OSError:
+            self._reply(502, b'{"detalle":"n8n no disponible"}')
+
+    def do_PUT(self):
         self._reply(404)
 
-    do_PUT = do_DELETE = do_PATCH = do_HEAD = do_OPTIONS = do_GET
+    do_DELETE = do_PATCH = do_HEAD = do_OPTIONS = do_PUT
 
     def log_message(self, fmt, *args):   # solo método, ruta y código; nunca cabeceras ni cuerpo
         sys.stderr.write('%s %s\n' % (self.command, args[1] if len(args) > 1 else ''))
