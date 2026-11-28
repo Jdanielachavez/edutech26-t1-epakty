@@ -116,7 +116,8 @@ GRANT USAGE ON SCHEMA paktai_edu TO paktai_service,rectoria_read,dece_write,tuto
 GRANT SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA paktai_edu TO paktai_service;
 -- Solo las cuentas de acceso se pueden borrar; el resto de tablas guarda historial.
 GRANT DELETE ON paktai_edu.app_users TO paktai_service;
-GRANT DELETE ON paktai_edu.pipeline_runs, paktai_edu.bronze_rows, paktai_edu.silver_estudiantes, paktai_edu.ingestion_jobs TO paktai_service;
+GRANT DELETE ON paktai_edu.pipeline_runs, paktai_edu.bronze_rows, paktai_edu.silver_estudiantes, paktai_edu.ingestion_jobs,
+  paktai_edu.gold_estudiantes, paktai_edu.intervenciones_dece, paktai_edu.intervention_outcomes, paktai_edu.outbox TO paktai_service;
 REVOKE UPDATE ON paktai_edu.audit_events FROM paktai_service;
 REVOKE UPDATE ON paktai_edu.intervention_outcomes FROM paktai_service;
 -- Solo la purga LOPDP borra, y solo leads vencidos.
@@ -248,3 +249,5 @@ GRANT SELECT,INSERT,UPDATE ON paktai_edu.seguimiento_etapas TO paktai_service;
 INSERT INTO paktai_edu.seguimiento_etapas(institution_id,id_estudiante,identificado_at)
 SELECT g.institution_id,g.id_estudiante,coalesce((SELECT max(r.created_at) FROM paktai_edu.pipeline_runs r WHERE r.institution_id=g.institution_id),now())
 FROM paktai_edu.gold_estudiantes g WHERE g.nivel_riesgo<>'Bajo' ON CONFLICT DO NOTHING;
+-- Eliminar cargas desde el historial: también se borra el seguimiento de los estudiantes de la carga borrada.
+GRANT DELETE ON paktai_edu.seguimiento, paktai_edu.seguimiento_etapas TO paktai_service;

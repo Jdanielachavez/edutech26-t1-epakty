@@ -169,23 +169,29 @@ class Repository:
 
     def delete_run(self, run_id, *, by=None):
         """Borra una carga del historial (archivos, datos limpios y resumen).
-        Devuelve True, False si no existe, 'en_uso' si es la carga que alimenta las pantallas,
-        o None si la base aún no da permiso de borrar (falta sql/09_eliminar_cargas.sql)."""
+        Si es la carga que alimenta las pantallas, borra también sus resultados y el seguimiento de esos
+        estudiantes, para que el portal quede vacío hasta la próxima carga.
+        Devuelve True, False si no existe, o None si la base aún no da permiso de borrar (falta sql/09_eliminar_cargas.sql)."""
         tenant = self.settings.institution
         try:
             with self.transaction() as c:
                 if not c.execute('SELECT 1 FROM paktai_edu.pipeline_runs WHERE institution_id=%s AND run_id=%s',
                                  (tenant, run_id)).fetchone():
                     return False
-                if c.execute('SELECT 1 FROM paktai_edu.gold_estudiantes WHERE institution_id=%s AND run_id=%s LIMIT 1',
-                             (tenant, run_id)).fetchone():
-                    return 'en_uso'
+                ids = [r['id_estudiante'] for r in c.execute(
+                    'SELECT id_estudiante FROM paktai_edu.gold_estudiantes WHERE institution_id=%s AND run_id=%s', (tenant, run_id)).fetchall()]
+                if ids:
+                    for tabla, col in (('intervenciones_dece', 'id_estudiante'), ('seguimiento', 'id_estudiante'),
+                                       ('seguimiento_etapas', 'id_estudiante'), ('intervention_outcomes', 'codigo_estudiante')):
+                        c.execute(f'DELETE FROM paktai_edu.{tabla} WHERE institution_id=%s AND {col}=ANY(%s)', (tenant, ids))
+                    c.execute("DELETE FROM paktai_edu.outbox WHERE institution_id=%s AND state<>'SENT'", (tenant,))
+                    c.execute('DELETE FROM paktai_edu.gold_estudiantes WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
                 c.execute('DELETE FROM paktai_edu.bronze_rows WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
                 c.execute('DELETE FROM paktai_edu.silver_estudiantes WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
                 # Sin su trabajo de ingesta, volver a subir los mismos archivos crea una carga nueva en vez de repetir la borrada.
                 c.execute("DELETE FROM paktai_edu.ingestion_jobs WHERE institution_id=%s AND result->>'run_id'=%s", (tenant, run_id))
                 c.execute('DELETE FROM paktai_edu.pipeline_runs WHERE institution_id=%s AND run_id=%s', (tenant, run_id))
-                self.audit(c, 'run_deleted', {'run_id': run_id, 'por': by})
+                self.audit(c, 'run_deleted', {'run_id': run_id, 'por': by, 'estudiantes_vaciados': len(ids)})
                 return True
         except pg_errors.InsufficientPrivilege:
             return None

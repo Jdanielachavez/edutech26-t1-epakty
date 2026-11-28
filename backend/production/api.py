@@ -634,8 +634,6 @@ def create_app(settings=None, repository=None, engine=None):
         borrada = repo.delete_run(run_id, by=identity.get('user') or 'admin')
         if borrada is None:
             raise HTTPException(409, 'La base todavía no permite eliminar cargas: falta ejecutar sql/09_eliminar_cargas.sql en Supabase')
-        if borrada == 'en_uso':
-            raise HTTPException(409, 'Es la carga que se está mostrando en las pantallas. Sube una carga nueva y luego podrás eliminar esta.')
         if not borrada: raise HTTPException(404, 'Esa carga no existe')
         return {'run_id': run_id, 'eliminada': True}
 

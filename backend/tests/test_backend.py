@@ -706,11 +706,8 @@ def test_historial_de_cargas_y_visor(client, populated):
     assert client.get('/api/v1/admin/cargas', headers=H('t')).status_code == 403
 
 
-def test_eliminar_carga_protege_la_que_esta_en_uso(client, populated):
-    runs = client.get('/api/v1/admin/cargas', headers=H('a')).json()
-    actual = runs[0]['run_id']
+def test_eliminar_carga_solo_admin(client, populated):
+    actual = client.get('/api/v1/admin/cargas', headers=H('a')).json()[0]['run_id']
     assert client.delete(f'/api/v1/admin/cargas/{actual}', headers=H('r')).status_code == 403
-    r = client.delete(f'/api/v1/admin/cargas/{actual}', headers=H('a'))
-    assert r.status_code == 409   # en uso, o la base aún sin permiso de borrar
-    assert client.delete('/api/v1/admin/cargas/RUN-NO-EXISTE', headers=H('a')).status_code in (404, 409)
-    assert any(x['run_id'] == actual for x in client.get('/api/v1/admin/cargas', headers=H('a')).json())
+    assert client.delete(f'/api/v1/admin/cargas/{actual}', headers=H('t')).status_code == 403
+    assert client.delete('/api/v1/admin/cargas/RUN-NO-EXISTE', headers=H('a')).status_code == 404
